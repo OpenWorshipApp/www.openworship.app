@@ -82,6 +82,27 @@ function RenderDownloadLinks({ items }: { items: any[] }) {
             >
               {item.fileFullName}
             </a>
+            <div>
+              Checksum (sha256):{" "}
+              <div className="d-flex align-items-center">
+                <div style={{ maxWidth: "250px", overflow: "auto" }}>
+                  {item.checksum}
+                </div>
+                <div>
+                  <i
+                    className="bi bi-copy m-2"
+                    style={{ cursor: "pointer" }}
+                    onClick={(event) => {
+                      navigator.clipboard.writeText(item.checksum);
+                      event.currentTarget.style.color = "green";
+                      setTimeout(() => {
+                        event.currentTarget.style.color = "";
+                      }, 5000);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         );
       })}
@@ -127,12 +148,14 @@ function RenderDownloadItem({ targetKey }: { targetKey: string }) {
       }}
     >
       <div>
-        (<strong>{targetDownloadInfo.version}</strong>)
-        {getIcon(targetDownloadInfo)}
-        {getInfo(targetDownloadInfo)}
+        <div className="d-flex">
+          (<strong>{targetDownloadInfo.version}</strong>)
+          {getIcon(targetDownloadInfo)}
+          {getInfo(targetDownloadInfo)}
+        </div>
         {(targetDownloadInfo.installer ?? []).length ? (
           <div>
-            {targetDownloadInfo.isWindows ? "Installer:" : "Binary File:"}
+            Installer:
             <RenderDownloadLinks items={targetDownloadInfo.installer} />
           </div>
         ) : null}
