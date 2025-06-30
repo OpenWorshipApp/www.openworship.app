@@ -165,6 +165,13 @@ function RenderDownloadItem({ targetKey }: { targetKey: string }) {
             <RenderDownloadLinks items={targetDownloadInfo.portable} />
           </div>
         ) : null}
+        <hr />
+        <div className="d-flex">
+          Commit ID:{" "}
+          <small style={{ maxWidth: "200px", overflow: "auto" }}>
+            {targetDownloadInfo.commitID}
+          </small>
+        </div>
       </div>
     </div>
   );
