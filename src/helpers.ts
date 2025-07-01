@@ -35,3 +35,24 @@ export function useAppStateAsync<T>(
   }, deps);
   return [value, setValue] as const;
 }
+
+export function checkIsVersionOutdated(
+  // 2025.06.25 vs 2025.06.26
+  currentVersion: string,
+  latestVersion: string
+) {
+  const currentParts = currentVersion.split(".").map(Number);
+  const latestParts = latestVersion.split(".").map(Number);
+
+  for (let i = 0; i < Math.max(currentParts.length, latestParts.length); i++) {
+    const currentPart = currentParts[i] || 0;
+    const latestPart = latestParts[i] || 0;
+
+    if (currentPart < latestPart) {
+      return true;
+    } else if (currentPart > latestPart) {
+      return false;
+    }
+  }
+  return false; // Versions are equal
+}

@@ -1,11 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { trueSystemInfo, useAppStateAsync } from "./helpers";
+import { useMemo, useState } from "react";
+import {
+  checkIsVersionOutdated,
+  trueSystemInfo,
+  useAppStateAsync,
+} from "./helpers";
 
+const checkingVersion =
+  new URLSearchParams(window.location.search).get("mv") ?? "";
 const isDev = window.location.hostname === "localhost";
 const rootUrl = isDev
   ? "https://www.openworship.app"
   : new URL(window.location.href).origin;
+
 async function getDownloadInfo(infoPath: string) {
   const url = rootUrl + infoPath;
   const res = await fetch(url);
@@ -110,11 +118,19 @@ function RenderDownloadLinks({ items }: { items: any[] }) {
   );
 }
 
-function RenderDownloadItem({ targetKey }: { targetKey: string }) {
-  const [targetDownloadInfo, setTargetDownloadInfo] = useAppStateAsync(
-    () => getDownloadInfo(toTargetDownloadInfoPath(targetKey)),
-    [targetKey]
-  );
+function RenderDownloadItem({
+  targetKey,
+  setMatchVersion,
+}: {
+  targetKey: string;
+  setMatchVersion?: (data: any) => void;
+}) {
+  const [targetDownloadInfo, setTargetDownloadInfo] =
+    useAppStateAsync(async () => {
+      const data = await getDownloadInfo(toTargetDownloadInfoPath(targetKey));
+      setMatchVersion?.(data);
+      return data;
+    }, [targetKey, setMatchVersion]);
   if (targetDownloadInfo === undefined) {
     return <div>Loading {targetKey}...</div>;
   }
@@ -128,6 +144,9 @@ function RenderDownloadItem({ targetKey }: { targetKey: string }) {
             setTargetDownloadInfo(undefined);
             getDownloadInfo(toTargetDownloadInfoPath(targetKey)).then(
               (newInfo) => {
+                if (setMatchVersion) {
+                  setMatchVersion(newInfo);
+                }
                 setTargetDownloadInfo(newInfo);
               }
             );
@@ -177,6 +196,36 @@ function RenderDownloadItem({ targetKey }: { targetKey: string }) {
   );
 }
 
+function RenderVersionChecking({ data }: { data: any }) {
+  const isOutdated = useMemo(() => {
+    if (checkingVersion === "" || data === null) {
+      return false;
+    }
+    try {
+      return checkIsVersionOutdated(checkingVersion, data.version);
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
+  }, [data]);
+  if (checkingVersion === "" || data === null) {
+    return null;
+  }
+  return (
+    <span className="ms-2">
+      {isOutdated ? (
+        <span className="text-danger">
+          ({checkingVersion}) Version Outdated
+        </span>
+      ) : (
+        <span className="text-success">
+          ({checkingVersion}) Version Up-to-date
+        </span>
+      )}
+    </span>
+  );
+}
+
 const downloadInfoPath = "/download/info.json";
 function RenderInfoComp({
   info,
@@ -185,6 +234,7 @@ function RenderInfoComp({
   info: any;
   setInfo: (info: any) => void;
 }) {
+  const [matchVersion, setMatchVersion] = useState<any>(null);
   if (info === undefined) {
     return <div>Loading...</div>;
   }
@@ -206,7 +256,7 @@ function RenderInfoComp({
       </div>
     );
   }
-  const data = Object.entries(info).filter(([_, value]) => {
+  const recommendedData = Object.entries(info).filter(([_, value]) => {
     for (const [k, v] of Object.entries(trueSystemInfo)) {
       if ((value as any)[k] !== v) {
         return false;
@@ -215,14 +265,23 @@ function RenderInfoComp({
     return true;
   });
   const otherData = Object.entries(info).filter(([key]) => {
-    return !data.find(([k]) => k === key);
+    return !recommendedData.find(([k]) => k === key);
   });
   return (
     <div>
-      <h2>Recommend Downloads</h2>
+      <h2>
+        Recommend Downloads
+        <RenderVersionChecking data={matchVersion} />
+      </h2>
       <div className="d-flex">
-        {data.map(([key]) => {
-          return <RenderDownloadItem key={key} targetKey={key} />;
+        {recommendedData.map(([key]) => {
+          return (
+            <RenderDownloadItem
+              key={key}
+              targetKey={key}
+              setMatchVersion={setMatchVersion}
+            />
+          );
         })}
       </div>
       {otherData.length > 0 && (
