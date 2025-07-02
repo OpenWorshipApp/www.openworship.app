@@ -215,11 +215,11 @@ function RenderVersionChecking({ data }: { data: any }) {
     <span className="ms-2">
       {isOutdated ? (
         <span className="text-danger">
-          ({checkingVersion}) Version Outdated
+          ({checkingVersion}) Your Version is Outdated
         </span>
       ) : (
         <span className="text-success">
-          ({checkingVersion}) Version Up-to-date
+          ({checkingVersion}) Your Version is Up-to-date
         </span>
       )}
     </span>
@@ -240,7 +240,7 @@ function RenderInfoComp({
   }
   if (info === null) {
     return (
-      <div>
+      <div className="w-100 p-2">
         Failed to load info.{" "}
         <button
           className="btn btn-info"
@@ -268,32 +268,44 @@ function RenderInfoComp({
     return !recommendedData.find(([k]) => k === key);
   });
   return (
-    <div>
-      <h2>
-        Recommend Downloads
-        <RenderVersionChecking data={matchVersion} />
-      </h2>
-      <div className="d-flex">
-        {recommendedData.map(([key]) => {
-          return (
-            <RenderDownloadItem
-              key={key}
-              targetKey={key}
-              setMatchVersion={setMatchVersion}
-            />
-          );
-        })}
-      </div>
-      {otherData.length > 0 && (
+    <div className="w-100 p-2">
+      <div>
         <div>
-          <hr />
-          <h3>Other Downloads</h3>
+          <h3 className="d-flex">
+            <div>Recommend Downloads </div>
+            <div>
+              <RenderVersionChecking data={matchVersion} />
+            </div>
+          </h3>
+        </div>
+        <div>
           <div className="d-flex flex-wrap">
-            {otherData.map(([key]) => {
-              return <RenderDownloadItem key={key} targetKey={key} />;
+            {recommendedData.map(([key]) => {
+              return (
+                <RenderDownloadItem
+                  key={key}
+                  targetKey={key}
+                  setMatchVersion={setMatchVersion}
+                />
+              );
             })}
           </div>
         </div>
+      </div>
+      {otherData.length > 0 && (
+        <>
+          <hr />
+          <div>
+            <div>
+              <h3>Other Downloads</h3>
+            </div>
+            <div className="d-flex flex-wrap">
+              {otherData.map(([key]) => {
+                return <RenderDownloadItem key={key} targetKey={key} />;
+              })}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
@@ -305,15 +317,15 @@ export default function DownloadComp() {
     []
   );
   return (
-    <div>
+    <>
       <div className="d-flex">
         <a href="/">
           <h2>Go to Home</h2>
         </a>
       </div>
-      <div>
+      <div className="d-flex">
         <RenderInfoComp info={info} setInfo={setInfo} />
       </div>
-    </div>
+    </>
   );
 }

@@ -18,7 +18,14 @@ function Home() {
 
 function App({ route }: { route: string }) {
   return (
-    <div className="container w-100 h-100 d-flex justify-content-center align-items-center">
+    <div
+      className="container w-100"
+      style={{
+        overflowX: "hidden",
+        overflowY: "auto",
+        margin: "0 auto",
+      }}
+    >
       {route === "download" ? <DownloadComp /> : <Home />}
     </div>
   );
