@@ -66,7 +66,12 @@ export async function getTrueSystemInfo() {
     is64System: !checkIs32Bit(),
   };
   return Object.fromEntries(
-    Object.entries(systemInfo).filter(([_, value]) => value)
+    Object.entries(systemInfo).filter(([key, value]) => {
+      if (['isArm64'].includes(key)) {
+        return true;
+      }
+      return value;
+    })
   );
 }
 
