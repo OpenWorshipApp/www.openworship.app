@@ -33,7 +33,8 @@ function walkSync(currentDirPath, callback) {
 
 async function uploadToS3(client, filePath, absoluteTargetDir) {
   const bucketName = process.env.AWS_BUCKET_NAME;
-  const key = filePath.replace(absoluteTargetDir + "/", "www/");
+  const key = ('www/' + filePath.split(absoluteTargetDir).pop().replace(/\\+/g, "/"))
+    .replace(/\/+/g, "/");
   const contentType = mime.getType(filePath);
   console.log(contentType);
 
