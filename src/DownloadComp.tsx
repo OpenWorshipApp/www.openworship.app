@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import {
   checkIsVersionOutdated,
-  trueSystemInfo,
   useAppStateAsync,
+  getTrueSystemInfo,
 } from "./helpers";
 
 const checkingVersion =
@@ -63,7 +63,11 @@ function getInfo(targetDownloadInfo: any) {
     );
   }
   if (targetDownloadInfo.isWindows) {
-    return !targetDownloadInfo.is64System ? " 32bit" : null;
+    return !targetDownloadInfo.is64System
+      ? " 32bit"
+      : targetDownloadInfo.isArm64
+      ? " Arm64"
+      : " 64bit";
   }
   if (targetDownloadInfo.isLinux) {
     return (
@@ -230,13 +234,18 @@ const downloadInfoPath = "/download/info.json";
 function RenderInfoComp({
   info,
   setInfo,
+  trueSystemInfo,
 }: {
   info: any;
   setInfo: (info: any) => void;
+  trueSystemInfo: any;
 }) {
   const [matchVersion, setMatchVersion] = useState<any>(null);
-  if (info === undefined) {
+  if (info === undefined || trueSystemInfo === undefined) {
     return <div>Loading...</div>;
+  }
+  if (trueSystemInfo === null) {
+    return <div>Failed to load system info.</div>;
   }
   if (info === null) {
     return (
@@ -316,6 +325,7 @@ export default function DownloadComp() {
     getDownloadInfo.bind(null, downloadInfoPath),
     []
   );
+  const [trueSystemInfo] = useAppStateAsync(getTrueSystemInfo, []);
   return (
     <>
       <div className="d-flex">
@@ -324,7 +334,11 @@ export default function DownloadComp() {
         </a>
       </div>
       <div className="d-flex">
-        <RenderInfoComp info={info} setInfo={setInfo} />
+        <RenderInfoComp
+          info={info}
+          setInfo={setInfo}
+          trueSystemInfo={trueSystemInfo}
+        />
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState, type DependencyList } from "react";
 
@@ -6,21 +7,68 @@ function checkIsAppleSilicon() {
     const w = document.createElement("canvas").getContext("webgl");
     const d = w?.getExtension("WEBGL_debug_renderer_info");
     const g = (d && w?.getParameter(d.UNMASKED_RENDERER_WEBGL)) || "";
-    return g.match(/Apple/) && !g.match(/Apple GPU/);
+    if (g.match(/Apple/) && !g.match(/Apple GPU/)) {
+      return true;
+    }
+    return false;
   } catch {
     return false;
   }
 }
 
-export const systemInfo = {
-  isMac: navigator.userAgent.includes("Macintosh"),
-  isWindows: navigator.userAgent.includes("Windows"),
-  isLinux: navigator.userAgent.includes("Linux"),
-  isArm64: checkIsAppleSilicon(),
-};
-export const trueSystemInfo = Object.fromEntries(
-  Object.entries(systemInfo).filter(([_, value]) => value)
-);
+function getCpuArchitecture() {
+  const anyNavigator = navigator as any;
+  if (
+    anyNavigator.userAgentData &&
+    anyNavigator.userAgentData.getHighEntropyValues
+  ) {
+    return anyNavigator.userAgentData
+      .getHighEntropyValues(["architecture"])
+      .then((data: any) => data.architecture)
+      .catch(() => "Unknown");
+  } else {
+    const ua = anyNavigator.userAgent;
+    if (ua.indexOf("WOW64") !== -1 || ua.indexOf("Win64") !== -1) {
+      return Promise.resolve("x86-64 (64-bit)");
+    } else if (ua.indexOf("ARM") !== -1 || ua.indexOf("arm") !== -1) {
+      return Promise.resolve("ARM");
+    } else {
+      return Promise.resolve("x86 (32-bit) or unknown");
+    }
+  }
+}
+
+async function checkIsArm64() {
+  if (checkIsAppleSilicon()) {
+    return true;
+  }
+  const arch = await getCpuArchitecture();
+  return arch.toLowerCase().includes("arm");
+}
+
+function checkIs32Bit() {
+  if (
+    navigator.userAgent.indexOf("WOW64") != -1 ||
+    navigator.userAgent.indexOf("Win64") != -1
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export async function getTrueSystemInfo() {
+  const systemInfo = {
+    isMac: navigator.userAgent.includes("Macintosh"),
+    isWindows: navigator.userAgent.includes("Windows"),
+    isLinux: navigator.userAgent.includes("Linux"),
+    isArm64: await checkIsArm64(),
+    is64System: !checkIs32Bit(),
+  };
+  return Object.fromEntries(
+    Object.entries(systemInfo).filter(([_, value]) => value)
+  );
+}
 
 export function useAppStateAsync<T>(
   callee: () => Promise<T>,

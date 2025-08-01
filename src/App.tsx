@@ -26,6 +26,15 @@ function App({ route }: { route: string }) {
         margin: "0 auto",
       }}
     >
+      <div className="d-flex justify-content-center">
+        <a
+          href="https://github.com/OpenWorshipApp/open-worship-app-dt"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Fork me on GitHub <i className="bi bi-github"></i>
+        </a>
+      </div>
       {route === "download" ? <DownloadComp /> : <Home />}
     </div>
   );
