@@ -15,7 +15,8 @@ const rootUrl = isDev
   : new URL(window.location.href).origin;
 
 async function getDownloadInfo(infoPath: string) {
-  const url = rootUrl + infoPath;
+  const cacheBuster = new Date().getTime();
+  const url = `${rootUrl}${infoPath}?_=${cacheBuster}`;
   const res = await fetch(url);
   try {
     return await res.json();
