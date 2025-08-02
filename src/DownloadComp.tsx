@@ -40,13 +40,13 @@ function getIcon({
   isLinux: boolean;
 }) {
   if (isWindows) {
-    return <i className="bi bi-windows" />;
+    return <i className="bi bi-windows" title="Windows" />;
   }
   if (isMac) {
-    return <i className="bi bi-apple" />;
+    return <i className="bi bi-apple" title="Mac" />;
   }
   if (isLinux) {
-    return <i className="bi bi-tux" />;
+    return <i className="bi bi-tux" title="Linux" />;
   }
   return null;
 }
@@ -58,8 +58,8 @@ function getInfo(targetDownloadInfo: any) {
         {targetDownloadInfo.isUniversal
           ? " Universal"
           : targetDownloadInfo.isArm64
-          ? " Apple Silicon"
-          : " Intel"}
+            ? " Apple Silicon"
+            : " Intel"}
       </>
     );
   }
@@ -67,16 +67,21 @@ function getInfo(targetDownloadInfo: any) {
     return !targetDownloadInfo.is64System
       ? " 32bit"
       : targetDownloadInfo.isArm64
-      ? " Arm64"
-      : " 64bit";
+        ? " Arm64"
+        : " 64bit";
   }
   if (targetDownloadInfo.isLinux) {
     return (
       <>
         {targetDownloadInfo.isUbuntu ? (
-          <i className="bi bi-ubuntu" />
+          <i className="bi bi-ubuntu" title="Ubuntu" />
         ) : targetDownloadInfo.isFedora ? (
-          " Fedora"
+          <img
+            title="Fedora"
+            width={16} height={16} src="/fedora-logo.png" alt="Fedora" style={{
+              marginTop: "4px",
+              filter: "grayscale(100%)",
+            }} />
         ) : null}
       </>
     );
@@ -169,6 +174,7 @@ function RenderDownloadItem({
       style={{
         border: "1px solid gray",
         borderRadius: "8px",
+        boxShadow: "0 0 5px rgba(0,0,0,0.1)",
       }}
     >
       <div>
