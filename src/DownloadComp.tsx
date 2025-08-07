@@ -101,7 +101,7 @@ function RenderDownloadLinks({ items }: { items: any[] }) {
               {item.fileFullName}
             </a>
             <div>
-              Checksum (sha256):{" "}
+              Checksum (sha512):{" "}
               <div className="d-flex align-items-center">
                 <div style={{ maxWidth: "250px", overflow: "auto" }}>
                   {item.checksum}
