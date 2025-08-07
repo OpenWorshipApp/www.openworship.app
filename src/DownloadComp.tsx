@@ -6,6 +6,7 @@ import {
   useAppStateAsync,
   getTrueSystemInfo,
 } from "./helpers";
+import MacInstructionComp from "./MacInstructionComp";
 
 const checkingVersion =
   new URLSearchParams(window.location.search).get("mv") ?? "";
@@ -58,8 +59,8 @@ function getInfo(targetDownloadInfo: any) {
         {targetDownloadInfo.isUniversal
           ? " Universal"
           : targetDownloadInfo.isArm64
-            ? " Apple Silicon"
-            : " Intel"}
+          ? " Apple Silicon"
+          : " Intel"}
       </>
     );
   }
@@ -67,8 +68,8 @@ function getInfo(targetDownloadInfo: any) {
     return !targetDownloadInfo.is64System
       ? " 32bit"
       : targetDownloadInfo.isArm64
-        ? " Arm64"
-        : " 64bit";
+      ? " Arm64"
+      : " 64bit";
   }
   if (targetDownloadInfo.isLinux) {
     return (
@@ -78,10 +79,15 @@ function getInfo(targetDownloadInfo: any) {
         ) : targetDownloadInfo.isFedora ? (
           <img
             title="Fedora"
-            width={16} height={16} src="/fedora-logo.png" alt="Fedora" style={{
+            width={16}
+            height={16}
+            src="/fedora-logo.png"
+            alt="Fedora"
+            style={{
               marginTop: "4px",
               filter: "grayscale(100%)",
-            }} />
+            }}
+          />
         ) : null}
       </>
     );
@@ -335,6 +341,7 @@ export default function DownloadComp() {
   const [trueSystemInfo] = useAppStateAsync(getTrueSystemInfo, []);
   return (
     <>
+      {trueSystemInfo?.isMac ? <MacInstructionComp /> : null}
       <div className="d-flex">
         <a href="/">
           <h2>Go to Home</h2>
