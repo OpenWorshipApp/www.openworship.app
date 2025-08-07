@@ -35,17 +35,17 @@ export default function MacInstructionComp() {
             className="literal-block"
             style={{ border: "1px solid red", padding: "8px" }}
           >
-            xattr -dr com.apple.quarantine /Applications/Open Worship app.app
+            xattr -dr com.apple.quarantine "/Applications/Open Worship app.app"
           </pre>
           <p>
-            If you are on an Apple Silicon Mac, you may need to run this command
-            too:
+            If you are on an <strong>Apple Silicon Mac (M1/M2...)</strong>, you
+            may need to run this command too:
           </p>
           <pre
             className="literal-block"
             style={{ border: "1px solid red", padding: "8px" }}
           >
-            xattr -cr /Applications/Open Worship app.app
+            xattr -cr "/Applications/Open Worship app.app"
           </pre>
         </li>
         <li>
