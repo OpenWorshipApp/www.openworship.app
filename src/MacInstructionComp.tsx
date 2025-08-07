@@ -1,7 +1,7 @@
 import { getTrueSystemInfo, useAppStateAsync } from "./helpers";
 
 function genSrc(isArm64: boolean) {
-  const option = "#toolbar=0";
+  const option = "#toolbar=0&navpanes=0&scrollbar=0";
   if (isArm64) {
     return "/instruction/arm/instruction.pdf" + option;
   }
