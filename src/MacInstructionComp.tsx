@@ -17,11 +17,10 @@ export default function MacInstructionComp() {
     <div className="alert alert-danger small">
       <hr />
       <h4>
-        For MacOS (<i className="bi bi-apple" />) because we don't pay Apple for
-        a developer account, you will need to follow these steps to run the
-        downloaded <strong>Open Worship app</strong>. If you do not follow these
-        steps, the app will not run properly, and you will not be able to use
-        the app. <br />
+        For MacOS (<i className="bi bi-apple" />) you will need to follow these
+        steps to run the downloaded <strong>Open Worship app</strong>. If you do
+        not follow these steps, the app will not run properly, and you will not
+        be able to use the app. <br />
         <strong>Do not skip any steps!</strong>
       </h4>
       <hr />
@@ -55,7 +54,7 @@ export default function MacInstructionComp() {
                 app.app"
               </pre>
               <p>
-                If you are on an <strong>Apple Silicon Mac (M1/M2...)</strong>,
+                If you are on an <strong>Apple Silicon Mac (M1/M2/...)</strong>,
                 you may need to run this command too:
               </p>
               <pre

@@ -1,12 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useMemo, useState } from "react";
+import { createContext, use, useEffect, useMemo, useState } from "react";
 import {
   checkIsVersionOutdated,
   useAppStateAsync,
   getTrueSystemInfo,
 } from "./helpers";
 import MacInstructionComp from "./MacInstructionComp";
+
+const AppleInstructionVisibleContext = createContext({
+  isVisible: false,
+  toggle: (_isVisible: boolean) => {},
+});
+
+function useAppleInstructionVisible() {
+  return use(AppleInstructionVisibleContext);
+}
 
 const checkingVersion =
   new URLSearchParams(window.location.search).get("mv") ?? "";
@@ -134,6 +143,41 @@ function RenderDownloadLinks({ items }: { items: any[] }) {
   );
 }
 
+function RenderInstructionToggle({
+  targetDownloadInfo,
+}: {
+  targetDownloadInfo: any;
+}) {
+  const {
+    isVisible: isInstructionVisible,
+    toggle: setAppleInstructionsVisible,
+  } = useAppleInstructionVisible();
+  if (!targetDownloadInfo.isMac) {
+    return null;
+  }
+  return (
+    <div
+      className="float-end"
+      style={{
+        backgroundColor: "grey",
+        padding: "2px",
+        borderRadius: "5px",
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        setAppleInstructionsVisible(!isInstructionVisible);
+      }}
+    >
+      <i
+        className={
+          "bi bi-" + (isInstructionVisible ? "lightbulb-fill" : "lightbulb")
+        }
+        style={{ color: isInstructionVisible ? "green" : "yellow" }}
+      />
+    </div>
+  );
+}
+
 function RenderDownloadItem({
   targetKey,
   setMatchVersion,
@@ -185,9 +229,12 @@ function RenderDownloadItem({
     >
       <div>
         <div className="d-flex">
-          (<strong>{targetDownloadInfo.version}</strong>)
-          {getIcon(targetDownloadInfo)}
-          {getInfo(targetDownloadInfo)}
+          <div className="flex-grow-1">
+            (<strong>{targetDownloadInfo.version}</strong>)
+            {getIcon(targetDownloadInfo)}
+            {getInfo(targetDownloadInfo)}
+          </div>
+          <RenderInstructionToggle targetDownloadInfo={targetDownloadInfo} />
         </div>
         {(targetDownloadInfo.installer ?? []).length ? (
           <div>
@@ -334,14 +381,24 @@ function RenderInfoComp({
 }
 
 export default function DownloadComp() {
+  const [trueSystemInfo] = useAppStateAsync(getTrueSystemInfo, []);
+  const [isAppleInstructionsVisible, setAppleInstructionsVisible] =
+    useState(false);
   const [info, setInfo] = useAppStateAsync(
     getDownloadInfo.bind(null, downloadInfoPath),
     []
   );
-  const [trueSystemInfo] = useAppStateAsync(getTrueSystemInfo, []);
+  useEffect(() => {
+    setAppleInstructionsVisible(!!trueSystemInfo?.isMac);
+  }, [trueSystemInfo]);
   return (
-    <>
-      {trueSystemInfo?.isMac ? <MacInstructionComp /> : null}
+    <AppleInstructionVisibleContext
+      value={{
+        isVisible: isAppleInstructionsVisible,
+        toggle: setAppleInstructionsVisible,
+      }}
+    >
+      {isAppleInstructionsVisible ? <MacInstructionComp /> : null}
       <div className="d-flex">
         <a href="/">
           <h2>Go to Home</h2>
@@ -354,6 +411,6 @@ export default function DownloadComp() {
           trueSystemInfo={trueSystemInfo}
         />
       </div>
-    </>
+    </AppleInstructionVisibleContext>
   );
 }
