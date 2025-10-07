@@ -61,7 +61,8 @@ class DownloadService {
             filename: 'Open Worship app-2025.8.6-win-x64.zip',
             url: 'https://www.openworship.app/download/win/Open%20Worship%20app-2025.8.6-win-x64.zip',
             checksum: 'efe45b2688889c17cee7f29c68f41'
-          }
+          },
+          commitId: '8253108fd8e87150364a9bc2043'
         },
         {
           version: '2025.8.6',
@@ -76,7 +77,8 @@ class DownloadService {
             filename: 'Open Worship app-2025.8.6-win-ia32.zip',
             url: 'https://www.openworship.app/download/win-ia32/Open%20Worship%20app-2025.8.6-win-ia32.zip',
             checksum: '6e110bda374d32f40f1142fedbe582f'
-          }
+          },
+          commitId: '8253108fd8e87150364a9bc2043'
         },
         {
           version: '2025.8.6',
@@ -91,7 +93,8 @@ class DownloadService {
             filename: 'Open Worship app-2025.8.6-win-arm64.zip',
             url: 'https://www.openworship.app/download/win-arm64/Open%20Worship%20app-2025.8.6-win-arm64.zip',
             checksum: '9c6576ce0a2c0a41d963e96c7c7'
-          }
+          },
+          commitId: '8253108fd8e87150364a9bc2043'
         },
         {
           version: '2025.8.6',
@@ -106,7 +109,8 @@ class DownloadService {
             filename: 'Open Worship app-2025.8.6-mac-arm64.zip',
             url: 'https://www.openworship.app/download/mac/Open%20Worship%20app-2025.8.6-mac-arm64.zip',
             checksum: '949d9abd9c5da7f7c4e9122b6aa5dc'
-          }
+          },
+          commitId: '8253108fd8e87150364a9bc2043'
         },
         {
           version: '2025.8.6',
@@ -121,7 +125,8 @@ class DownloadService {
             filename: 'Open Worship app-2025.8.6-mac-x64.zip',
             url: 'https://www.openworship.app/download/mac-intel/Open%20Worship%20app-2025.8.6-mac-x64.zip',
             checksum: '60b72835b09116bf5e6f84e2cfe125'
-          }
+          },
+          commitId: '8253108fd8e87150364a9bc2043'
         },
         {
           version: '2025.8.6',
@@ -136,7 +141,8 @@ class DownloadService {
             filename: 'open-worship-app_2025.8.6_x86_64.AppImage',
             url: 'https://www.openworship.app/download/linux-ubuntu/open-worship-app_2025.8.6_x86_64.AppImage',
             checksum: '3888b552c9eaa1d25887426118ad2f'
-          }
+          },
+          commitId: '8253108fd8e87150364a9bc2043'
         },
         {
           version: '2025.7.31',
@@ -151,7 +157,8 @@ class DownloadService {
             filename: 'open-worship-app_2025.7.31_x86_64.AppImage',
             url: 'https://www.openworship.app/download/linux-fedora/open-worship-app_2025.7.31_x86_64.AppImage',
             checksum: 'bab1911d4caed47976cbf89c5c1fce'
-          }
+          },
+          commitId: '7a2b9c8d4e5f6789012345678901234'
         }
       ]
     };

@@ -104,9 +104,9 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
         <div className="card-content" style={{ position: 'relative', zIndex: '10' }}>
           <div className="card-body">
             <h5 className="card-title">
-              <i className={`${getPlatformIcon(download.platform)} me-2`}></i>
-              {`${download.platform} (${download.architecture})`}
-              <span className="version-badge ms-2">{download.version}</span>
+              ({download.version})
+              <i className={`${getPlatformIcon(download.platform)} ms-2 me-2`}></i>
+              {download.architecture}
             </h5>
             <div className="download-section">
               <h6 style={{
@@ -157,6 +157,15 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 {download.installer.filename}
               </button>
               <div className="checksum-container">
+                <div style={{ marginBottom: '8px' }}>
+                  <span style={{ 
+                    color: '#cccccc', 
+                    fontSize: '13px',
+                    fontWeight: '500'
+                  }}>
+                    Checksum (sha512):
+                  </span>
+                </div>
                 <span 
                   className="checksum-text"
                   style={{
@@ -275,6 +284,15 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 {download.portable.filename}
               </button>
               <div className="checksum-container">
+                <div style={{ marginBottom: '8px' }}>
+                  <span style={{ 
+                    color: '#cccccc', 
+                    fontSize: '13px',
+                    fontWeight: '500'
+                  }}>
+                    Checksum (sha512):
+                  </span>
+                </div>
                 <span 
                   className="checksum-text"
                   style={{
@@ -345,10 +363,28 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
               </div>
             </div>
             {download.commitId && (
-              <div className="commit-info">
-                <div className="commit-container">
-                  <i className="bi bi-git me-2"></i>
-                  <span className="commit-text">Commit ID:{download.commitId.substring(0, 7)}</span>
+              <div className="commit-info" style={{ 
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)', 
+                paddingTop: '12px', 
+                marginTop: '16px' 
+              }}>
+                <div className="d-flex align-items-center">
+                  <span style={{ 
+                    color: '#cccccc', 
+                    fontSize: '13px',
+                    fontWeight: '500'
+                  }}>
+                    Commit ID:
+                  </span>
+                  <small className="ms-2" style={{ 
+                    color: '#aaa',
+                    fontSize: '12px',
+                    fontFamily: 'monospace',
+                    wordBreak: 'break-all',
+                    lineHeight: '1.2'
+                  }}>
+                    {download.commitId}
+                  </small>
                 </div>
               </div>
             )}
@@ -444,9 +480,18 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
 
         <div className="card-grid grid-2">
           {versionInfo ? (
-            versionInfo.downloads.map((download) => (
-              renderDownloadCard(download)
-            ))
+            versionInfo.downloads
+              .filter((download) => {
+                const recommended = downloadService.getRecommendedDownload(versionInfo.downloads);
+                // Exclude the recommended download from the main list
+                return !(recommended && 
+                  download.platform === recommended.platform && 
+                  download.architecture === recommended.architecture &&
+                  download.version === recommended.version);
+              })
+              .map((download) => (
+                renderDownloadCard(download)
+              ))
           ) : (
             <p>Loading...</p>
           )}

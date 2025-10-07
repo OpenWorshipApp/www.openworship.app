@@ -40,6 +40,13 @@ const MenuBar = ({ onNavigate, currentPage }: MenuBarProps) => {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
+  // Sync activeHash with currentPage prop
+  useEffect(() => {
+    if (currentPage) {
+      setActiveHash(`#${currentPage}`);
+    }
+  }, [currentPage]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
