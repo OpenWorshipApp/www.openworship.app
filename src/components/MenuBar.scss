@@ -1,0 +1,68 @@
+.custom-menubar {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    
+    .logo-text {
+      background: linear-gradient(135deg, #ffffff 0%, #e91e63 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .logo-img {
+      filter: drop-shadow(0 0 8px rgba(233, 30, 99, 0.3));
+    }
+  }
+  
+  .nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 500;
+    padding: 12px 16px !important;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #e91e63 !important;
+    }
+    
+    &.active {
+      color: #e91e63 !important;
+      
+      .nav-link-underline {
+        transform: scaleX(1);
+      }
+    }
+    
+    .nav-link-underline {
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: linear-gradient(90deg, #e91e63, #9c27b0);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+      border-radius: 1px;
+    }
+  }
+  
+  .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
+    }
+  }
+}
+
+// Navbar styles only - body padding is handled in App.css

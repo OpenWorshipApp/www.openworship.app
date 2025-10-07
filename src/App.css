@@ -5,3 +5,19 @@
   margin: 0;
   padding: 0;
 }
+
+/* Add padding to body to account for fixed navbar */
+body {
+  margin: 0;
+  background-color: #0a0a0a;
+}
+
+/* Ensure content doesn't hide under fixed navbar */
+.page-content {
+  padding-top: 72px;
+}
+
+/* Navbar height constant for consistency */
+:root {
+  --navbar-height: 72px;
+}

@@ -1,0 +1,110 @@
+.modern-footer {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px 0 20px;
+  margin-top: 80px;
+  position: relative;
+}
+
+.modern-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.modern-footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.modern-footer .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.modern-footer .footer-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e91e63 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modern-footer .footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.modern-footer .footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.modern-footer .footer-links a:hover {
+  color: #e91e63;
+}
+
+.modern-footer .footer-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.modern-footer .footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.modern-footer .footer-socials a:hover {
+  background: rgba(233, 30, 99, 0.1);
+  border-color: rgba(233, 30, 99, 0.3);
+  color: #e91e63;
+  transform: translateY(-2px);
+}
+
+.modern-footer .footer-socials a i {
+  font-size: 18px;
+}
+
+.modern-footer .footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .modern-footer .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .modern-footer .footer-links {
+    order: 2;
+  }
+  
+  .modern-footer .footer-socials {
+    order: 3;
+  }
+}
