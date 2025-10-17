@@ -24,8 +24,8 @@ export default function MacInstructionComp() {
         <strong>Do not skip any steps!</strong>
       </h4>
       <hr />
-      <div className="d-flex">
-        <div>
+      <div className="d-flex flex-wrap">
+        <div className="w-100">
           <ol>
             <li>
               <p>
