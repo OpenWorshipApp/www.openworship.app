@@ -13,8 +13,9 @@ export default function MacInstructionComp() {
   if (!trueSystemInfo) {
     return null;
   }
+  const src = genSrc(trueSystemInfo.isArm64);
   return (
-    <div className="alert alert-danger small">
+    <div className="alert alert-danger small" style={{ overflow: "hidden" }}>
       <hr />
       <h4>
         For MacOS (<i className="bi bi-apple" />) you will need to follow these
@@ -25,64 +26,72 @@ export default function MacInstructionComp() {
       </h4>
       <hr />
       <div className="d-flex flex-wrap">
-        <div className="w-100">
-          <ol>
-            <li>
-              <p>
-                Download <strong>Open Worship app</strong>
-              </p>
-            </li>
-            <li>
-              <p>
-                Open the downloaded file and drag the{" "}
-                <strong>Open Worship app</strong> to your Applications folder
-              </p>
-            </li>
-            <li>
-              <p>
-                In your Applications folder, open the <strong>Utilities</strong>{" "}
-                folder and run the <strong>Terminal</strong> app
-              </p>
-            </li>
-            <li>
-              <p>In the Terminal app, type the following:</p>
-              <pre
-                className="literal-block"
-                style={{ border: "1px solid red", padding: "8px" }}
-              >
-                xattr -dr com.apple.quarantine "/Applications/Open Worship
-                app.app"
-              </pre>
-              <p>
-                If you are on an <strong>Apple Silicon Mac (M1/M2/...)</strong>,
-                you may need to run this command too:
-              </p>
-              <pre
-                className="literal-block"
-                style={{ border: "1px solid red", padding: "8px" }}
-              >
-                xattr -cr "/Applications/Open Worship app.app"
-              </pre>
-            </li>
-            <li>
-              <p>
-                Now <strong>Open Worship app</strong> should open correctly.
-              </p>
-            </li>
-          </ol>
+        <div style={{ overflow: "hidden" }}>
+          <div className="w-100">
+            <ol>
+              <li>
+                <p>
+                  Download <strong>Open Worship app</strong>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Open the downloaded file and drag the{" "}
+                  <strong>Open Worship app</strong> to your Applications folder
+                </p>
+              </li>
+              <li>
+                <p>
+                  In your Applications folder, open the{" "}
+                  <strong>Utilities</strong> folder and run the{" "}
+                  <strong>Terminal</strong> app
+                </p>
+              </li>
+              <li>
+                <p>In the Terminal app, type the following:</p>
+                <pre
+                  className="literal-block"
+                  style={{ border: "1px solid red", padding: "8px" }}
+                >
+                  xattr -dr com.apple.quarantine "/Applications/Open Worship
+                  app.app"
+                </pre>
+                <p>
+                  If you are on an{" "}
+                  <strong>Apple Silicon Mac (M1/M2/...)</strong>, you may need
+                  to run this command too:
+                </p>
+                <pre
+                  className="literal-block"
+                  style={{ border: "1px solid red", padding: "8px" }}
+                >
+                  xattr -cr "/Applications/Open Worship app.app"
+                </pre>
+              </li>
+              <li>
+                <p>
+                  Now <strong>Open Worship app</strong> should open correctly.
+                </p>
+              </li>
+            </ol>
+          </div>
         </div>
         <div
-          className="w-100"
+          className="flex-grow-1"
           style={{
             marginLeft: "20px",
             border: "1px solid #ccc",
           }}
         >
-          <iframe
-            width="100%"
-            height="100%"
-            src={genSrc(trueSystemInfo.isArm64)}
-          />
+          <button
+            className="btn btn-sm btn-primary"
+            onClick={() => {
+              window.open(src, "_blank");
+            }}
+          >
+            Open in PDF Viewer
+          </button>
+          <iframe width="100%" height="100%" src={src} />
         </div>
       </div>
     </div>
