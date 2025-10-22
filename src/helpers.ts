@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState, type DependencyList } from "react";
+import { useEffect, useMemo, useState, type DependencyList } from "react";
 
 function checkIsAppleSilicon() {
   try {
@@ -67,7 +67,7 @@ export async function getTrueSystemInfo() {
   };
   return Object.fromEntries(
     Object.entries(systemInfo).filter(([key, value]) => {
-      if (['isArm64'].includes(key)) {
+      if (["isArm64"].includes(key)) {
         return true;
       }
       return value;
@@ -109,3 +109,18 @@ export function checkIsVersionOutdated(
   }
   return false; // Versions are equal
 }
+
+export function useRoute() {
+  const route = useMemo(() => {
+    const pathName = window.location.pathname.slice(1);
+    return pathName;
+  }, []);
+  return route;
+}
+
+export const checkingVersion =
+  new URLSearchParams(window.location.search).get("mv") ?? "";
+const isDev = window.location.hostname === "localhost";
+export const rootUrl = isDev
+  ? "https://www.openworship.app"
+  : new URL(window.location.href).origin;

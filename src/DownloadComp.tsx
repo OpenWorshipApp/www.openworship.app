@@ -5,6 +5,8 @@ import {
   checkIsVersionOutdated,
   useAppStateAsync,
   getTrueSystemInfo,
+  rootUrl,
+  checkingVersion,
 } from "./helpers";
 import MacInstructionComp from "./MacInstructionComp";
 
@@ -16,13 +18,6 @@ const AppleInstructionVisibleContext = createContext({
 function useAppleInstructionVisible() {
   return use(AppleInstructionVisibleContext);
 }
-
-const checkingVersion =
-  new URLSearchParams(window.location.search).get("mv") ?? "";
-const isDev = window.location.hostname === "localhost";
-const rootUrl = isDev
-  ? "https://www.openworship.app"
-  : new URL(window.location.href).origin;
 
 async function getDownloadInfo(infoPath: string) {
   const cacheBuster = new Date().getTime();
@@ -399,11 +394,6 @@ export default function DownloadComp() {
       }}
     >
       {isAppleInstructionsVisible ? <MacInstructionComp /> : null}
-      <div className="d-flex">
-        <a href="/">
-          <h2>Go to Home</h2>
-        </a>
-      </div>
       <div className="d-flex">
         <RenderInfoComp
           info={info}
