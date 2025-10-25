@@ -2,7 +2,34 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useMemo, useState, type DependencyList } from "react";
 
+function isSafariARM64() {
+  const userAgent = navigator.userAgent;
+  const isSafari = /Safari/i.test(userAgent) && !/Chrome/i.test(userAgent);
+  if (!isSafari) {
+    return false;
+  }
+  try {
+    const canvas = document.createElement("canvas");
+    const gl =
+      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (gl) {
+      const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+      if (debugInfo) {
+        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        // Apple Silicon uses "Apple M1/M2/M3" in the renderer string
+        return /Apple (M\d|GPU)/i.test(renderer);
+      }
+    }
+  } catch (e) {
+    console.error("WebGL check failed:", e);
+  }
+  return false;
+}
+
 function checkIsAppleSilicon() {
+  if (isSafariARM64()) {
+    return true;
+  }
   try {
     const w = document.createElement("canvas").getContext("webgl");
     const d = w?.getExtension("WEBGL_debug_renderer_info");
