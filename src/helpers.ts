@@ -13,9 +13,11 @@ function isSafariARM64() {
     const gl =
       canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
     if (gl) {
-      const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+      const debugInfo = (gl as any).getExtension("WEBGL_debug_renderer_info");
       if (debugInfo) {
-        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        const renderer = (gl as any).getParameter(
+          debugInfo.UNMASKED_RENDERER_WEBGL
+        );
         // Apple Silicon uses "Apple M1/M2/M3" in the renderer string
         return /Apple (M\d|GPU)/i.test(renderer);
       }
