@@ -7,6 +7,7 @@ import {
   getTrueSystemInfo,
   rootUrl,
   checkingVersion,
+  checkIsSafari,
 } from "./helpers";
 import MacInstructionComp from "./MacInstructionComp";
 
@@ -383,6 +384,9 @@ export default function DownloadComp() {
     getDownloadInfo.bind(null, downloadInfoPath),
     []
   );
+  const isSafari = useMemo(() => {
+    return checkIsSafari();
+  }, []);
   useEffect(() => {
     setAppleInstructionsVisible(!!trueSystemInfo?.isMac);
   }, [trueSystemInfo]);
@@ -393,6 +397,13 @@ export default function DownloadComp() {
         toggle: setAppleInstructionsVisible,
       }}
     >
+      {isSafari ? (
+        <h3 className="alert alert-danger">
+          Safari Browser fail to detect Apple CPU architecture, we do not
+          recommend using it for downloads. Please use Chrome, Edge, or Firefox
+          for better experience.
+        </h3>
+      ) : null}
       {isAppleInstructionsVisible ? <MacInstructionComp /> : null}
       <div className="d-flex">
         <RenderInfoComp

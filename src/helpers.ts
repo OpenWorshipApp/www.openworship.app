@@ -2,6 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useMemo, useState, type DependencyList } from "react";
 
+export function checkIsSafari() {
+  const ua = navigator.userAgent;
+  return ua.includes("Safari") && !ua.includes("Chrome");
+}
+
 function isSafariARM64() {
   const userAgent = navigator.userAgent;
   const isSafari = /Safari/i.test(userAgent) && !/Chrome/i.test(userAgent);
