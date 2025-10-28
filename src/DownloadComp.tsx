@@ -108,11 +108,15 @@ function RenderDownloadLinks({ items }: { items: any[] }) {
             <a
               href={`${rootUrl}/${item.publicPath}`}
               className="btn btn-sm btn-info"
+              target="_blank"
             >
-              {item.fileFullName}
+              <strong>{item.fileFullName}</strong>
             </a>
             <div>
-              Checksum (sha512):{" "}
+              <a href="https://en.wikipedia.org/wiki/Checksum" target="_blank">
+                Checksum
+              </a>{" "}
+              (sha512):{" "}
               <div className="d-flex align-items-center">
                 <div style={{ maxWidth: "250px", overflow: "auto" }}>
                   {item.checksum}
@@ -246,10 +250,23 @@ function RenderDownloadItem({
         ) : null}
         <hr />
         <div className="d-flex">
-          Commit ID:{" "}
-          <small style={{ maxWidth: "200px", overflow: "auto" }}>
-            {targetDownloadInfo.commitID}
-          </small>
+          <strong>Commit ID:</strong>
+          <a
+            style={{
+              maxWidth: "250px",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+            }}
+            href={
+              "https://github.com/OpenWorshipApp/open-worship-app-dt/tree/" +
+              targetDownloadInfo.commitID
+            }
+            target="_blank"
+          >
+            <small style={{ maxWidth: "200px", overflow: "auto" }}>
+              {targetDownloadInfo.commitID}
+            </small>
+          </a>
         </div>
       </div>
     </div>
