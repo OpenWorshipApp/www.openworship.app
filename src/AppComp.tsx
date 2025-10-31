@@ -32,6 +32,21 @@ export default function AppComp() {
             Fork me on Github <i className="bi bi-github"></i>
           </a>
         </div>
+        <div className="p-2">
+          <a
+            href="https://www.youtube.com/@owf2025"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Youtube{" "}
+            <i
+              className="bi bi-youtube"
+              style={{
+                color: "red",
+              }}
+            ></i>
+          </a>
+        </div>
       </div>
       <RouteComp />
     </div>

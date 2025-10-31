@@ -303,6 +303,20 @@ function RenderVersionChecking({ data }: { data: any }) {
   );
 }
 
+function getYoutubeInstallLink(recommendedData: [any, any][]) {
+  return recommendedData
+    .map(([_, { isWindows, isMac }]) => {
+      if (isWindows) {
+        return "https://youtu.be/o7ej5Od62qU";
+      }
+      if (isMac) {
+        return "https://youtu.be/wEQtSFY5LV8";
+      }
+      return null;
+    })
+    .filter((link) => link !== null) as string[];
+}
+
 const downloadInfoPath = "/download/info.json";
 function RenderInfoComp({
   info,
@@ -359,6 +373,23 @@ function RenderInfoComp({
               <RenderVersionChecking data={matchVersion} />
             </div>
           </h3>
+          <div>
+            {getYoutubeInstallLink(recommendedData).map((link, index) => {
+              return (
+                <h3 key={index}>
+                  <a href={link} target="_blank" className="ms-2">
+                    Watch how to install{" "}
+                    <i
+                      className="bi bi-youtube"
+                      style={{
+                        color: "red",
+                      }}
+                    />
+                  </a>
+                </h3>
+              );
+            })}
+          </div>
         </div>
         <div>
           <div className="d-flex flex-wrap">
