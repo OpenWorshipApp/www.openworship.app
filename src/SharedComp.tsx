@@ -5,6 +5,7 @@ const url = `${rootUrl}/shared`;
 function RenderImageComp({ filePath }: { filePath: string }) {
   return (
     <div style={{ margin: "5px" }}>
+      <h4>{filePath.split("/").pop()}</h4>
       <img
         src={`${url}/${filePath}`}
         style={{ maxWidth: "400px" }}
@@ -17,6 +18,7 @@ function RenderImageComp({ filePath }: { filePath: string }) {
 function RenderVideoComp({ filePath }: { filePath: string }) {
   return (
     <div style={{ margin: "5px" }}>
+      <h4>{filePath.split("/").pop()}</h4>
       <video
         src={`${url}/${filePath}`}
         controls
