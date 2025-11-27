@@ -1,18 +1,19 @@
+export interface FileInfo {
+  filename?: string;
+  fileFullName?: string;
+  url?: string;
+  publicPath?: string;
+  checksum: string;
+}
+
 export interface DownloadInfo {
   version: string;
   platform: string;
   architecture: string;
-  installer: {
-    filename: string;
-    url: string;
-    checksum: string;
-  };
-  portable: {
-    filename: string;
-    url: string;
-    checksum: string;
-  };
+  installer: FileInfo | FileInfo[];
+  portable: FileInfo | FileInfo[];
   commitId?: string;
+  commitID?: string;
 }
 
 export interface VersionInfo {
@@ -31,14 +32,33 @@ class DownloadService {
     // Return version info with direct download URLs from openworship.app
     const versionInfo = this.getDirectVersionInfo();
     console.log('DownloadService: Using direct URLs from openworship.app');
-    console.log('DownloadService: Sample URL:', versionInfo.downloads[0]?.installer?.url);
     console.log('DownloadService: All download URLs:');
     versionInfo.downloads.forEach((download, index) => {
+      const installerFiles = this.normalizeFileInfo(download.installer);
+      const portableFiles = this.normalizeFileInfo(download.portable);
       console.log(`  ${index + 1}. ${download.platform} ${download.architecture}:`);
-      console.log(`     Installer: ${download.installer.url}`);
-      console.log(`     Portable: ${download.portable.url}`);
+      console.log(`     Installer: ${installerFiles.map(f => this.getFileUrl(f)).join(', ')}`);
+      console.log(`     Portable: ${portableFiles.map(f => this.getFileUrl(f)).join(', ')}`);
     });
     return versionInfo;
+  }
+
+  getFileUrl(file: FileInfo): string {
+    // Support both url and publicPath formats
+    if (file.url) return file.url;
+    if (file.publicPath) {
+      const rootUrl = window.location.origin;
+      return `${rootUrl}/${file.publicPath}`;
+    }
+    return '';
+  }
+
+  getFileName(file: FileInfo): string {
+    return file.filename || file.fileFullName || 'download';
+  }
+
+  normalizeFileInfo(info: FileInfo | FileInfo[]): FileInfo[] {
+    return Array.isArray(info) ? info : [info];
   }
 
   private getDirectVersionInfo(): VersionInfo {

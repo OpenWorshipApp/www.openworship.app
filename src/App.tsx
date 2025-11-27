@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
@@ -8,9 +8,21 @@ import DownloadPage from "./pages/DownloadPage";
 import AboutPage from "./pages/AboutPage";
 import DocsPage from "./pages/DocsPage";
 import ContactPage from "./pages/ContactPage";
+import SharedPage from "./pages/SharedPage";
 
 function App({ route }: { route: string }) {
-  const [currentPage, setCurrentPage] = useState(route === "download" ? "download" : "home");
+  const [currentPage, setCurrentPage] = useState(route || "home");
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const newRoute = window.location.pathname.slice(1) || "home";
+      setCurrentPage(newRoute);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
@@ -28,6 +40,8 @@ function App({ route }: { route: string }) {
         return <DocsPage onNavigate={handleNavigate} />;
       case "contact":
         return <ContactPage onNavigate={handleNavigate} />;
+      case "shared":
+        return <SharedPage onNavigate={handleNavigate} />;
       case "features":
         return <HomePage onNavigate={handleNavigate} />; // Features section is on homepage
       case "home":

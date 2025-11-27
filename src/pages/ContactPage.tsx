@@ -67,10 +67,47 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
           fontSize: '20px',
           color: '#888',
           maxWidth: '600px',
-          margin: '0 auto 40px'
+          margin: '0 auto 20px'
         }}>
           Have questions? Need support? Want to contribute? We'd love to hear from you!
         </p>
+
+        {/* Email Contact */}
+        <div style={{
+          background: 'rgba(233, 30, 99, 0.1)',
+          border: '1px solid rgba(233, 30, 99, 0.3)',
+          borderRadius: '12px',
+          padding: '20px 30px',
+          marginBottom: '40px',
+          display: 'inline-block'
+        }}>
+          <p style={{
+            color: '#ffffff',
+            fontSize: '18px',
+            margin: 0
+          }}>
+            For assistance, please contact us at{' '}
+            <a
+              href="mailto:owf2025@gmail.com"
+              style={{
+                color: '#e91e63',
+                textDecoration: 'none',
+                fontWeight: '600',
+                borderBottom: '2px solid #e91e63'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#ff4081';
+                e.currentTarget.style.borderBottomColor = '#ff4081';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#e91e63';
+                e.currentTarget.style.borderBottomColor = '#e91e63';
+              }}
+            >
+              owf2025@gmail.com
+            </a>
+          </p>
+        </div>
 
         {/* Contact Options */}
         <div style={{

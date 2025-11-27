@@ -7,6 +7,7 @@ const MENU_ITEMS = [
   { label: 'Home', href: '#home' },
   { label: 'Docs', href: '#docs' },
   { label: 'Download', href: '#download' },
+  { label: 'Shared', href: '#shared' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];

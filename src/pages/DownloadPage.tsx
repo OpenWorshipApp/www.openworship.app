@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { downloadService, type VersionInfo, type DownloadInfo } from '../services/downloadService';
+import React, { useState, useEffect, useRef } from 'react';
+import { downloadService, type VersionInfo, type DownloadInfo, type FileInfo } from '../services/downloadService';
 // Navigation handled by AppRouter
 import ScrollToTopButton from '../components/ScrollToTopButton';
+import MacInstructionComp from '../components/MacInstructionComp';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/modern-cards.scss';
 import '../styles/modern-footer.scss';
@@ -13,6 +14,16 @@ interface DownloadPageProps {
 const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
   const [versionInfo, setVersionInfo] = useState<VersionInfo | null>(null);
   const [copiedChecksum, setCopiedChecksum] = useState<string>('');
+  const [showMacInstructions, setShowMacInstructions] = useState<boolean>(false);
+  const [isSafari, setIsSafari] = useState<boolean>(false);
+  const macInstructionsRef = useRef<HTMLDivElement>(null);
+
+  // Detect Safari browser
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const isSafariBrowser = ua.includes('Safari') && !ua.includes('Chrome');
+    setIsSafari(isSafariBrowser);
+  }, []);
 
   useEffect(() => {
     const fetchVersionInfo = async () => {
@@ -70,9 +81,189 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
     return 'bi bi-question-circle';
   };
 
+  const getArchitectureBadge = (architecture: string) => {
+    const isMac = architecture.toLowerCase().includes('mac');
+    const isIntel = architecture.toLowerCase().includes('intel');
+    const isArm = architecture.toLowerCase().includes('arm') || architecture.toLowerCase().includes('apple silicon');
+    const isUniversal = architecture.toLowerCase().includes('universal');
+
+    if (!isMac) return null;
+
+    let color = '#6c757d';
+    let icon = 'bi bi-cpu';
+    let text = architecture;
+
+    if (isUniversal) {
+      color = '#9c27b0';
+      icon = 'bi bi-star-fill';
+      text = 'Universal';
+    } else if (isArm) {
+      color = '#22c55e';
+      icon = 'bi bi-lightning-charge-fill';
+      text = 'Apple Silicon';
+    } else if (isIntel) {
+      color = '#3b82f6';
+      icon = 'bi bi-cpu-fill';
+      text = 'Intel';
+    }
+
+    return (
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '4px',
+          padding: '4px 12px',
+          borderRadius: '16px',
+          backgroundColor: `${color}22`,
+          border: `1px solid ${color}`,
+          color: color,
+          fontSize: '12px',
+          fontWeight: '600',
+          marginLeft: '8px'
+        }}
+      >
+        <i className={icon} style={{ fontSize: '14px' }}></i>
+        {text}
+      </span>
+    );
+  };
+
+  const renderFileList = (files: FileInfo | FileInfo[], type: 'installer' | 'portable', uniqueIdPrefix: string) => {
+    const fileArray = downloadService.normalizeFileInfo(files);
+    
+    return fileArray.map((file, index) => {
+      const fileId = `${uniqueIdPrefix}-${type}-${index}`;
+      const fileUrl = downloadService.getFileUrl(file);
+      const fileName = downloadService.getFileName(file);
+      
+      return (
+        <div key={fileId} style={{ marginBottom: fileArray.length > 1 ? '16px' : '0' }}>
+          <button 
+            className="download-link"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log(`Downloading ${type}:`, fileName);
+              downloadService.downloadFile(fileUrl, fileName);
+            }}
+            style={{ 
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              color: '#cccccc',
+              padding: '12px 20px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              width: '100%',
+              marginBottom: '10px',
+              fontSize: '14px',
+              fontWeight: '500',
+              position: 'relative',
+              zIndex: 100,
+              pointerEvents: 'auto',
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(10px)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+              e.currentTarget.style.color = '#ffffff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+              e.currentTarget.style.color = '#cccccc';
+            }}
+          >
+            {fileName}
+          </button>
+          <div className="checksum-container">
+            <div style={{ marginBottom: '8px' }}>
+              <span style={{ 
+                color: '#cccccc', 
+                fontSize: '13px',
+                fontWeight: '500'
+              }}>
+                Checksum (sha512):
+              </span>
+            </div>
+            <span 
+              className="checksum-text"
+              style={{
+                color: '#aaa',
+                fontSize: '12px',
+                fontFamily: 'monospace',
+                opacity: 0.9,
+                letterSpacing: '0.5px'
+              }}
+            >{file.checksum}</span>
+            <button
+              className={`copy-btn ${copiedChecksum === fileId ? 'copied' : copiedChecksum === `${fileId}-error` ? 'error' : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log(`Copy button clicked for ${type} checksum`);
+                copyToClipboard(file.checksum, fileId);
+              }}
+              style={{ 
+                position: 'relative', 
+                zIndex: '100', 
+                pointerEvents: 'auto',
+                background: 'transparent',
+                border: copiedChecksum === fileId ? 
+                  '1px solid #22c55e' : 
+                  '1px solid rgba(255, 255, 255, 0.1)',
+                color: copiedChecksum === fileId ? '#22c55e' : '#cccccc',
+                padding: '6px 12px',
+                borderRadius: '6px',
+                fontSize: '12px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                backdropFilter: 'blur(10px)',
+                boxShadow: 'none'
+              }}
+              onMouseEnter={(e) => {
+                if (copiedChecksum !== fileId) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.color = '#ffffff';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (copiedChecksum !== fileId) {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.color = '#cccccc';
+                }
+              }}>
+              {copiedChecksum === fileId ? (
+                <>
+                  <i className="bi bi-check-circle-fill me-1"></i>
+                  Copied!
+                </>
+              ) : copiedChecksum === `${fileId}-error` ? (
+                <>
+                  <i className="bi bi-x-circle-fill me-1"></i>
+                  Failed
+                </>
+              ) : (
+                <>
+                  <i className="bi bi-clipboard me-1"></i>
+                  Copy
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      );
+    });
+  };
+
   const renderDownloadCard = (download: DownloadInfo, isRecommended = false) => {
     const cardClasses = `modern-card card-animate-in ${isRecommended ? 'recommended-card' : 'download-card'}`;
     const uniqueId = `${download.platform}-${download.architecture}`;
+    const isMac = download.platform.toLowerCase().includes('mac');
 
     return (
       <div 
@@ -83,32 +274,63 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
           borderRadius: '12px',
           padding: '2px',
           overflow: 'hidden',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          cursor: 'pointer',
-          border: 'none'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)';
-          e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2)';
-          e.currentTarget.style.background = '#2a2a2a';
-          e.currentTarget.style.border = 'none';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0) scale(1)';
-          e.currentTarget.style.boxShadow = 'none';
-          e.currentTarget.style.background = '#1a1a1a';
-          e.currentTarget.style.border = 'none';
+          border: 'none',
+          pointerEvents: 'none'
         }}
       >
         {/* Animated running border */}
-        <div className="card-content" style={{ position: 'relative', zIndex: '10' }}>
-          <div className="card-body">
-            <h5 className="card-title">
-              ({download.version})
-              <i className={`${getPlatformIcon(download.platform)} ms-2 me-2`}></i>
-              {download.architecture}
-            </h5>
-            <div className="download-section">
+        <div className="card-content" style={{ position: 'relative', zIndex: '10', pointerEvents: 'auto' }}>
+          <div className="card-body" style={{ pointerEvents: 'auto' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <h5 className="card-title" style={{ marginBottom: 0 }}>
+                ({download.version})
+                <i className={`${getPlatformIcon(download.platform)} ms-2 me-2`}></i>
+                {download.architecture}
+                {getArchitectureBadge(download.architecture)}
+              </h5>
+              {isMac && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const newState = !showMacInstructions;
+                    setShowMacInstructions(newState);
+                    // Scroll to instructions after state update
+                    if (newState) {
+                      setTimeout(() => {
+                        macInstructionsRef.current?.scrollIntoView({ 
+                          behavior: 'smooth', 
+                          block: 'start' 
+                        });
+                      }, 100);
+                    }
+                  }}
+                  style={{
+                    background: showMacInstructions ? 'rgba(34, 197, 94, 0.2)' : 'rgba(128, 128, 128, 0.2)',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '8px 12px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    pointerEvents: 'auto',
+                    zIndex: 200
+                  }}
+                  title="Toggle MacOS installation instructions"
+                >
+                  <i
+                    className={showMacInstructions ? 'bi bi-lightbulb-fill' : 'bi bi-lightbulb'}
+                    style={{
+                      color: showMacInstructions ? '#22c55e' : '#fbbf24',
+                      fontSize: '20px'
+                    }}
+                  ></i>
+                </button>
+              )}
+            </div>
+            <div className="download-section" style={{ pointerEvents: 'auto' }}>
               <h6 style={{
                 color: '#ffffff',
                 fontSize: '14px',
@@ -118,124 +340,9 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 letterSpacing: '0.5px',
                 opacity: 0.8
               }}>Installer</h6>
-              <button 
-                className="download-link"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log('Downloading installer:', download.installer.filename);
-                  downloadService.downloadFile(download.installer.url, download.installer.filename);
-                }}
-                style={{ 
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  color: '#cccccc',
-                  padding: '12px 20px',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  width: '100%',
-                  marginBottom: '10px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  position: 'relative',
-                  zIndex: 100,
-                  pointerEvents: 'auto',
-                  transition: 'all 0.3s ease',
-                  backdropFilter: 'blur(10px)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.color = '#cccccc';
-                }}
-              >
-                {download.installer.filename}
-              </button>
-              <div className="checksum-container">
-                <div style={{ marginBottom: '8px' }}>
-                  <span style={{ 
-                    color: '#cccccc', 
-                    fontSize: '13px',
-                    fontWeight: '500'
-                  }}>
-                    Checksum (sha512):
-                  </span>
-                </div>
-                <span 
-                  className="checksum-text"
-                  style={{
-                    color: '#aaa',
-                    fontSize: '12px',
-                    fontFamily: 'monospace',
-                    opacity: 0.9,
-                    letterSpacing: '0.5px'
-                  }}
-                >{download.installer.checksum}</span>
-                <button
-                  className={`copy-btn ${copiedChecksum === `${uniqueId}-installer` ? 'copied' : copiedChecksum === `${uniqueId}-installer-error` ? 'error' : ''}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Copy button clicked for installer checksum');
-                    copyToClipboard(download.installer.checksum, `${uniqueId}-installer`);
-                  }}
-                  style={{ 
-                    position: 'relative', 
-                    zIndex: '100', 
-                    pointerEvents: 'auto',
-                    background: 'transparent',
-                    border: copiedChecksum === `${uniqueId}-installer` ? 
-                      '1px solid #22c55e' : 
-                      '1px solid rgba(255, 255, 255, 0.1)',
-                    color: copiedChecksum === `${uniqueId}-installer` ? '#22c55e' : '#cccccc',
-                    padding: '6px 12px',
-                    borderRadius: '6px',
-                    fontSize: '12px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: 'none'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (copiedChecksum !== `${uniqueId}-installer`) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                      e.currentTarget.style.color = '#ffffff';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (copiedChecksum !== `${uniqueId}-installer`) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                      e.currentTarget.style.color = '#cccccc';
-                    }
-                  }}>
-                  {copiedChecksum === `${uniqueId}-installer` ? (
-                    <>
-                      <i className="bi bi-check-circle-fill me-1"></i>
-                      Copied!
-                    </>
-                  ) : copiedChecksum === `${uniqueId}-installer-error` ? (
-                    <>
-                      <i className="bi bi-x-circle-fill me-1"></i>
-                      Failed
-                    </>
-                  ) : (
-                    <>
-                      <i className="bi bi-clipboard me-1"></i>
-                      Copy
-                    </>
-                  )}
-                </button>
-              </div>
+              {renderFileList(download.installer, 'installer', uniqueId)}
             </div>
-            <div className="download-section">
+            <div className="download-section" style={{ pointerEvents: 'auto' }}>
               <h6 style={{
                 color: '#ffffff',
                 fontSize: '14px',
@@ -245,147 +352,39 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 letterSpacing: '0.5px',
                 opacity: 0.8
               }}>Portable ZIP</h6>
-              <button 
-                className="download-link"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  console.log('Downloading portable:', download.portable.filename);
-                  downloadService.downloadFile(download.portable.url, download.portable.filename);
-                }}
-                style={{ 
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  color: '#cccccc',
-                  padding: '12px 20px',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  width: '100%',
-                  marginBottom: '10px',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  position: 'relative',
-                  zIndex: 100,
-                  pointerEvents: 'auto',
-                  transition: 'all 0.3s ease',
-                  backdropFilter: 'blur(10px)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.color = '#cccccc';
-                }}
-              >
-                {download.portable.filename}
-              </button>
-              <div className="checksum-container">
-                <div style={{ marginBottom: '8px' }}>
-                  <span style={{ 
-                    color: '#cccccc', 
-                    fontSize: '13px',
-                    fontWeight: '500'
-                  }}>
-                    Checksum (sha512):
-                  </span>
-                </div>
-                <span 
-                  className="checksum-text"
-                  style={{
-                    color: '#aaa',
-                    fontSize: '12px',
-                    fontFamily: 'monospace',
-                    opacity: 0.9,
-                    letterSpacing: '0.5px'
-                  }}
-                >{download.portable.checksum}</span>
-                <button
-                  className={`copy-btn ${copiedChecksum === `${uniqueId}-portable` ? 'copied' : copiedChecksum === `${uniqueId}-portable-error` ? 'error' : ''}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('Copy button clicked for portable checksum');
-                    copyToClipboard(download.portable.checksum, `${uniqueId}-portable`);
-                  }}
-                  style={{ 
-                    position: 'relative', 
-                    zIndex: '100', 
-                    pointerEvents: 'auto',
-                    background: 'transparent',
-                    border: copiedChecksum === `${uniqueId}-portable` ? 
-                      '1px solid #22c55e' : 
-                      '1px solid rgba(255, 255, 255, 0.1)',
-                    color: copiedChecksum === `${uniqueId}-portable` ? '#22c55e' : '#cccccc',
-                    padding: '6px 12px',
-                    borderRadius: '6px',
-                    fontSize: '12px',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: 'none'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (copiedChecksum !== `${uniqueId}-portable`) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                      e.currentTarget.style.color = '#ffffff';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (copiedChecksum !== `${uniqueId}-portable`) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                      e.currentTarget.style.color = '#cccccc';
-                    }
-                  }}>
-                  {copiedChecksum === `${uniqueId}-portable` ? (
-                    <>
-                      <i className="bi bi-check-circle-fill me-1"></i>
-                      Copied!
-                    </>
-                  ) : copiedChecksum === `${uniqueId}-portable-error` ? (
-                    <>
-                      <i className="bi bi-x-circle-fill me-1"></i>
-                      Failed
-                    </>
-                  ) : (
-                    <>
-                      <i className="bi bi-clipboard me-1"></i>
-                      Copy
-                    </>
-                  )}
-                </button>
-              </div>
+              {renderFileList(download.portable, 'portable', uniqueId)}
             </div>
-            {download.commitId && (
-              <div className="commit-info" style={{ 
-                borderTop: '1px solid rgba(255, 255, 255, 0.1)', 
-                paddingTop: '12px', 
-                marginTop: '16px' 
+            {(download.commitId || download.commitID) && (
+              <div className="commit-id" style={{
+                fontSize: '12px',
+                color: '#666',
+                marginTop: '16px',
+                paddingTop: '16px',
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                fontFamily: 'monospace',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
               }}>
-                <div className="d-flex align-items-center">
-                  <span style={{ 
-                    color: '#cccccc', 
-                    fontSize: '13px',
-                    fontWeight: '500'
-                  }}>
-                    Commit ID:
-                  </span>
-                  <small className="ms-2" style={{ 
-                    color: '#aaa',
-                    fontSize: '12px',
-                    fontFamily: 'monospace',
-                    wordBreak: 'break-all',
-                    lineHeight: '1.2'
-                  }}>
-                    {download.commitId}
-                  </small>
-                </div>
+                <i className="bi bi-git"></i>
+                <strong style={{ color: '#cccccc' }}>Commit ID:</strong>
+                <a
+                  href={`https://github.com/OpenWorshipApp/open-worship-app-dt/tree/${download.commitId || download.commitID}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: '#e91e63',
+                    textDecoration: 'none',
+                    maxWidth: '250px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                  onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+                >
+                  {download.commitId || download.commitID}
+                </a>
               </div>
             )}
           </div>
@@ -394,10 +393,69 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
     );
   };
 
+  const getYoutubeInstallLink = () => {
+    if (!versionInfo) return null;
+    const recommended = downloadService.getRecommendedDownload(versionInfo.downloads);
+    if (!recommended) return null;
+
+    const platform = recommended.platform.toLowerCase();
+    if (platform.includes('win')) {
+      return 'https://youtu.be/o7ej5Od62qU';
+    }
+    if (platform.includes('mac')) {
+      return 'https://youtu.be/wEQtSFY5LV8';
+    }
+    return null;
+  };
+
   const getRecommendedDownload = () => {
     if (!versionInfo) return null;
     const recommended = downloadService.getRecommendedDownload(versionInfo.downloads);
-    return recommended ? renderDownloadCard(recommended, true) : null;
+    const youtubeLink = getYoutubeInstallLink();
+    
+    return recommended ? (
+      <div>
+        {youtubeLink && (
+          <div style={{
+            marginBottom: '20px',
+            textAlign: 'center'
+          }}>
+            <a
+              href={youtubeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '12px 24px',
+                background: 'linear-gradient(135deg, #e91e63 0%, #9c27b0 60%, #673ab7 100%)',
+                color: '#fff',
+                textDecoration: 'none',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: '600',
+                transition: 'all 0.3s ease',
+                border: 'none',
+                boxShadow: '0 4px 12px rgba(233, 30, 99, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 16px rgba(233, 30, 99, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(233, 30, 99, 0.3)';
+              }}
+            >
+              <i className="bi bi-youtube" style={{ fontSize: '24px', color: '#ff0000' }}></i>
+              Watch how to install
+            </a>
+          </div>
+        )}
+        {renderDownloadCard(recommended, true)}
+      </div>
+    ) : null;
   };
 
   // navigation handled by MenuBar via hash links; no page-level handler needed here
@@ -452,6 +510,117 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
             }
           `}
         </style>
+        
+        {/* Top Navigation Links */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '20px',
+          marginBottom: '40px',
+          flexWrap: 'wrap'
+        }}>
+          <button
+            onClick={() => onNavigate?.('home')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 20px',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '8px',
+              color: '#5b7cff',
+              fontSize: '16px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(10px)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(91, 124, 255, 0.1)';
+              e.currentTarget.style.borderColor = '#5b7cff';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            <i className="bi bi-house-fill" style={{ fontSize: '18px' }}></i>
+            Go to Home
+          </button>
+
+          <a
+            href="https://github.com/OpenWorshipApp/open-worship-app-dt"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 20px',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '8px',
+              color: '#5b7cff',
+              fontSize: '16px',
+              fontWeight: '600',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(10px)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(91, 124, 255, 0.1)';
+              e.currentTarget.style.borderColor = '#5b7cff';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            <i className="bi bi-github" style={{ fontSize: '18px' }}></i>
+            Fork me on Github
+          </a>
+
+          <a
+            href="https://www.youtube.com/@owf2025"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 20px',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '8px',
+              color: '#5b7cff',
+              fontSize: '16px',
+              fontWeight: '600',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(10px)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(91, 124, 255, 0.1)';
+              e.currentTarget.style.borderColor = '#5b7cff';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            <i className="bi bi-youtube" style={{ fontSize: '18px', color: '#ff0000' }}></i>
+            Youtube
+          </a>
+        </div>
+
         <header style={{ textAlign: 'center', marginBottom: '80px' }}>
           <h1 style={{
             fontSize: 'clamp(48px, 8vw, 72px)',
@@ -471,6 +640,56 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
           }}>Get the latest version of Open Worship for your platform.</p>
         </header>
 
+        {/* Safari Browser Warning */}
+        {isSafari && (
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(185, 28, 28, 0.15) 100%)',
+            border: '2px solid #dc2626',
+            borderRadius: '12px',
+            padding: '20px',
+            marginBottom: '30px',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '16px',
+            backdropFilter: 'blur(10px)'
+          }}>
+            <i className="bi bi-exclamation-triangle-fill" style={{ 
+              fontSize: '32px', 
+              color: '#dc2626',
+              marginTop: '4px'
+            }}></i>
+            <div>
+              <h3 style={{ 
+                color: '#fca5a5',
+                fontSize: '20px',
+                fontWeight: '700',
+                marginBottom: '8px'
+              }}>
+                Safari Browser Detected
+              </h3>
+              <p style={{ 
+                color: '#fecaca',
+                fontSize: '15px',
+                lineHeight: '1.6',
+                margin: 0
+              }}>
+                Safari may fail to detect Apple CPU architecture correctly. We recommend using <strong>Chrome, Edge, or Firefox</strong> for better download experience.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* MacOS Installation Instructions */}
+        {showMacInstructions && versionInfo && versionInfo.downloads.some(d => d.platform.toLowerCase().includes('mac')) && (
+          <div ref={macInstructionsRef}>
+            <MacInstructionComp 
+            isArm64={versionInfo.downloads.some(d => 
+              d.platform.toLowerCase().includes('mac') && 
+              (d.architecture.toLowerCase().includes('arm') || d.architecture.toLowerCase().includes('apple silicon'))
+            )}
+          />
+          </div>
+        )}
 
         {getRecommendedDownload() && (
           <div className="mb-5">
@@ -489,8 +708,10 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                   download.architecture === recommended.architecture &&
                   download.version === recommended.version);
               })
-              .map((download) => (
-                renderDownloadCard(download)
+              .map((download, index) => (
+                <div key={`${download.platform}-${download.architecture}-${index}`}>
+                  {renderDownloadCard(download)}
+                </div>
               ))
           ) : (
             <p>Loading...</p>

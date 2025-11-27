@@ -39,6 +39,136 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
         zIndex: 1
       }}></div>
 
+      {/* Christian Cross Pattern Overlay */}
+      <div style={{
+        position: 'fixed',
+        top: '10%',
+        left: '5%',
+        right: '5%',
+        bottom: '10%',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }}>
+        {/* Decorative Crosses */}
+        {[...Array(8)].map((_, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            top: `${Math.random() * 80}%`,
+            left: `${Math.random() * 90}%`,
+            opacity: 0.03,
+            transform: `rotate(${Math.random() * 360}deg)`
+          }}>
+            <div style={{
+              width: '2px',
+              height: '40px',
+              background: 'linear-gradient(to bottom, transparent, rgba(233, 30, 99, 0.5), transparent)',
+              margin: '0 auto'
+            }}></div>
+            <div style={{
+              width: '30px',
+              height: '2px',
+              background: 'linear-gradient(to right, transparent, rgba(233, 30, 99, 0.5), transparent)',
+              position: 'absolute',
+              top: '12px',
+              left: '50%',
+              transform: 'translateX(-50%)'
+            }}></div>
+          </div>
+        ))}
+      </div>
+
+      {/* Light Rays from Above */}
+      <div style={{
+        position: 'fixed',
+        top: '-50%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '200%',
+        height: '100%',
+        background: 'radial-gradient(ellipse at top, rgba(233, 30, 99, 0.08) 0%, transparent 50%)',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }}></div>
+
+      {/* Top Navigation Links */}
+      <div style={{
+        position: 'relative',
+        zIndex: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '20px',
+        padding: '20px',
+        flexWrap: 'wrap'
+      }}>
+        <a
+          href="https://github.com/OpenWorshipApp/open-worship-app-dt"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '10px 20px',
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '8px',
+            color: '#5b7cff',
+            fontSize: '16px',
+            fontWeight: '600',
+            textDecoration: 'none',
+            transition: 'all 0.3s ease',
+            backdropFilter: 'blur(10px)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(91, 124, 255, 0.1)';
+            e.currentTarget.style.borderColor = '#5b7cff';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+        >
+          <i className="bi bi-github" style={{ fontSize: '18px' }}></i>
+          Fork me on Github
+        </a>
+
+        <a
+          href="https://www.youtube.com/@owf2025"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '10px 20px',
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '8px',
+            color: '#5b7cff',
+            fontSize: '16px',
+            fontWeight: '600',
+            textDecoration: 'none',
+            transition: 'all 0.3s ease',
+            backdropFilter: 'blur(10px)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(91, 124, 255, 0.1)';
+            e.currentTarget.style.borderColor = '#5b7cff';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+        >
+          <i className="bi bi-youtube" style={{ fontSize: '18px', color: '#ff0000' }}></i>
+          Youtube
+        </a>
+      </div>
+
       {/* Hero Section */}
       <section style={{
         position: 'relative',
@@ -56,14 +186,39 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           marginBottom: '40px',
           position: 'relative'
         }}>
+          {/* Cross behind logo */}
           <div style={{
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '120px',
-            height: '120px',
-            background: 'radial-gradient(circle, rgba(233, 30, 99, 0.3), transparent 70%)',
+            zIndex: -2,
+            opacity: 0.1
+          }}>
+            <div style={{
+              width: '4px',
+              height: '120px',
+              background: 'linear-gradient(to bottom, transparent, rgba(233, 30, 99, 0.8), transparent)',
+              margin: '0 auto'
+            }}></div>
+            <div style={{
+              width: '80px',
+              height: '4px',
+              background: 'linear-gradient(to right, transparent, rgba(233, 30, 99, 0.8), transparent)',
+              position: 'absolute',
+              top: '30px',
+              left: '50%',
+              transform: 'translateX(-50%)'
+            }}></div>
+          </div>
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '140px',
+            height: '140px',
+            background: 'radial-gradient(circle, rgba(233, 30, 99, 0.3) 0%, rgba(156, 39, 176, 0.2) 50%, transparent 70%)',
             borderRadius: '50%',
             filter: 'blur(20px)',
             zIndex: -1
@@ -75,7 +230,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
               width: '96px',
               height: '96px',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 0 20px rgba(233, 30, 99, 0.5))'
+              filter: 'drop-shadow(0 0 20px rgba(233, 30, 99, 0.6)) drop-shadow(0 0 40px rgba(156, 39, 176, 0.3))'
             }}
           />
         </div>
@@ -90,7 +245,8 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
-          textShadow: '0 0 40px rgba(233, 30, 99, 0.3)'
+          textShadow: '0 0 40px rgba(233, 30, 99, 0.3)',
+          position: 'relative'
         }}>
           Open Worship
         </h1>
@@ -111,11 +267,39 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
         <p style={{
           fontSize: '16px',
           color: '#666',
-          marginBottom: '60px',
+          marginBottom: '30px',
           fontStyle: 'italic'
         }}>
           Free • Open Source • Powerful
         </p>
+
+        {/* Bible Verse */}
+        <div style={{
+          maxWidth: '700px',
+          margin: '0 auto 60px',
+          padding: '24px 32px',
+          background: 'rgba(233, 30, 99, 0.05)',
+          borderLeft: '3px solid rgba(233, 30, 99, 0.6)',
+          borderRadius: '8px'
+        }}>
+          <p style={{
+            fontSize: '16px',
+            color: '#e91e63',
+            fontStyle: 'italic',
+            lineHeight: '1.8',
+            marginBottom: '8px'
+          }}>
+            "Make a joyful noise unto the Lord, all ye lands. Serve the Lord with gladness: come before his presence with singing."
+          </p>
+          <p style={{
+            fontSize: '14px',
+            color: '#888',
+            textAlign: 'right',
+            fontWeight: '600'
+          }}>
+            — Psalm 100:1-2
+          </p>
+        </div>
 
         {/* Action Buttons */}
         <div style={{ 
@@ -212,10 +396,13 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           <h2 style={{
             fontSize: 'clamp(32px, 5vw, 48px)',
             fontWeight: '700',
-            color: '#ffffff',
+            background: 'linear-gradient(135deg, #ffffff 0%, #e91e63 30%, #9c27b0 60%, #673ab7 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
             marginBottom: '20px'
           }}>
-            Everything You Need
+            Equipped for Ministry
           </h2>
           <p style={{
             fontSize: '20px',
@@ -223,7 +410,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             maxWidth: '600px',
             margin: '0 auto'
           }}>
-            Powerful features designed specifically for worship teams and church services
+            Powerful features designed to glorify God through worship and service
           </p>
         </div>
 
@@ -237,38 +424,38 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           {[
             {
               icon: '🎵',
-              title: 'Song Management',
-              description: 'Organize worship sets, lyrics, and chord charts with powerful search and tagging features',
+              title: 'Worship Song Management',
+              description: 'Organize hymns, worship sets, lyrics, and chord charts to lead your congregation in joyful praise',
               color: '#e91e63'
             },
             {
-              icon: '📖',
+              icon: '✝️',
               title: 'Scripture Display',
-              description: 'Display Bible verses with multiple translations, search functionality, and beautiful typography',
+              description: "Display God's Word with multiple Bible translations, search functionality, and beautiful typography",
               color: '#9c27b0'
             },
             {
-              icon: '⚡',
+              icon: '🕊️',
               title: 'Live Presentation',
-              description: 'Seamless live presentation with dual-screen support, transitions, and real-time editing',
+              description: 'Seamless presentation with dual-screen support, smooth transitions, and Spirit-led flexibility',
               color: '#673ab7'
             },
             {
-              icon: '🎨',
-              title: 'Custom Themes',
-              description: 'Create beautiful presentations with customizable themes, backgrounds, and fonts',
+              icon: '🌟',
+              title: 'Sacred Themes',
+              description: 'Create reverent presentations with faith-inspired themes, backgrounds, and typography',
               color: '#3f51b5'
             },
             {
-              icon: '📱',
-              title: 'Remote Control',
-              description: 'Control presentations remotely from any device with our mobile-friendly interface',
+              icon: '🙏',
+              title: 'Remote Ministry',
+              description: 'Enable worship leaders to control presentations from anywhere in the sanctuary',
               color: '#2196f3'
             },
             {
-              icon: '🔄',
-              title: 'Auto-Sync',
-              description: 'Automatically sync your content across devices and backup to cloud storage',
+              icon: '⛪',
+              title: 'Church Network',
+              description: 'Share and sync worship content across multiple services and church campuses',
               color: '#00bcd4'
             }
           ].map((feature, index) => (
@@ -283,19 +470,21 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
               backdropFilter: 'blur(10px)'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-              e.currentTarget.style.borderColor = feature.color + '40';
+              e.currentTarget.style.background = 'rgba(233, 30, 99, 0.05)';
+              e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.6)';
               e.currentTarget.style.transform = 'translateY(-8px)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(233, 30, 99, 0.3), inset 0 0 20px rgba(233, 30, 99, 0.1)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
               e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
               e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
             }}>
               <div style={{ 
                 fontSize: '64px', 
                 marginBottom: '24px',
-                filter: 'drop-shadow(0 0 10px rgba(233, 30, 99, 0.3))'
+                filter: 'drop-shadow(0 0 12px rgba(233, 30, 99, 0.4))'
               }}>
                 {feature.icon}
               </div>
@@ -322,26 +511,52 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
         <div style={{
           textAlign: 'center',
           padding: '60px',
-          background: 'rgba(255, 255, 255, 0.02)',
+          background: 'linear-gradient(135deg, rgba(233, 30, 99, 0.03) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(156, 39, 176, 0.03) 100%)',
           borderRadius: '24px',
-          border: '1px solid rgba(255, 255, 255, 0.05)'
+          border: '1px solid rgba(233, 30, 99, 0.2)',
+          boxShadow: '0 4px 20px rgba(233, 30, 99, 0.1)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
+          {/* Decorative cross accent */}
+          <div style={{
+            position: 'absolute',
+            top: '20px',
+            right: '40px',
+            opacity: 0.05,
+            fontSize: '80px'
+          }}>✝️</div>
+          <div style={{
+            position: 'absolute',
+            bottom: '20px',
+            left: '40px',
+            opacity: 0.05,
+            fontSize: '80px'
+          }}>✝️</div>
+          
           <h3 style={{
             fontSize: '28px',
             fontWeight: '700',
-            color: '#ffffff',
-            marginBottom: '16px'
+            background: 'linear-gradient(135deg, #ffffff 0%, #e91e63 30%, #9c27b0 60%, #673ab7 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            marginBottom: '16px',
+            position: 'relative',
+            zIndex: 2
           }}>
-            Open Source & Free Forever
+            Open Source • Free Forever • For His Glory
           </h3>
           <p style={{
             fontSize: '18px',
             color: '#888',
             marginBottom: '32px',
-            maxWidth: '500px',
-            margin: '0 auto 32px'
+            maxWidth: '550px',
+            margin: '0 auto 32px',
+            position: 'relative',
+            zIndex: 2
           }}>
-            Join our community of developers and worship leaders building the future of church technology
+            Join our community of faithful developers and worship leaders building technology to serve the Church worldwide
           </p>
           <a 
             href="https://github.com/OpenWorshipApp/open-worship-app-dt" 
@@ -359,15 +574,21 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
               padding: '16px 32px',
               borderRadius: '12px',
               transition: 'all 0.3s ease',
-              border: '1px solid rgba(255, 255, 255, 0.1)'
+              border: '1px solid rgba(233, 30, 99, 0.3)',
+              position: 'relative',
+              zIndex: 2
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = '#2c3237';
               e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.8)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(233, 30, 99, 0.3)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = '#24292e';
               e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.3)';
+              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
