@@ -53,7 +53,9 @@ export default function SharedComp() {
   return (
     <div>
       <h2>Shared</h2>
-      <p>Feel free to use these assets in your projects.</p>
+      <p>
+        All assets on this page are in the public domain and can be used freely.
+      </p>
       <div>
         <h3 id="images">Images</h3>
         <div className="d-flex flex-wrap">
