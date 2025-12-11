@@ -66,7 +66,6 @@ export default function SharedComp() {
         </div>
         <hr />
         <h3 id="videos">Videos</h3>
-        <hr />
         <div className="d-flex flex-wrap">
           {assetInfo.videos.map((filepath) => (
             <RenderVideoComp key={filepath} filePath={filepath} />
