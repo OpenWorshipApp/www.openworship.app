@@ -53,17 +53,20 @@ export default function SharedComp() {
   return (
     <div>
       <h2>Shared</h2>
-      <p>
+      <strong style={{ color: "green" }}>
         All assets on this page are in the public domain and can be used freely.
-      </p>
+      </strong>
       <div>
+        <hr />
         <h3 id="images">Images</h3>
         <div className="d-flex flex-wrap">
           {assetInfo.images.map((filePath) => (
             <RenderImageComp key={filePath} filePath={filePath} />
           ))}
         </div>
+        <hr />
         <h3 id="videos">Videos</h3>
+        <hr />
         <div className="d-flex flex-wrap">
           {assetInfo.videos.map((filepath) => (
             <RenderVideoComp key={filepath} filePath={filepath} />
