@@ -2,10 +2,28 @@ import { rootUrl, useAppStateAsync } from "./helpers";
 
 const url = `${rootUrl}/shared`;
 
+function ExternalViewComp({ filePath }: { filePath: string }) {
+  return (
+    <div className="mx-1">
+      <a
+        href={`${url}/${filePath}`}
+        download
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        view/download &#8599;
+      </a>
+    </div>
+  );
+}
+
 function RenderImageComp({ filePath }: { filePath: string }) {
   return (
     <div style={{ margin: "5px" }}>
-      <h4>{filePath.split("/").pop()}</h4>
+      <h4 className="d-flex">
+        {filePath.split("/").pop()}
+        <ExternalViewComp filePath={filePath} />
+      </h4>
       <img
         src={`${url}/${filePath}`}
         style={{ maxWidth: "400px" }}
@@ -18,7 +36,10 @@ function RenderImageComp({ filePath }: { filePath: string }) {
 function RenderVideoComp({ filePath }: { filePath: string }) {
   return (
     <div style={{ margin: "5px" }}>
-      <h4>{filePath.split("/").pop()}</h4>
+      <h4 className="d-flex">
+        {filePath.split("/").pop()}
+        <ExternalViewComp filePath={filePath} />
+      </h4>
       <video
         src={`${url}/${filePath}`}
         controls
