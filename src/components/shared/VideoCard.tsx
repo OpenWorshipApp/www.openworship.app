@@ -131,40 +131,47 @@ export const VideoCard = memo(({
             }}
           />
           
-          {/* Play button overlay */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.3s ease',
-            opacity: 1,
-            pointerEvents: 'none'
-          }}>
-            <div 
-              className="video-play-button"
-              style={{
-                background: 'rgba(0, 0, 0, 0.7)',
-                borderRadius: '50%',
-                width: '70px',
-                height: '70px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s ease',
-                backdropFilter: 'blur(10px)',
-                border: '3px solid rgba(255, 255, 255, 0.9)',
-                pointerEvents: 'auto'
-              }}
-            >
-              <i className="bi bi-play-fill" style={{ fontSize: '36px', color: '#fff', marginLeft: '5px' }}></i>
-            </div>
-          </div>
+          {/* Overlay & play button */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.45) 100%)',
+              transition: 'all 0.3s ease'
+            }}
+          />
+          <button
+            type="button"
+            className="video-play-button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onVideoClick();
+            }}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              background: 'rgba(0, 0, 0, 0.7)',
+              borderRadius: '50%',
+              width: '70px',
+              height: '70px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.3s ease',
+              backdropFilter: 'blur(10px)',
+              border: '3px solid rgba(255, 255, 255, 0.9)',
+              cursor: 'pointer',
+              color: '#fff'
+            }}
+          >
+            <i className="bi bi-play-fill" style={{ fontSize: '36px', marginLeft: '5px' }}></i>
+          </button>
         </div>
         
         <div style={{ padding: '20px' }}>

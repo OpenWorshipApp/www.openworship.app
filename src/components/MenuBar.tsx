@@ -8,6 +8,8 @@ const MENU_ITEMS = [
   { label: 'Docs', href: '#docs' },
   { label: 'Download', href: '#download' },
   { label: 'Shared', href: '#shared' },
+  { label: 'AI Vigilant', href: '#ai-vigilant' },
+  { label: 'Google Translate', href: '#google-translate' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];

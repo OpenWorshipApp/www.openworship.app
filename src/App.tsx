@@ -9,6 +9,8 @@ import AboutPage from "./pages/AboutPage";
 import DocsPage from "./pages/DocsPage";
 import ContactPage from "./pages/ContactPage";
 import SharedPage from "./pages/SharedPage";
+import AIVigilantPage from "./pages/AIVigilantPage";
+import GoogleTranslatePage from "./pages/GoogleTranslatePage";
 
 function App({ route }: { route: string }) {
   const [currentPage, setCurrentPage] = useState(route || "home");
@@ -42,6 +44,10 @@ function App({ route }: { route: string }) {
         return <ContactPage onNavigate={handleNavigate} />;
       case "shared":
         return <SharedPage onNavigate={handleNavigate} />;
+      case "ai-vigilant":
+        return <AIVigilantPage onNavigate={handleNavigate} />;
+      case "google-translate":
+        return <GoogleTranslatePage onNavigate={handleNavigate} />;
       case "features":
         return <HomePage onNavigate={handleNavigate} />; // Features section is on homepage
       case "home":

@@ -13,6 +13,77 @@ interface DocsPageProps {
   onNavigate?: (page: string) => void;
 }
 
+interface CrossSpec {
+  top: string;
+  left: string;
+  rotate: number;
+  stroke: string;
+}
+
+interface OverviewFeature {
+  icon: string;
+  title: string;
+  desc: string;
+  gradient: string;
+  border: string;
+  shadow: string;
+  glow: string;
+}
+
+const crossPalette: CrossSpec[] = [
+  { top: '8%', left: '18%', rotate: -12, stroke: 'rgba(236, 72, 153, 0.4)' },
+  { top: '18%', left: '72%', rotate: 20, stroke: 'rgba(79, 70, 229, 0.35)' },
+  { top: '36%', left: '32%', rotate: -28, stroke: 'rgba(14, 165, 233, 0.4)' },
+  { top: '54%', left: '82%', rotate: 8, stroke: 'rgba(20, 184, 166, 0.4)' },
+  { top: '70%', left: '22%', rotate: 18, stroke: 'rgba(96, 165, 250, 0.35)' },
+  { top: '46%', left: '58%', rotate: -6, stroke: 'rgba(236, 72, 153, 0.3)' },
+];
+
+const overviewFeatures: OverviewFeature[] = [
+  {
+    icon: '🎵',
+    title: 'Worship Song Management',
+    desc: 'Organize worship sets, hymns, and lyrics to lead your congregation in joyful praise.',
+    gradient: 'linear-gradient(135deg, rgba(255,110,199,0.12), rgba(236,72,153,0.08))',
+    border: 'rgba(255,110,199,0.35)',
+    shadow: 'rgba(255,110,199,0.25)',
+    glow: '0 4px 10px rgba(255,110,199,0.35)',
+  },
+  {
+    icon: '✝️',
+    title: 'Scripture Display',
+    desc: "Display God's Word with multiple Bible translations, search functionality, and verse lookup.",
+    gradient: 'linear-gradient(135deg, rgba(139,92,246,0.12), rgba(59,130,246,0.08))',
+    border: 'rgba(99,102,241,0.4)',
+    shadow: 'rgba(59,130,246,0.25)',
+    glow: '0 4px 10px rgba(99,102,241,0.35)',
+  },
+  {
+    icon: '🕊️',
+    title: 'Live Presentation',
+    desc: 'Spirit-led presentation mode with multi-screen support and real-time control for worship services.',
+    gradient: 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(45,212,191,0.08))',
+    border: 'rgba(45,212,191,0.35)',
+    shadow: 'rgba(20,184,166,0.25)',
+    glow: '0 4px 10px rgba(16,185,129,0.35)',
+  },
+  {
+    icon: '⛪',
+    title: 'Church Customization',
+    desc: 'Beautiful themes, backgrounds, and layouts designed to honor God and serve your ministry.',
+    gradient: 'linear-gradient(135deg, rgba(251,191,36,0.12), rgba(248,113,113,0.08))',
+    border: 'rgba(251,191,36,0.35)',
+    shadow: 'rgba(248,113,113,0.25)',
+    glow: '0 4px 10px rgba(251,191,36,0.32)',
+  },
+];
+
+const headingBorderImage = 'linear-gradient(to right, rgba(59,130,246,0.35), rgba(99,102,241,0.3)) 1';
+const headingIconColor = '#7dd3fc';
+const infoCardBackground = 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(16,185,129,0.08))';
+const infoCardBorder = '1px solid rgba(59,130,246,0.25)';
+const linkAccentColor = '#7dd3fc';
+
 const DocsPage = ({ onNavigate }: DocsPageProps) => {
   const [activeSection, setActiveSection] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
@@ -153,24 +224,24 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
           pointerEvents: 'none'
         }}>
           {/* Decorative Crosses */}
-          {[...Array(6)].map((_, i) => (
+          {crossPalette.map((cross, i) => (
             <div key={i} style={{
               position: 'absolute',
-              top: `${Math.random() * 80}%`,
-              left: `${Math.random() * 90}%`,
-              opacity: 0.025,
-              transform: `rotate(${Math.random() * 360}deg)`
+              top: cross.top,
+              left: cross.left,
+              opacity: 0.03,
+              transform: `rotate(${cross.rotate}deg)`
             }}>
               <div style={{
                 width: '2px',
                 height: '35px',
-                background: 'linear-gradient(to bottom, transparent, rgba(233, 30, 99, 0.4), rgba(156, 39, 176, 0.5), transparent)',
+                background: `linear-gradient(to bottom, transparent, ${cross.stroke}, transparent)`,
                 margin: '0 auto'
               }}></div>
               <div style={{
                 width: '25px',
                 height: '2px',
-                background: 'linear-gradient(to right, transparent, rgba(233, 30, 99, 0.4), rgba(156, 39, 176, 0.5), transparent)',
+                background: `linear-gradient(to right, transparent, ${cross.stroke}, transparent)`,
                 position: 'absolute',
                 top: '10px',
                 left: '50%',
@@ -188,7 +259,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
           transform: 'translateX(-50%)',
           width: '200%',
           height: '100%',
-          background: 'radial-gradient(ellipse at top, rgba(233, 30, 99, 0.04) 0%, rgba(156, 39, 176, 0.05) 40%, transparent 70%)',
+          background: 'radial-gradient(ellipse at top, rgba(59, 130, 246, 0.05) 0%, rgba(14, 165, 233, 0.05) 30%, rgba(236, 72, 153, 0.04) 55%, transparent 75%)',
           zIndex: 1,
           pointerEvents: 'none'
         }}></div>
@@ -198,14 +269,15 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
           <nav style={{
             width: '280px',
             height: 'calc(100vh - 72px)',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'linear-gradient(180deg, rgba(3, 5, 15, 0.97), rgba(10, 12, 25, 0.95), rgba(8, 12, 20, 0.92))',
+            borderRight: '1px solid rgba(148, 163, 184, 0.25)',
             position: 'fixed',
             top: '72px',
             overflowY: 'auto',
             padding: '20px 0',
             zIndex: 999,
-            backdropFilter: 'blur(10px)',
+            boxShadow: '0 0 30px rgba(2, 6, 23, 0.4)',
+            backdropFilter: 'blur(14px)',
             scrollbarWidth: 'none', /* Firefox */
             msOverflowStyle: 'none', /* Internet Explorer 10+ */
           }}
@@ -239,7 +311,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
             {filteredNavItems.map(section => (
               <div key={section.id} style={{ marginBottom: '30px' }}>
                 <div style={{
-                  color: '#a1a1aa',
+                  color: '#9da3c4',
                   fontSize: '11px',
                   fontWeight: '600',
                   textTransform: 'uppercase',
@@ -327,14 +399,14 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   maxWidth: '100%',
                   margin: '24px 0',
                   padding: '20px 24px',
-                  background: 'linear-gradient(135deg, rgba(233, 30, 99, 0.06), rgba(156, 39, 176, 0.08))',
+                  background: 'linear-gradient(135deg, rgba(59,130,246,0.08), rgba(147,197,253,0.08))',
                   borderLeft: '3px solid',
-                  borderImage: 'linear-gradient(to bottom, #e91e63, #9c27b0) 1',
+                  borderImage: 'linear-gradient(to bottom, #38bdf8, #a78bfa) 1',
                   borderRadius: '6px'
                 }}>
                   <p style={{
                     fontSize: '15px',
-                    color: '#ce93d8',
+                    color: '#bfdbfe',
                     fontStyle: 'italic',
                     lineHeight: '1.7',
                     marginBottom: '8px'
@@ -353,20 +425,20 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                 </div>
                 
                 <div style={{
-                  background: 'linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1))',
-                  border: '1px solid rgba(233, 30, 99, 0.3)',
+                  background: infoCardBackground,
+                  border: infoCardBorder,
                   borderRadius: '8px',
                   padding: '16px',
                   margin: '20px 0',
                   color: '#ffffff'
                 }}>
-                  <span style={{ color: '#f48fb1', marginRight: '8px' }}>✝️</span>
+                  <span style={{ color: headingIconColor, marginRight: '8px' }}>✝️</span>
                   <strong>New to Open Worship?</strong> Start with our <button 
                     onClick={() => scrollToSection('quick-start')}
                     style={{
                       background: 'none',
                       border: 'none',
-                      color: '#e91e63',
+                      color: linkAccentColor,
                       textDecoration: 'underline',
                       cursor: 'pointer'
                     }}
@@ -381,17 +453,12 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   gap: '24px',
                   margin: '40px 0'
                 }}>
-                  {[
-                    { icon: '🎵', title: 'Worship Song Management', desc: 'Organize worship sets, hymns, and lyrics to lead your congregation in joyful praise.' },
-                    { icon: '✝️', title: 'Scripture Display', desc: "Display God's Word with multiple Bible translations, search functionality, and verse lookup." },
-                    { icon: '🕊️', title: 'Live Presentation', desc: 'Spirit-led presentation mode with multi-screen support and real-time control for worship services.' },
-                    { icon: '⛪', title: 'Church Customization', desc: 'Beautiful themes, backgrounds, and layouts designed to honor God and serve your ministry.' }
-                  ].map((feature, index) => (
+                  {overviewFeatures.map((feature, index) => (
                     <div 
                       key={index} 
                       style={{
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        background: 'rgba(15, 23, 42, 0.6)',
+                        border: `1px solid ${feature.border}`,
                         borderRadius: '20px',
                         padding: '32px 28px',
                         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -401,14 +468,14 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'linear-gradient(135deg, rgba(233, 30, 99, 0.06), rgba(156, 39, 176, 0.08))';
-                        e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.4)';
+                        e.currentTarget.style.background = feature.gradient;
+                        e.currentTarget.style.borderColor = feature.border;
                         e.currentTarget.style.transform = 'translateY(-4px)';
-                        e.currentTarget.style.boxShadow = '0 20px 40px rgba(233, 30, 99, 0.2), 0 10px 20px rgba(156, 39, 176, 0.15)';
+                        e.currentTarget.style.boxShadow = `0 20px 40px ${feature.shadow}, 0 10px 20px rgba(15,23,42,0.35)`;
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                        e.currentTarget.style.background = 'rgba(15, 23, 42, 0.6)';
+                        e.currentTarget.style.borderColor = feature.border;
                         e.currentTarget.style.transform = 'translateY(0)';
                         e.currentTarget.style.boxShadow = 'none';
                       }}
@@ -420,7 +487,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        background: 'linear-gradient(135deg, rgba(233, 30, 99, 0.03) 0%, rgba(156, 39, 176, 0.04) 50%, rgba(103, 58, 183, 0.03) 100%)',
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(148,163,184,0.04) 60%, rgba(15,23,42,0.03) 100%)',
                         borderRadius: '20px',
                         pointerEvents: 'none'
                       }}></div>
@@ -429,7 +496,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                         <div style={{ 
                           fontSize: '48px', 
                           marginBottom: '20px',
-                          filter: 'drop-shadow(0 4px 10px rgba(233, 30, 99, 0.25)) drop-shadow(0 2px 6px rgba(156, 39, 176, 0.2))'
+                          filter: feature.glow
                         }}>
                           {feature.icon}
                         </div>
@@ -464,13 +531,13 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   fontWeight: '400',
                   margin: '40px 0 20px 0',
                   borderBottom: '1px solid',
-                  borderImage: 'linear-gradient(to right, rgba(233, 30, 99, 0.4), rgba(156, 39, 176, 0.3)) 1',
+                  borderImage: headingBorderImage,
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px'
                 }}>
-                  <span style={{ color: '#e91e63', opacity: 0.7, fontSize: '24px' }}>📥</span>
+                  <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>📥</span>
                   Installation
                 </h2>
                 <p style={{
@@ -497,20 +564,20 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                 </ul>
 
                 <div style={{
-                  background: 'linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1))',
-                  border: '1px solid rgba(233, 30, 99, 0.3)',
+                  background: infoCardBackground,
+                  border: infoCardBorder,
                   borderRadius: '8px',
                   padding: '16px',
                   margin: '20px 0',
                   color: '#ffffff'
                 }}>
-                  <span style={{ color: '#f48fb1', marginRight: '8px' }}>🙏</span>
+                  <span style={{ color: headingIconColor, marginRight: '8px' }}>🙏</span>
                   Visit our <button 
                     onClick={() => onNavigate?.('download')}
                     style={{ 
                       background: 'none', 
                       border: 'none', 
-                      color: '#e91e63', 
+                      color: linkAccentColor, 
                       textDecoration: 'underline', 
                       cursor: 'pointer',
                       padding: 0,
@@ -530,13 +597,13 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   fontWeight: '400',
                   margin: '40px 0 20px 0',
                   borderBottom: '1px solid',
-                  borderImage: 'linear-gradient(to right, rgba(233, 30, 99, 0.4), rgba(156, 39, 176, 0.3)) 1',
+                  borderImage: headingBorderImage,
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px'
                 }}>
-                  <span style={{ color: '#e91e63', opacity: 0.7, fontSize: '24px' }}>🚀</span>
+                  <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>🚀</span>
                   Quick Start Guide
                 </h2>
                 <p style={{
@@ -631,13 +698,13 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   fontWeight: '400',
                   margin: '40px 0 20px 0',
                   borderBottom: '1px solid',
-                  borderImage: 'linear-gradient(to right, rgba(233, 30, 99, 0.4), rgba(156, 39, 176, 0.3)) 1',
+                  borderImage: headingBorderImage,
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px'
                 }}>
-                  <span style={{ color: '#e91e63', opacity: 0.7, fontSize: '24px' }}>💻</span>
+                  <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>💻</span>
                   System Requirements
                 </h2>
                 
@@ -669,13 +736,13 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   fontWeight: '400',
                   margin: '40px 0 20px 0',
                   borderBottom: '1px solid',
-                  borderImage: 'linear-gradient(to right, rgba(233, 30, 99, 0.4), rgba(156, 39, 176, 0.3)) 1',
+                  borderImage: headingBorderImage,
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px'
                 }}>
-                  <span style={{ color: '#e91e63', opacity: 0.7, fontSize: '24px' }}>📚</span>
+                  <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>📚</span>
                   Basic Usage
                 </h2>
                 <p style={{
@@ -714,13 +781,13 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   fontWeight: '400',
                   margin: '40px 0 20px 0',
                   borderBottom: '1px solid',
-                  borderImage: 'linear-gradient(to right, rgba(233, 30, 99, 0.4), rgba(156, 39, 176, 0.3)) 1',
+                  borderImage: headingBorderImage,
                   paddingBottom: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px'
                 }}>
-                  <span style={{ color: '#e91e63', opacity: 0.7, fontSize: '24px' }}>🎵</span>
+                  <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>🎵</span>
                   Creating Worship Sets
                 </h2>
                 <p style={{

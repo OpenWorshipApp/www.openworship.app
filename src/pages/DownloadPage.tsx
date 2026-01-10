@@ -11,6 +11,17 @@ interface DownloadPageProps {
   onNavigate?: (page: string) => void;
 }
 
+interface FeatureHighlight {
+  key: string;
+  icon: string;
+  title: string;
+  description: string;
+  accent: string;
+  accentShadow: string;
+  border: string;
+  softGradient: string;
+}
+
 const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
   const [versionInfo, setVersionInfo] = useState<VersionInfo | null>(null);
   const [copiedChecksum, setCopiedChecksum] = useState<string>('');
@@ -102,7 +113,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
       icon = 'bi bi-lightning-charge-fill';
       text = 'Apple Silicon';
     } else if (isIntel) {
-      color = '#3b82f6';
+      color = '#ff8c42';
       icon = 'bi bi-cpu-fill';
       text = 'Intel';
     }
@@ -458,6 +469,39 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
     ) : null;
   };
 
+  const featureHighlights: FeatureHighlight[] = [
+    {
+      key: 'music',
+      icon: 'bi bi-music-note-beamed',
+      title: 'Worship Sets',
+      description: 'Create and manage song lists for services.',
+      accent: '#ff6ec7',
+      accentShadow: '0 18px 35px rgba(255, 110, 199, 0.35)',
+      border: 'rgba(255, 110, 199, 0.35)',
+      softGradient: 'linear-gradient(145deg, rgba(255,110,199,0.18), rgba(33,7,45,0.45))'
+    },
+    {
+      key: 'bible',
+      icon: 'bi bi-book',
+      title: 'Bible & Scripture',
+      description: 'Easily display verses and passages.',
+      accent: '#a78bfa',
+      accentShadow: '0 18px 35px rgba(167, 139, 250, 0.3)',
+      border: 'rgba(167, 139, 250, 0.4)',
+      softGradient: 'linear-gradient(145deg, rgba(129,140,248,0.22), rgba(32,22,55,0.5))'
+    },
+    {
+      key: 'planning',
+      icon: 'bi bi-calendar-event',
+      title: 'Service Planning',
+      description: 'Organize your entire service flow seamlessly.',
+      accent: '#34d399',
+      accentShadow: '0 18px 35px rgba(52, 211, 153, 0.3)',
+      border: 'rgba(52, 211, 153, 0.4)',
+      softGradient: 'linear-gradient(145deg, rgba(52,211,153,0.18), rgba(9,32,32,0.55))'
+    }
+  ];
+
   // navigation handled by MenuBar via hash links; no page-level handler needed here
 
   return (
@@ -721,63 +765,79 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
         <hr className="my-5" />
 
         <div className="card-grid grid-3">
-          <div 
-            className="feature-card feature-card--music modern-card card-interactive card-animate-in" 
-            onMouseMove={handleMouseMove}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-6px) scale(1.03)';
-              e.currentTarget.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            }}
-          >
-            <div className="card-content">
-              <div className="card-body">
-                <div className="feature-icon icon-music"><i className="bi bi-music-note-beamed"></i></div>
-                <h5 className="card-title">Worship Sets</h5>
-                <p className="card-text">Create and manage song lists for services.</p>
+          {featureHighlights.map((card) => (
+            <div
+              key={card.key}
+              onMouseMove={handleMouseMove}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.boxShadow = `0 16px 32px rgba(0,0,0,0.45), ${card.accentShadow}`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 8px 18px rgba(0,0,0,0.35)';
+              }}
+              style={{
+                position: 'relative',
+                borderRadius: '22px',
+                padding: 0,
+                background: 'rgba(2,6,23,0.9)',
+                border: '1px solid rgba(148,163,184,0.12)',
+                transition: 'transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease',
+                boxShadow: '0 8px 18px rgba(0,0,0,0.35)'
+              }}
+            >
+              <div
+                style={{
+                  borderRadius: '20px',
+                  padding: '28px',
+                  background: 'linear-gradient(150deg, rgba(8,11,24,0.96), rgba(2,6,23,0.9))',
+                  minHeight: '220px',
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px'
+                }}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '18px',
+                    left: '32px',
+                    width: '14px',
+                    height: '14px',
+                    borderRadius: '50%',
+                    background: `radial-gradient(circle, ${card.accent}, transparent 65%)`,
+                    boxShadow: `0 0 14px ${card.accent}aa`,
+                    opacity: 0.9
+                  }}
+                ></div>
+                <div
+                  style={{
+                    width: '64px',
+                    height: '64px',
+                    borderRadius: '18px',
+                    background: card.softGradient,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontSize: '30px',
+                    boxShadow: card.accentShadow,
+                    marginBottom: '4px'
+                  }}
+                >
+                  <i className={card.icon}></i>
+                </div>
+                <h5 style={{ color: '#f8fafc', fontSize: '21px', fontWeight: 700, margin: 0 }}>
+                  {card.title}
+                </h5>
+                <p style={{ color: '#d0d5e7', fontSize: '15px', lineHeight: 1.6, margin: 0 }}>
+                  {card.description}
+                </p>
               </div>
             </div>
-          </div>
-          <div 
-            className="feature-card feature-card--bible modern-card card-interactive card-animate-in" 
-            onMouseMove={handleMouseMove}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-6px) scale(1.03)';
-              e.currentTarget.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            }}
-          >
-            <div className="card-content">
-              <div className="card-body">
-                <div className="feature-icon icon-bible"><i className="bi bi-book"></i></div>
-                <h5 className="card-title">Bible & Scripture</h5>
-                <p className="card-text">Easily display verses and passages.</p>
-              </div>
-            </div>
-          </div>
-          <div 
-            className="feature-card feature-card--planning modern-card card-interactive card-animate-in" 
-            onMouseMove={handleMouseMove}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-6px) scale(1.03)';
-              e.currentTarget.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            }}
-          >
-            <div className="card-content">
-              <div className="card-body">
-                <div className="feature-icon icon-calendar"><i className="bi bi-calendar-event"></i></div>
-                <h5 className="card-title">Service Planning</h5>
-                <p className="card-text">Organize your entire service flow seamlessly.</p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 

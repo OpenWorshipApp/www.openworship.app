@@ -4,6 +4,86 @@ interface HomePageProps {
   onNavigate?: (page: string) => void;
 }
 
+const crossPositions = [
+  { top: '8%', left: '12%', rotate: -6 },
+  { top: '22%', left: '68%', rotate: 18 },
+  { top: '40%', left: '30%', rotate: -22 },
+  { top: '58%', left: '80%', rotate: 12 },
+  { top: '72%', left: '18%', rotate: 32 },
+  { top: '15%', left: '82%', rotate: -18 },
+  { top: '64%', left: '55%', rotate: 4 },
+  { top: '32%', left: '6%', rotate: -12 },
+];
+
+const ministryStats = [
+  { value: '1,200+', label: 'weekly services planned', accent: '#e91e63' },
+  { value: '38', label: 'countries streaming', accent: '#9c27b0' },
+  { value: '24/7', label: 'community + prayer support', accent: '#673ab7' },
+];
+
+const featureCards = [
+  {
+    icon: '🎵',
+    title: 'Worship Song Management',
+    description: 'Organize hymns, worship sets, lyrics, and chord charts to lead your congregation in joyful praise.',
+    color: '#ff6ec7',
+    hoverBackground: 'linear-gradient(135deg, rgba(255,110,199,0.25), rgba(255,60,130,0.18))',
+    hoverBorder: 'rgba(255,110,199,0.7)',
+    hoverShadow: '0 18px 45px rgba(255,60,130,0.35)',
+    iconGlow: 'rgba(255,110,199,0.45)',
+  },
+  {
+    icon: '✝️',
+    title: 'Scripture Display',
+    description: "Display God's Word with multiple translations, search, and beautiful typography for every reading.",
+    color: '#9c27b0',
+    hoverBackground: 'linear-gradient(135deg, rgba(156,39,176,0.18), rgba(129,140,248,0.14))',
+    hoverBorder: 'rgba(156,39,176,0.65)',
+    hoverShadow: '0 18px 45px rgba(156,39,176,0.35)',
+    iconGlow: 'rgba(156,39,176,0.45)',
+  },
+  {
+    icon: '🕊️',
+    title: 'Live Presentation',
+    description: 'Dual-screen support, countdown timers, cues, and transitions designed for Spirit-led services.',
+    color: '#673ab7',
+    hoverBackground: 'linear-gradient(135deg, rgba(103,58,183,0.18), rgba(129,230,217,0.14))',
+    hoverBorder: 'rgba(103,58,183,0.6)',
+    hoverShadow: '0 18px 45px rgba(103,58,183,0.35)',
+    iconGlow: 'rgba(103,58,183,0.4)',
+  },
+  {
+    icon: '🌟',
+    title: 'Sacred Themes',
+    description: 'Faith-inspired themes, backgrounds, typography, and motion loops sized for every projector.',
+    color: '#3f51b5',
+    hoverBackground: 'linear-gradient(135deg, rgba(63,81,181,0.18), rgba(56,189,248,0.12))',
+    hoverBorder: 'rgba(63,81,181,0.6)',
+    hoverShadow: '0 18px 45px rgba(63,81,181,0.32)',
+    iconGlow: 'rgba(63,81,181,0.4)',
+  },
+  {
+    icon: '🙏',
+    title: 'Remote Ministry',
+    description: 'Enable worship leaders to control presentations from anywhere in the sanctuary or backstage.',
+    color: '#2196f3',
+    hoverBackground: 'linear-gradient(135deg, rgba(33,150,243,0.2), rgba(59,216,171,0.14))',
+    hoverBorder: 'rgba(33,150,243,0.6)',
+    hoverShadow: '0 18px 45px rgba(33,150,243,0.32)',
+    iconGlow: 'rgba(33,150,243,0.4)',
+  },
+  {
+    icon: '⛪',
+    title: 'Church Network',
+    description: 'Share and sync worship content across campuses, livestreams, and multilingual services instantly.',
+    color: '#00bcd4',
+    hoverBackground: 'linear-gradient(135deg, rgba(0,188,212,0.18), rgba(16,185,129,0.14))',
+    hoverBorder: 'rgba(0,188,212,0.6)',
+    hoverShadow: '0 18px 45px rgba(0,188,212,0.32)',
+    iconGlow: 'rgba(0,188,212,0.4)',
+  },
+];
+
 const HomePage = ({ onNavigate }: HomePageProps) => {
   return (
     <div style={{ 
@@ -47,16 +127,17 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
         right: '5%',
         bottom: '10%',
         zIndex: 1,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        mixBlendMode: 'screen'
       }}>
         {/* Decorative Crosses */}
-        {[...Array(8)].map((_, i) => (
+        {crossPositions.map((cross, i) => (
           <div key={i} style={{
             position: 'absolute',
-            top: `${Math.random() * 80}%`,
-            left: `${Math.random() * 90}%`,
+            top: cross.top,
+            left: cross.left,
             opacity: 0.03,
-            transform: `rotate(${Math.random() * 360}deg)`
+            transform: `rotate(${cross.rotate}deg)`
           }}>
             <div style={{
               width: '2px',
@@ -381,6 +462,47 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
         </div>
       </section>
 
+      {/* Ministry stats */}
+      <section style={{
+        position: 'relative',
+        zIndex: 10,
+        padding: '0 40px 60px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: '28px'
+      }}>
+        {ministryStats.map((stat) => (
+          <div key={stat.label} style={{
+            minWidth: '240px',
+            padding: '28px 32px',
+            borderRadius: '20px',
+            border: '1px solid rgba(255,255,255,0.08)',
+            background: 'rgba(10,10,10,0.6)',
+            backdropFilter: 'blur(12px)',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.35)'
+          }}>
+            <p style={{
+              fontSize: '40px',
+              fontWeight: 700,
+              margin: 0,
+              color: stat.accent
+            }}>
+              {stat.value}
+            </p>
+            <p style={{
+              margin: '8px 0 0',
+              color: '#c7c7d9',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              fontSize: '12px'
+            }}>
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </section>
+
       {/* Features Section */}
       <section style={{
         position: 'relative',
@@ -421,44 +543,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           marginBottom: '80px'
         }}>
           {/* Feature Cards */}
-          {[
-            {
-              icon: '🎵',
-              title: 'Worship Song Management',
-              description: 'Organize hymns, worship sets, lyrics, and chord charts to lead your congregation in joyful praise',
-              color: '#e91e63'
-            },
-            {
-              icon: '✝️',
-              title: 'Scripture Display',
-              description: "Display God's Word with multiple Bible translations, search functionality, and beautiful typography",
-              color: '#9c27b0'
-            },
-            {
-              icon: '🕊️',
-              title: 'Live Presentation',
-              description: 'Seamless presentation with dual-screen support, smooth transitions, and Spirit-led flexibility',
-              color: '#673ab7'
-            },
-            {
-              icon: '🌟',
-              title: 'Sacred Themes',
-              description: 'Create reverent presentations with faith-inspired themes, backgrounds, and typography',
-              color: '#3f51b5'
-            },
-            {
-              icon: '🙏',
-              title: 'Remote Ministry',
-              description: 'Enable worship leaders to control presentations from anywhere in the sanctuary',
-              color: '#2196f3'
-            },
-            {
-              icon: '⛪',
-              title: 'Church Network',
-              description: 'Share and sync worship content across multiple services and church campuses',
-              color: '#00bcd4'
-            }
-          ].map((feature, index) => (
+          {featureCards.map((feature, index) => (
             <div key={index} style={{
               background: 'rgba(255, 255, 255, 0.03)',
               border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -470,10 +555,10 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
               backdropFilter: 'blur(10px)'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(233, 30, 99, 0.05)';
-              e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.6)';
+              e.currentTarget.style.background = feature.hoverBackground;
+              e.currentTarget.style.borderColor = feature.hoverBorder;
               e.currentTarget.style.transform = 'translateY(-8px)';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(233, 30, 99, 0.3), inset 0 0 20px rgba(233, 30, 99, 0.1)';
+              e.currentTarget.style.boxShadow = `${feature.hoverShadow}, inset 0 0 20px ${feature.hoverBorder.replace('0.', '0.2')}`;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
@@ -484,7 +569,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
               <div style={{ 
                 fontSize: '64px', 
                 marginBottom: '24px',
-                filter: 'drop-shadow(0 0 12px rgba(233, 30, 99, 0.4))'
+                filter: `drop-shadow(0 0 12px ${feature.iconGlow})`
               }}>
                 {feature.icon}
               </div>

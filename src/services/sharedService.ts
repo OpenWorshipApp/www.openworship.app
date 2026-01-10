@@ -49,16 +49,24 @@ class SharedService {
     
     try {
       console.log(`SharedService: Downloading ${filename} from ${url}`);
-      
+
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch asset: ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
       const link = document.createElement('a');
-      link.href = url;
+      link.href = blobUrl;
       link.download = filename;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
       
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
       
       console.log(`SharedService: Download initiated for ${filename}`);
     } catch (error) {
