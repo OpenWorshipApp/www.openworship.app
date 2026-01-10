@@ -1,0 +1,425 @@
+{
+  "home": {
+    "links": {
+      "github": "Forkez-nous sur GitHub",
+      "youtube": "YouTube"
+    },
+    "title": "Open Worship",
+    "subtitle": "Logiciel professionnel de présentation de louange qui fortifie les églises du monde entier",
+    "tagline": "Gratuit • Open source • Puissant",
+    "verse": {
+      "text": "\"Poussez vers l’Éternel des cris de joie, vous tous habitants de la terre; servez l’Éternel avec joie, venez avec allégresse en sa présence.\"",
+      "reference": "— Psaume 100:1-2"
+    },
+    "buttons": {
+      "download": "Télécharger maintenant",
+      "learnMore": "En savoir plus"
+    },
+    "stats": {
+      "weekly": "cultes hebdomadaires planifiés",
+      "countries": "pays en diffusion",
+      "support": "communauté + soutien de prière"
+    },
+    "features": {
+      "heading": "Équipé pour le ministère",
+      "subheading": "Des fonctionnalités puissantes conçues pour glorifier Dieu par la louange et le service",
+      "cards": {
+        "song": {
+          "title": "Gestion des chants de louange",
+          "description": "Organisez hymnes, sets de louange, paroles et grilles d’accords pour conduire l’assemblée dans la joie."
+        },
+        "scripture": {
+          "title": "Affichage des Écritures",
+          "description": "Affichez la Parole avec de multiples traductions, la recherche et une typographie soignée pour chaque lecture."
+        },
+        "live": {
+          "title": "Présentation en direct",
+          "description": "Support bi-écran, minuteries, rappels et transitions pensés pour des cultes guidés par l’Esprit."
+        },
+        "themes": {
+          "title": "Thèmes sacrés",
+          "description": "Thèmes inspirés de la foi, arrière-plans, typographies et boucles vidéo adaptés à tout projecteur."
+        },
+        "remote": {
+          "title": "Ministère à distance",
+          "description": "Permettez aux leaders de contrôler les présentations de n’importe où dans le sanctuaire ou en coulisses."
+        },
+        "network": {
+          "title": "Réseau d’églises",
+          "description": "Partagez et synchronisez le contenu de louange entre campus, diffusions en direct et services multilingues."
+        }
+      }
+    },
+    "cta": {
+      "title": "Open source • Gratuit pour toujours • Pour sa gloire",
+      "description": "Rejoignez notre communauté de développeurs et de responsables de louange qui créent de la technologie au service de l’Église",
+      "button": "Voir sur GitHub"
+    }
+  },
+  "about": {
+    "heroTitle": "À propos d’Open Worship",
+    "heroFeaturesTitle": "Tout ce dont vous avez besoin pour la louange",
+    "heroFeatures": {
+      "worshipSets": {
+        "title": "Listes de chants",
+        "description": "Gestion fluide des chants"
+      },
+      "bible": {
+        "title": "Bible & Écriture",
+        "description": "Multiples traductions"
+      },
+      "planning": {
+        "title": "Planification du culte",
+        "description": "Contrôle complet du déroulé"
+      }
+    },
+    "body": {
+      "paragraphs": [
+        "Open Worship est un logiciel gratuit et open source de présentation de louange, conçu spécifiquement pour les églises, équipes de louange et organisations religieuses.",
+        "Notre logiciel fournit tous les outils nécessaires pour créer des cultes engageants et professionnels — de l’affichage des paroles et des versets bibliques à la gestion de l’intégralité du service depuis une interface intuitive.",
+        "Construit par la communauté, pour la communauté. Open Worship est développé par des bénévoles qui comprennent les besoins des cultes modernes.",
+        "Le meilleur : Open Worship est entièrement gratuit et open source, vous pouvez donc l’utiliser sans frais de licence et même contribuer à son évolution."
+      ]
+    },
+    "actions": {
+      "download": "Télécharger maintenant",
+      "github": "Fork sur GitHub"
+    },
+    "stats": {
+      "free": {
+        "value": "100%",
+        "label": "Gratuit & open source"
+      },
+      "license": {
+        "value": "∞",
+        "label": "Aucun frais de licence"
+      },
+      "support": {
+        "value": "24/7",
+        "label": "Support communautaire"
+      }
+    },
+    "cta": {
+      "title": "Prêt à transformer votre expérience de louange ?",
+      "description": "Rejoignez des milliers d’églises à travers le monde qui utilisent Open Worship pour créer des cultes riches de sens et engageants."
+    }
+  },
+  "contact": {
+    "heroTitle": "Prenez contact",
+    "heroSubtitle": "Des questions ? Besoin d’aide ? Envie de contribuer ? Nous serions ravis d’échanger avec vous !",
+    "email": {
+      "intro": "Pour toute assistance, écrivez-nous à",
+      "address": "owf2025@gmail.com"
+    },
+    "cards": {
+      "community": {
+        "title": "Support communautaire",
+        "description": "Rejoignez nos discussions communautaires et obtenez de l’aide d’autres utilisateurs.",
+        "linkLabel": "Voir les discussions →"
+      },
+      "issues": {
+        "title": "Signaler un problème",
+        "description": "Vous avez trouvé un bug ? Signalez-le sur notre page GitHub Issues.",
+        "linkLabel": "Signaler un problème →"
+      },
+      "contribute": {
+        "title": "Contribuer",
+        "description": "Vous souhaitez améliorer Open Worship ? Toutes les contributions sont les bienvenues !",
+        "linkLabel": "Voir le dépôt →"
+      }
+    },
+    "cta": {
+      "title": "Prêt à démarrer ?",
+      "description": "Téléchargez Open Worship dès aujourd’hui et transformez vos cultes.",
+      "button": "Télécharger maintenant"
+    }
+  },
+  "googleTranslate": {
+    "title": "Vigilance Google Translate",
+    "subtitle": "Certains textes d’Open Worship sont traduits via Google Translate. La traduction automatique peut perdre des nuances, vérifiez donc les contenus importants avant de les présenter.",
+    "cards": {
+      "review": {
+        "title": "Vérifier la précision",
+        "description": "Relisez les paroles, passages bibliques et annonces traduits automatiquement."
+      },
+      "context": {
+        "title": "Le contexte compte",
+        "description": "Les expressions idiomatiques se traduisent parfois mal. Adaptez le vocabulaire à votre assemblée."
+      },
+      "feedback": {
+        "title": "Inviter les retours",
+        "description": "Encouragez les membres bilingues à signaler les erreurs pour améliorer les versions futures."
+      }
+    },
+    "report": {
+      "title": "Vous voyez une traduction erronée ?",
+      "description": "Informez-nous des erreurs afin que nous proposions des textes localisés de meilleure qualité.",
+      "button": "Signaler un problème de traduction"
+    }
+  },
+  "aiVigilant": {
+    "title": "AI Vigilant",
+    "subtitle": "Les contenus générés par l’IA doivent être revus avec attention. Vérifiez les paroles, versets ou traductions avant toute projection.",
+    "cards": {
+      "review": {
+        "title": "Relire et confirmer",
+        "description": "Revérifiez les paroles, versets et traductions produits par l’IA avant de les diffuser."
+      },
+      "accountability": {
+        "title": "Maintenir la responsabilité",
+        "description": "Gardez au moins un réviseur humain pour valider le contenu de louange généré par l’IA."
+      },
+      "protect": {
+        "title": "Protéger l’assemblée",
+        "description": "Assurez une exactitude théologique afin d’offrir un message fidèle et fiable."
+      }
+    },
+    "report": {
+      "title": "Signaler un résultat IA ?",
+      "description": "Si vous constatez des erreurs ou contenus dangereux générés par l’IA dans Open Worship, informez-nous afin d’améliorer nos protections.",
+      "button": "Contacter le support"
+    }
+  },
+  "menu": {
+    "items": {
+      "home": "Accueil",
+      "docs": "Docs",
+      "download": "Télécharger",
+      "shared": {
+        "card": {
+          "view": "Voir",
+          "download": "Télécharger"
+        },
+        "loading": "Chargement des ressources partagées...",
+        "error": {
+          "fetch": "Impossible de charger les ressources partagées. Veuillez réessayer plus tard."
+        },
+        "empty": {
+          "message": "Aucune ressource partagée n’est disponible pour le moment."
+        },
+        "header": {
+          "backButton": "Retour à l’accueil",
+          "title": "Partages",
+          "description": "Toutes les ressources présentées ici sont libres de droit et peuvent être réutilisées."
+        },
+        "sections": {
+          "images": "Images",
+          "videos": "Vidéos"
+        }
+      },
+      "aiVigilant": "AI Vigilant",
+      "googleTranslate": "Google Translate",
+      "about": "À propos",
+      "contact": "Contact"
+    }
+  },
+  "download": {
+    "nav": {
+      "home": "Retour à l’accueil",
+      "github": "Fork sur GitHub",
+      "youtube": "YouTube"
+    },
+    "hero": {
+      "title": "Téléchargements",
+      "subtitle": "Obtenez la dernière version d’Open Worship pour votre plateforme."
+    },
+    "warning": {
+      "safariTitle": "Navigateur Safari détecté",
+      "safariBody": "Safari peut mal détecter l’architecture CPU Apple. Nous recommandons d’utiliser Chrome, Edge ou Firefox pour une meilleure expérience de téléchargement."
+    },
+    "mac": {
+      "toggleTooltip": "Afficher/masquer les instructions macOS",
+      "watchTutorial": "Voir le tutoriel d’installation"
+    },
+    "cards": {
+      "installer": "Programme d’installation",
+      "portable": "ZIP portable",
+      "checksumLabel": "Checksum (sha512) :",
+      "commitLabel": "Commit ID :",
+      "copy": "Copier",
+      "copied": "Copié !",
+      "failed": "Échec",
+      "loading": "Chargement..."
+    },
+    "features": {
+      "music": {
+        "title": "Listes de chants",
+        "description": "Créez et gérez vos listes de chants pour les cultes."
+      },
+      "bible": {
+        "title": "Bible & Écriture",
+        "description": "Affichez facilement versets et passages."
+      },
+      "planning": {
+        "title": "Planification du culte",
+        "description": "Organisez sans effort tout le déroulé de votre service."
+      }
+    }
+  },
+  "docs": {
+    "searchPlaceholder": "Rechercher dans la documentation...",
+    "nav": {
+      "gettingStarted": {
+        "title": "Bien démarrer",
+        "items": {
+          "overview": "Vue d’ensemble",
+          "installation": "Installation",
+          "quickStart": "Guide rapide",
+          "systemRequirements": "Configuration requise"
+        }
+      },
+      "userGuide": {
+        "title": "Guide utilisateur",
+        "items": {
+          "basicUsage": "Utilisation de base",
+          "worshipSets": "Créer des séquences",
+          "bibleDisplay": "Bible & Écriture",
+          "presentationMode": "Mode présentation",
+          "slideEditor": "Éditeur de diapositives"
+        }
+      },
+      "features": {
+        "title": "Fonctionnalités",
+        "items": {
+          "songManagement": "Gestion des chants",
+          "bibleSearch": "Recherche biblique",
+          "livePresentation": "Présentation en direct",
+          "multiScreen": "Multi-écran",
+          "backgroundMedia": "Arrière-plans & médias"
+        }
+      },
+      "advanced": {
+        "title": "Avancé",
+        "items": {
+          "keyboardShortcuts": "Raccourcis clavier",
+          "troubleshooting": "Dépannage",
+          "contributing": "Contribution",
+          "techStack": "Pile technologique"
+        }
+      }
+    },
+    "hero": {
+      "title": "Documentation Open Worship",
+      "intro": "Bienvenue sur Open Worship — un logiciel de présentation de louange puissant, gratuit et open source, conçu pour les églises et les équipes de louange.",
+      "verse": {
+        "text": "\"Que la parole de Christ habite parmi vous richement ; instruisez-vous et exhortez-vous les uns les autres en toute sagesse, par des psaumes, des hymnes et des cantiques spirituels, chantant à Dieu dans vos cœurs sous l’inspiration de la grâce.\"",
+        "reference": "— Colossiens 3:16"
+      },
+      "calloutPrefix": "Nouveau sur Open Worship ?",
+      "calloutLink": "Guide rapide",
+      "calloutSuffix": "pour être opérationnel en quelques minutes."
+    },
+    "overviewFeatures": {
+      "song": {
+        "title": "Gestion des chants de louange",
+        "desc": "Organisez vos listes de chants, hymnes et paroles pour conduire l’assemblée dans la louange."
+      },
+      "scripture": {
+        "title": "Affichage des Écritures",
+        "desc": "Affichez la Parole avec plusieurs traductions, une recherche et une navigation par verset."
+      },
+      "live": {
+        "title": "Présentation en direct",
+        "desc": "Un mode guidé par l’Esprit avec prise en charge multi-écran et contrôle en temps réel."
+      },
+      "customization": {
+        "title": "Personnalisation pour l’église",
+        "desc": "Thèmes et arrière-plans élégants pour honorer Dieu et servir votre ministère."
+      }
+    },
+    "installation": {
+      "title": "Installation",
+      "intro": "Installez Open Worship sur votre système grâce à nos installateurs simples.",
+      "downloadOptionsHeading": "Options de téléchargement",
+      "downloadOptions": [
+        "Windows : téléchargez l’installeur .exe pour une configuration automatique",
+        "macOS : téléchargez le fichier .dmg pour une installation par glisser-déposer",
+        "Linux : téléchargez le paquet .deb ou l’AppImage pour une utilisation portable"
+      ],
+      "ctaPrefix": "Visitez la",
+      "ctaLink": "page de téléchargement",
+      "ctaSuffix": "pour obtenir la dernière version."
+    },
+    "quickStart": {
+      "title": "Guide rapide",
+      "intro": "Suivez ces étapes pour préparer votre premier culte avec Open Worship :",
+      "steps": [
+        {
+          "heading": "Lancez l’application",
+          "body": "Après l’installation, ouvrez Open Worship depuis votre menu ou votre raccourci."
+        },
+        {
+          "heading": "Créez votre première séquence",
+          "list": [
+            "Cliquez sur « Gestion des chants » dans le menu principal",
+            "Ajoutez des chants via le bouton « Ajouter un chant »",
+            "Composez une nouvelle séquence et organisez l’ordre"
+          ]
+        },
+        {
+          "heading": "Ajoutez des lectures bibliques",
+          "list": [
+            "Allez dans « Bible & Écriture »",
+            "Recherchez des versets grâce au moteur intégré",
+            "Ajoutez les versets choisis dans votre séquence"
+          ]
+        },
+        {
+          "heading": "Démarrez le mode présentation",
+          "list": [
+            "Cliquez sur « Mode Présentation »",
+            "Utilisez les flèches ou la souris pour naviguer",
+            "Appuyez sur F11 pour le plein écran"
+          ]
+        }
+      ]
+    },
+    "systemRequirements": {
+      "title": "Configuration requise",
+      "minimumHeading": "Minimum",
+      "minimum": [
+        "Système : Windows 10+, macOS 10.14+ ou Linux (Ubuntu 18.04+)",
+        "RAM : 4 Go minimum, 8 Go recommandés",
+        "Stockage : 500 Mo disponibles",
+        "Affichage : résolution 1024x768 minimum"
+      ],
+      "devHeading": "Pour le développement",
+      "dev": [
+        "Node.js v22 ou plus",
+        ".NET 8.0 SDK",
+        "Git pour le contrôle de version (Cygwin recommandé sur Windows)"
+      ]
+    },
+    "basicUsage": {
+      "title": "Utilisation de base",
+      "intro": "Apprenez les fondamentaux pour utiliser Open Worship pendant vos cultes.",
+      "mainInterfaceHeading": "Interface principale",
+      "mainInterfaceIntro": "L’interface comprend plusieurs zones clés :",
+      "areas": [
+        "Éditeur : créer et modifier diapositives, chants et présentations",
+        "Présentateur : contrôler les projections en direct",
+        "Lecteur : consulter et gérer votre bibliothèque",
+        "Recherche : trouver du contenu dans tout le projet"
+      ]
+    },
+    "worshipSets": {
+      "title": "Créer des séquences de louange",
+      "intro": "Organisez votre contenu en ensembles cohérents pour des cultes fluides.",
+      "addingSongsHeading": "Ajouter des chants",
+      "addingSongsSteps": [
+        "Accédez à la gestion des chants",
+        "Cliquez sur « Ajouter un chant »",
+        "Renseignez le titre, les paroles et les métadonnées",
+        "Enregistrez dans votre bibliothèque"
+      ]
+    },
+    "footer": {
+      "links": {
+        "home": "Accueil",
+        "download": "Télécharger",
+        "about": "À propos"
+      },
+      "copyright": "© 2025 Open Worship. Tous droits réservés."
+    }
+  }
+}

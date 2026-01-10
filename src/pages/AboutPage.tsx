@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 
 interface AboutPageProps {
@@ -5,6 +6,14 @@ interface AboutPageProps {
 }
 
 const AboutPage = ({ onNavigate }: AboutPageProps) => {
+  const { t } = useTranslation();
+  const heroFeatures = t('about.heroFeatures', { returnObjects: true }) as Record<
+    string,
+    { title: string; description: string }
+  >;
+  const bodyParagraphs = t('about.body.paragraphs', { returnObjects: true }) as string[];
+  const stats = t('about.stats', { returnObjects: true }) as Record<string, { value: string; label: string }>;
+
   return (
     <div style={{ 
       minHeight: '200vh', 
@@ -60,7 +69,7 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
         }}>
-          About Open Worship
+          {t('about.heroTitle')}
         </h1>
         
         {/* Hero Features Section */}
@@ -82,7 +91,7 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
             marginBottom: '30px',
             textAlign: 'center'
           }}>
-            Everything You Need for Worship
+            {t('about.heroFeaturesTitle')}
           </h2>
           
           <div style={{
@@ -93,44 +102,24 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
             flexWrap: 'wrap',
             gap: '40px'
           }}>
-            <div style={{ textAlign: 'center', flex: '1', minWidth: '200px' }}>
-              <div style={{
-                fontSize: '48px',
-                marginBottom: '15px'
-              }}>🎵</div>
-              <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-                Worship Sets
-              </h3>
-              <p style={{ color: '#aaa', fontSize: '14px' }}>
-                Seamless song management
-              </p>
-            </div>
-            
-            <div style={{ textAlign: 'center', flex: '1', minWidth: '200px' }}>
-              <div style={{
-                fontSize: '48px',
-                marginBottom: '15px'
-              }}>📖</div>
-              <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-                Bible & Scripture
-              </h3>
-              <p style={{ color: '#aaa', fontSize: '14px' }}>
-                Multiple translations
-              </p>
-            </div>
-            
-            <div style={{ textAlign: 'center', flex: '1', minWidth: '200px' }}>
-              <div style={{
-                fontSize: '48px',
-                marginBottom: '15px'
-              }}>📅</div>
-              <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-                Service Planning
-              </h3>
-              <p style={{ color: '#aaa', fontSize: '14px' }}>
-                Complete flow control
-              </p>
-            </div>
+            {[
+              { key: 'worshipSets', icon: '🎵' },
+              { key: 'bible', icon: '📖' },
+              { key: 'planning', icon: '📅' }
+            ].map(({ key, icon }) => (
+              <div key={key} style={{ textAlign: 'center', flex: '1', minWidth: '200px' }}>
+                <div style={{
+                  fontSize: '48px',
+                  marginBottom: '15px'
+                }}>{icon}</div>
+                <h3 style={{ color: '#ffffff', fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
+                  {heroFeatures?.[key]?.title}
+                </h3>
+                <p style={{ color: '#aaa', fontSize: '14px' }}>
+                  {heroFeatures?.[key]?.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -141,26 +130,11 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
           marginBottom: '40px',
           textAlign: 'left'
         }}>
-          <p style={{ marginBottom: '20px' }}>
-            Open Worship is a free, open-source worship presentation software designed specifically 
-            for churches, worship teams, and religious organizations.
-          </p>
-          
-          <p style={{ marginBottom: '20px' }}>
-            Our software provides all the tools you need to create engaging, professional worship 
-            experiences - from displaying song lyrics and Bible verses to managing your entire 
-            worship service from one intuitive interface.
-          </p>
-          
-          <p style={{ marginBottom: '20px' }}>
-            Built by the community, for the community. Open Worship is developed by volunteers 
-            who understand the needs of modern worship services.
-          </p>
-          
-          <p>
-            Best of all, Open Worship is completely free and open-source, meaning you can use it 
-            without any licensing fees and even contribute to its development.
-          </p>
+          {bodyParagraphs.map((paragraph, index) => (
+            <p key={paragraph} style={{ marginBottom: index === bodyParagraphs.length - 1 ? 0 : '20px' }}>
+              {paragraph}
+            </p>
+          ))}
         </div>
         
         <div style={{ 
@@ -210,7 +184,7 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
               <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
               <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
             </svg>
-            Download Now
+            {t('about.actions.download')}
           </button>
           
           <a 
@@ -249,7 +223,7 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
             <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
             </svg>
-            Fork on GitHub
+            {t('about.actions.github')}
           </a>
         </div>
 
@@ -263,35 +237,17 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
           gap: '40px',
           marginBottom: '60px'
         }}>
-          <div style={{ textAlign: 'center' }}>
-            <div style={{
-              fontSize: '48px',
-              fontWeight: '700',
-              color: '#ffffff',
-              marginBottom: '8px'
-            }}>100%</div>
-            <p style={{ color: '#aaa', fontSize: '16px' }}>Free & Open Source</p>
-          </div>
-          
-          <div style={{ textAlign: 'center' }}>
-            <div style={{
-              fontSize: '48px',
-              fontWeight: '700',
-              color: '#ffffff',
-              marginBottom: '8px'
-            }}>∞</div>
-            <p style={{ color: '#aaa', fontSize: '16px' }}>No License Fees</p>
-          </div>
-          
-          <div style={{ textAlign: 'center' }}>
-            <div style={{
-              fontSize: '48px',
-              fontWeight: '700',
-              color: '#ffffff',
-              marginBottom: '8px'
-            }}>24/7</div>
-            <p style={{ color: '#aaa', fontSize: '16px' }}>Community Support</p>
-          </div>
+          {['free', 'license', 'support'].map((key) => (
+            <div key={key} style={{ textAlign: 'center' }}>
+              <div style={{
+                fontSize: '48px',
+                fontWeight: '700',
+                color: '#ffffff',
+                marginBottom: '8px'
+              }}>{stats?.[key]?.value}</div>
+              <p style={{ color: '#aaa', fontSize: '16px' }}>{stats?.[key]?.label}</p>
+            </div>
+          ))}
         </div>
 
         {/* Call to Action Banner */}
@@ -313,7 +269,7 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
             fontWeight: '600',
             marginBottom: '20px'
           }}>
-            Ready to Transform Your Worship Experience?
+            {t('about.cta.title')}
           </h2>
           
           <p style={{
@@ -323,7 +279,7 @@ const AboutPage = ({ onNavigate }: AboutPageProps) => {
             maxWidth: '600px',
             margin: '0 auto 30px'
           }}>
-            Join thousands of churches worldwide using Open Worship to create meaningful, engaging worship services.
+            {t('about.cta.description')}
           </p>
         </div>
       </div>

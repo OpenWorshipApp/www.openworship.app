@@ -1,0 +1,463 @@
+{
+  "home": {
+    "links": {
+      "github": "Fork me on Github",
+      "youtube": "YouTube"
+    },
+    "title": "Open Worship",
+    "subtitle": "Professional worship presentation software that empowers churches worldwide",
+    "tagline": "Free • Open Source • Powerful",
+    "verse": {
+      "text": "\"Make a joyful noise unto the Lord, all ye lands. Serve the Lord with gladness: come before his presence with singing.\"",
+      "reference": "— Psalm 100:1-2"
+    },
+    "buttons": {
+      "download": "Download Now",
+      "learnMore": "Learn More"
+    },
+    "stats": {
+      "weekly": "weekly services planned",
+      "countries": "countries streaming",
+      "support": "community + prayer support"
+    },
+    "features": {
+      "heading": "Equipped for Ministry",
+      "subheading": "Powerful features designed to glorify God through worship and service",
+      "cards": {
+        "song": {
+          "title": "Worship Song Management",
+          "description": "Organize hymns, worship sets, lyrics, and chord charts to lead your congregation in joyful praise."
+        },
+        "scripture": {
+          "title": "Scripture Display",
+          "description": "Display God's Word with multiple translations, search, and beautiful typography for every reading."
+        },
+        "live": {
+          "title": "Live Presentation",
+          "description": "Dual-screen support, countdown timers, cues, and transitions designed for Spirit-led services."
+        },
+        "themes": {
+          "title": "Sacred Themes",
+          "description": "Faith-inspired themes, backgrounds, typography, and motion loops sized for every projector."
+        },
+        "remote": {
+          "title": "Remote Ministry",
+          "description": "Enable worship leaders to control presentations from anywhere in the sanctuary or backstage."
+        },
+        "network": {
+          "title": "Church Network",
+          "description": "Share and sync worship content across campuses, livestreams, and multilingual services instantly."
+        }
+      }
+    },
+    "cta": {
+      "title": "Open Source • Free Forever • For His Glory",
+      "description": "Join our community of faithful developers and worship leaders building technology to serve the Church worldwide",
+      "button": "View on GitHub"
+    }
+  },
+  "about": {
+    "heroTitle": "About Open Worship",
+    "heroFeaturesTitle": "Everything You Need for Worship",
+    "heroFeatures": {
+      "worshipSets": {
+        "title": "Worship Sets",
+        "description": "Seamless song management"
+      },
+      "bible": {
+        "title": "Bible & Scripture",
+        "description": "Multiple translations"
+      },
+      "planning": {
+        "title": "Service Planning",
+        "description": "Complete flow control"
+      }
+    },
+    "body": {
+      "paragraphs": [
+        "Open Worship is a free, open-source worship presentation software designed specifically for churches, worship teams, and religious organizations.",
+        "Our software provides all the tools you need to create engaging, professional worship experiences—from displaying song lyrics and Bible verses to managing your entire worship service from one intuitive interface.",
+        "Built by the community, for the community. Open Worship is developed by volunteers who understand the needs of modern worship services.",
+        "Best of all, Open Worship is completely free and open-source, meaning you can use it without any licensing fees and even contribute to its development."
+      ]
+    },
+    "actions": {
+      "download": "Download Now",
+      "github": "Fork on GitHub"
+    },
+    "stats": {
+      "free": {
+        "value": "100%",
+        "label": "Free & Open Source"
+      },
+      "license": {
+        "value": "∞",
+        "label": "No License Fees"
+      },
+      "support": {
+        "value": "24/7",
+        "label": "Community Support"
+      }
+    },
+    "cta": {
+      "title": "Ready to Transform Your Worship Experience?",
+      "description": "Join thousands of churches worldwide using Open Worship to create meaningful, engaging worship services."
+    }
+  },
+  "contact": {
+    "heroTitle": "Get in Touch",
+    "heroSubtitle": "Have questions? Need support? Want to contribute? We'd love to hear from you!",
+    "email": {
+      "intro": "For assistance, please contact us at",
+      "address": "owf2025@gmail.com"
+    },
+    "cards": {
+      "community": {
+        "title": "Community Support",
+        "description": "Join our community discussions and get help from other users.",
+        "linkLabel": "Visit Discussions →"
+      },
+      "issues": {
+        "title": "Report Issues",
+        "description": "Found a bug? Report it on our GitHub issues page.",
+        "linkLabel": "Report Issue →"
+      },
+      "contribute": {
+        "title": "Contribute",
+        "description": "Want to help improve Open Worship? Contributions are welcome!",
+        "linkLabel": "View Repository →"
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "description": "Download Open Worship today and transform your worship experience.",
+      "button": "Download Now"
+    }
+  },
+  "googleTranslate": {
+    "title": "Google Translate Vigilant",
+    "subtitle": "Some text in Open Worship App is translated using Google Translate. Machine translation can miss nuances, so please verify important content before presenting it.",
+    "cards": {
+      "review": {
+        "title": "Review Accuracy",
+        "description": "Double-check lyrics, scripture passages, and announcements that were auto-translated."
+      },
+      "context": {
+        "title": "Context Matters",
+        "description": "Idioms or local phrases may translate poorly. Adjust wording to match your congregation."
+      },
+      "feedback": {
+        "title": "Invite Feedback",
+        "description": "Encourage bilingual members to report mistakes so we can improve future translations."
+      }
+    },
+    "report": {
+      "title": "Spot an incorrect translation?",
+      "description": "Let us know about translation errors so we can provide better localized text in future releases.",
+      "button": "Report Translation Issue"
+    }
+  },
+  "menu": {
+    "items": {
+      "home": "Home",
+      "docs": "Docs",
+      "download": "Download",
+      "shared": "Shared",
+      "aiVigilant": "AI Vigilant",
+      "googleTranslate": "Google Translate",
+      "about": "About",
+      "contact": "Contact"
+    }
+  },
+  "download": {
+    "nav": {
+      "home": "Go to Home",
+      "github": "Fork me on GitHub",
+      "youtube": "YouTube"
+    },
+    "hero": {
+      "title": "Downloads",
+      "subtitle": "Get the latest version of Open Worship for your platform."
+    },
+    "warning": {
+      "safariTitle": "Safari Browser Detected",
+      "safariBody": "Safari may fail to detect Apple CPU architecture correctly. We recommend using Chrome, Edge, or Firefox for better download experience."
+    },
+    "mac": {
+      "toggleTooltip": "Toggle macOS installation instructions",
+      "watchTutorial": "Watch how to install"
+    },
+    "cards": {
+      "installer": "Installer",
+      "portable": "Portable ZIP",
+      "checksumLabel": "Checksum (sha512):",
+      "commitLabel": "Commit ID:",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "failed": "Failed",
+      "loading": "Loading..."
+    },
+    "features": {
+      "music": {
+        "title": "Worship Sets",
+        "description": "Create and manage song lists for services."
+      },
+      "bible": {
+        "title": "Bible & Scripture",
+        "description": "Easily display verses and passages."
+      },
+      "planning": {
+        "title": "Service Planning",
+        "description": "Organize your entire service flow seamlessly."
+      }
+    }
+  },
+  "shared": {
+    "card": {
+      "view": "View",
+      "download": "Download"
+    },
+    "loading": "Loading shared assets...",
+    "error": {
+      "fetch": "Unable to load shared assets. Please try again later."
+    },
+    "empty": {
+      "message": "No shared assets are available right now."
+    },
+    "header": {
+      "backButton": "Go to Home",
+      "title": "Shared",
+      "description": "All assets on this page are in the public domain and can be used freely."
+    },
+    "sections": {
+      "images": "Images",
+      "videos": "Videos"
+    }
+  },
+  "aiVigilant": {
+    "title": "AI Vigilant",
+    "subtitle": "Results generated by AI should be reviewed carefully. Please verify lyrics, scriptures, or translations before projecting them.",
+    "cards": {
+      "review": {
+        "title": "Review & Confirm",
+        "description": "Double-check lyrics, verses, and translations produced by AI before projecting them."
+      },
+      "accountability": {
+        "title": "Maintain Accountability",
+        "description": "Keep at least one human reviewer in the loop to approve AI-generated worship content."
+      },
+      "protect": {
+        "title": "Protect Congregations",
+        "description": "Ensure theological accuracy so attendees receive faithful, trustworthy messages."
+      }
+    },
+    "report": {
+      "title": "Need to report AI output?",
+      "description": "If you encounter inaccurate or unsafe AI results inside Open Worship, please let us know so we can improve safeguards.",
+      "button": "Contact Support"
+    }
+  },
+  "docs": {
+    "searchPlaceholder": "Search documentation...",
+    "topLinks": {
+      "home": "Go to Home",
+      "github": "Fork me on Github",
+      "youtube": "Youtube"
+    },
+    "alerts": {
+      "safariTitle": "Safari Browser Detected",
+      "safariBody": "Safari may fail to detect Apple CPU architecture correctly. We recommend using Chrome, Edge, or Firefox for better download experience.",
+      "toggleMac": "Toggle MacOS installation instructions"
+    },
+    "recommended": {
+      "watchTutorial": "Watch how to install"
+    },
+    "downloadCard": {
+      "installer": "Installer",
+      "portable": "Portable ZIP",
+      "commitLabel": "Commit ID:",
+      "checksumLabel": "Checksum (sha512):",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "failed": "Failed",
+      "macToggleTitle": "Toggle MacOS installation instructions"
+    },
+    "nav": {
+      "gettingStarted": {
+        "title": "Getting Started",
+        "items": {
+          "overview": "Overview",
+          "installation": "Installation",
+          "quickStart": "Quick Start",
+          "systemRequirements": "System Requirements"
+        }
+      },
+      "userGuide": {
+        "title": "User Guide",
+        "items": {
+          "basicUsage": "Basic Usage",
+          "worshipSets": "Creating Worship Sets",
+          "bibleDisplay": "Bible & Scripture",
+          "presentationMode": "Presentation Mode",
+          "slideEditor": "Slide Editor"
+        }
+      },
+      "features": {
+        "title": "Features",
+        "items": {
+          "songManagement": "Song Management",
+          "bibleSearch": "Bible Search",
+          "livePresentation": "Live Presentation",
+          "multiScreen": "Multi-Screen Support",
+          "backgroundMedia": "Background & Media"
+        }
+      },
+      "advanced": {
+        "title": "Advanced",
+        "items": {
+          "keyboardShortcuts": "Keyboard Shortcuts",
+          "troubleshooting": "Troubleshooting",
+          "contributing": "Contributing",
+          "techStack": "Tech Stack"
+        }
+      }
+    },
+    "hero": {
+      "title": "Open Worship Documentation",
+      "intro": "Welcome to Open Worship - a powerful, free, and open-source worship presentation software designed specifically for churches and worship teams.",
+      "verse": {
+        "text": "\"Let the word of Christ dwell in you richly, teaching and admonishing one another in all wisdom, singing psalms and hymns and spiritual songs, with thankfulness in your hearts to God.\"",
+        "reference": "— Colossians 3:16"
+      },
+      "calloutPrefix": "New to Open Worship?",
+      "calloutLink": "Quick Start Guide",
+      "calloutSuffix": "to get up and running in minutes."
+    },
+    "overviewFeatures": {
+      "song": {
+        "title": "Worship Song Management",
+        "desc": "Organize worship sets, hymns, and lyrics to lead your congregation in joyful praise."
+      },
+      "scripture": {
+        "title": "Scripture Display",
+        "desc": "Display God's Word with multiple Bible translations, search functionality, and verse lookup."
+      },
+      "live": {
+        "title": "Live Presentation",
+        "desc": "Spirit-led presentation mode with multi-screen support and real-time control for worship services."
+      },
+      "customization": {
+        "title": "Church Customization",
+        "desc": "Beautiful themes, backgrounds, and layouts designed to honor God and serve your ministry."
+      }
+    },
+    "featureHighlights": {
+      "music": {
+        "title": "Worship Sets",
+        "desc": "Create and manage song lists for services."
+      },
+      "bible": {
+        "title": "Bible & Scripture",
+        "desc": "Easily display verses and passages."
+      },
+      "planning": {
+        "title": "Service Planning",
+        "desc": "Organize your entire service flow seamlessly."
+      }
+    },
+    "installation": {
+      "title": "Installation",
+      "intro": "Get Open Worship installed on your system with our easy-to-use installers.",
+      "downloadOptionsHeading": "Download Options",
+      "downloadOptions": [
+        "Windows: Download the .exe installer for automatic setup",
+        "macOS: Download the .dmg file for drag-and-drop installation",
+        "Linux: Download the .deb package or AppImage for portable use"
+      ],
+      "ctaPrefix": "Visit our",
+      "ctaLink": "Download Page",
+      "ctaSuffix": "to get the latest version for your platform."
+    },
+    "quickStart": {
+      "title": "Quick Start Guide",
+      "intro": "Follow these steps to start using Open Worship for your first worship service:",
+      "steps": [
+        {
+          "heading": "Launch the Application",
+          "body": "After installation, launch Open Worship from your applications menu or desktop shortcut."
+        },
+        {
+          "heading": "Create Your First Worship Set",
+          "list": [
+            "Click on “Song Management” in the main menu",
+            "Add songs to your library using the “Add Song” button",
+            "Create a new worship set and arrange your songs"
+          ]
+        },
+        {
+          "heading": "Add Scripture Readings",
+          "list": [
+            "Navigate to “Bible & Scripture”",
+            "Search for verses using the built-in search",
+            "Add selected verses to your worship set"
+          ]
+        },
+        {
+          "heading": "Start Presentation Mode",
+          "list": [
+            "Click “Presentation Mode” to begin",
+            "Use arrow keys or mouse to navigate slides",
+            "Press F11 for fullscreen mode"
+          ]
+        }
+      ]
+    },
+    "systemRequirements": {
+      "title": "System Requirements",
+      "minimumHeading": "Minimum Requirements",
+      "minimum": [
+        "Operating System: Windows 10+, macOS 10.14+, or Linux (Ubuntu 18.04+)",
+        "RAM: 4GB minimum, 8GB recommended",
+        "Storage: 500MB available space",
+        "Display: 1024x768 minimum resolution"
+      ],
+      "devHeading": "For Development",
+      "dev": [
+        "Node.js v22 or higher",
+        ".NET 8.0 SDK",
+        "Git for version control (and Cygwin on Windows)"
+      ]
+    },
+    "basicUsage": {
+      "title": "Basic Usage",
+      "intro": "Learn the fundamentals of using Open Worship for your worship services.",
+      "mainInterfaceHeading": "Main Interface",
+      "mainInterfaceIntro": "The Open Worship interface consists of several key areas:",
+      "areas": [
+        "Editor: Create and edit slides, songs, and presentations",
+        "Presenter: Control live presentations during worship",
+        "Reader: View and manage your content library",
+        "Finder: Search across all your worship content"
+      ]
+    },
+    "worshipSets": {
+      "title": "Creating Worship Sets",
+      "intro": "Organize your worship content into cohesive sets for seamless services.",
+      "addingSongsHeading": "Adding Songs",
+      "addingSongsSteps": [
+        "Navigate to the Song Management section",
+        "Click “Add New Song”",
+        "Enter song title, lyrics, and metadata",
+        "Save to your song library"
+      ]
+    },
+    "footer": {
+      "links": {
+        "home": "Home",
+        "download": "Download",
+        "about": "About"
+      },
+      "copyright": "© 2025 Open Worship. All Rights Reserved."
+    }
+  }
+}

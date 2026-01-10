@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 
 interface ContactPageProps {
@@ -5,6 +6,29 @@ interface ContactPageProps {
 }
 
 const ContactPage = ({ onNavigate }: ContactPageProps) => {
+  const { t } = useTranslation();
+  const cards = t('contact.cards', { returnObjects: true }) as Record<
+    string,
+    { title: string; description: string; linkLabel: string }
+  >;
+  const cardConfigs = [
+    {
+      key: 'community',
+      icon: '💬',
+      href: 'https://github.com/OpenWorshipApp/open-worship-app-dt/discussions'
+    },
+    {
+      key: 'issues',
+      icon: '🐛',
+      href: 'https://github.com/OpenWorshipApp/open-worship-app-dt/issues'
+    },
+    {
+      key: 'contribute',
+      icon: '🤝',
+      href: 'https://github.com/OpenWorshipApp/open-worship-app-dt'
+    }
+  ];
+
   return (
     <div style={{ 
       minHeight: '200vh', 
@@ -60,7 +84,7 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text'
         }}>
-          Get in Touch
+          {t('contact.heroTitle')}
         </h1>
         
         <p style={{
@@ -69,7 +93,7 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
           maxWidth: '600px',
           margin: '0 auto 20px'
         }}>
-          Have questions? Need support? Want to contribute? We'd love to hear from you!
+          {t('contact.heroSubtitle')}
         </p>
 
         {/* Email Contact */}
@@ -86,7 +110,7 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
             fontSize: '18px',
             margin: 0
           }}>
-            For assistance, please contact us at{' '}
+            {t('contact.email.intro')}{' '}
             <a
               href="mailto:owf2025@gmail.com"
               style={{
@@ -104,7 +128,7 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
                 e.currentTarget.style.borderBottomColor = '#e91e63';
               }}
             >
-              owf2025@gmail.com
+              {t('contact.email.address')}
             </a>
           </p>
         </div>
@@ -117,131 +141,52 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
           width: '100%',
           marginBottom: '60px'
         }}>
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '20px',
-            padding: '40px 30px',
-            textAlign: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            backdropFilter: 'blur(10px)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-            e.currentTarget.style.transform = 'translateY(-8px)';
-            e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>💬</div>
-            <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '600', marginBottom: '12px' }}>
-              Community Support
-            </h3>
-            <p style={{ color: '#aaa', fontSize: '16px', marginBottom: '20px' }}>
-              Join our community discussions and get help from other users
-            </p>
-            <a 
-              href="https://github.com/OpenWorshipApp/open-worship-app-dt/discussions"
-              target="_blank"
-              rel="noopener noreferrer"
+          {cardConfigs.map(({ key, icon, href }) => (
+            <div
+              key={key}
               style={{
-                color: '#e91e63',
-                textDecoration: 'none',
-                fontWeight: '500',
-                fontSize: '16px'
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '20px',
+                padding: '40px 30px',
+                textAlign: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
               }}
             >
-              Visit Discussions →
-            </a>
-          </div>
-
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '20px',
-            padding: '40px 30px',
-            textAlign: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            backdropFilter: 'blur(10px)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-            e.currentTarget.style.transform = 'translateY(-8px)';
-            e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🐛</div>
-            <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '600', marginBottom: '12px' }}>
-              Report Issues
-            </h3>
-            <p style={{ color: '#aaa', fontSize: '16px', marginBottom: '20px' }}>
-              Found a bug? Report it on our GitHub issues page
-            </p>
-            <a 
-              href="https://github.com/OpenWorshipApp/open-worship-app-dt/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: '#e91e63',
-                textDecoration: 'none',
-                fontWeight: '500',
-                fontSize: '16px'
-              }}
-            >
-              Report Issue →
-            </a>
-          </div>
-
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '20px',
-            padding: '40px 30px',
-            textAlign: 'center',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            backdropFilter: 'blur(10px)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-            e.currentTarget.style.transform = 'translateY(-8px)';
-            e.currentTarget.style.borderColor = 'rgba(233, 30, 99, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '20px' }}>🤝</div>
-            <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '600', marginBottom: '12px' }}>
-              Contribute
-            </h3>
-            <p style={{ color: '#aaa', fontSize: '16px', marginBottom: '20px' }}>
-              Want to help improve Open Worship? Contributions are welcome!
-            </p>
-            <a 
-              href="https://github.com/OpenWorshipApp/open-worship-app-dt"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: '#e91e63',
-                textDecoration: 'none',
-                fontWeight: '500',
-                fontSize: '16px'
-              }}
-            >
-              View Repository →
-            </a>
-          </div>
+              <div style={{ fontSize: '48px', marginBottom: '20px' }}>{icon}</div>
+              <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '600', marginBottom: '12px' }}>
+                {cards?.[key]?.title}
+              </h3>
+              <p style={{ color: '#aaa', fontSize: '16px', marginBottom: '20px' }}>
+                {cards?.[key]?.description}
+              </p>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: '#e91e63',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px'
+                }}
+              >
+                {cards?.[key]?.linkLabel}
+              </a>
+            </div>
+          ))}
         </div>
 
         {/* Quick Actions */}
@@ -262,7 +207,7 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
             fontWeight: '600',
             marginBottom: '20px'
           }}>
-            Ready to Get Started?
+            {t('contact.cta.title')}
           </h2>
           
           <p style={{
@@ -272,7 +217,7 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
             maxWidth: '500px',
             margin: '0 auto 30px'
           }}>
-            Download Open Worship today and transform your worship experience.
+            {t('contact.cta.description')}
           </p>
           
           <button 
@@ -304,7 +249,7 @@ const ContactPage = ({ onNavigate }: ContactPageProps) => {
               <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
               <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
             </svg>
-            Download Now
+            {t('contact.cta.button')}
           </button>
         </div>
       </div>

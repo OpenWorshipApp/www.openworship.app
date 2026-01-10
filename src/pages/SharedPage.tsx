@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { sharedService } from '../services/sharedService';
 import type { AssetInfo } from '../services/sharedService';
 import '../styles/modern-cards.css';
@@ -14,96 +15,100 @@ interface AssetCardProps {
   onDownload: () => void;
 }
 
-const AssetCard = ({ filename, url, type, onDownload }: AssetCardProps) => (
-  <div className="col-md-6 col-lg-4">
-    <div className="modern-card feature-card" style={{
-      background: 'rgba(255, 255, 255, 0.05)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
-      borderRadius: '16px',
-      overflow: 'hidden'
-    }}>
-      <div style={{
-        width: '100%',
-        paddingTop: '56.25%',
-        position: 'relative',
-        background: '#000'
+const AssetCard = ({ filename, url, type, onDownload }: AssetCardProps) => {
+  const { t } = useTranslation();
+  return (
+    <div className="col-md-6 col-lg-4">
+      <div className="modern-card feature-card" style={{
+        background: 'rgba(255, 255, 255, 0.05)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        borderRadius: '16px',
+        overflow: 'hidden'
       }}>
-        {type === 'image' ? (
-          <img
-            src={url}
-            alt={filename}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              backgroundColor: 'rgba(255,255,255,0.02)'
-            }}
-          />
-        ) : (
-          <video
-            src={url}
-            controls
-            playsInline
-            preload="metadata"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              backgroundColor: '#000'
-            }}
-          />
-        )}
-      </div>
-
-      <div style={{ padding: '18px' }}>
-        <div style={{ color: '#fff', fontWeight: 600, marginBottom: '12px', wordBreak: 'break-word' }}>
-          {filename}
+        <div style={{
+          width: '100%',
+          paddingTop: '56.25%',
+          position: 'relative',
+          background: '#000'
+        }}>
+          {type === 'image' ? (
+            <img
+              src={url}
+              alt={filename}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                backgroundColor: 'rgba(255,255,255,0.02)'
+              }}
+            />
+          ) : (
+            <video
+              src={url}
+              controls
+              playsInline
+              preload="metadata"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                backgroundColor: '#000'
+              }}
+            />
+          )}
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              flex: 1,
-              borderRadius: '8px',
-              border: '1px solid rgba(255,255,255,0.3)',
-              padding: '10px',
-              textAlign: 'center',
-              color: '#fff',
-              textDecoration: 'none'
-            }}
-          >
-            View
-          </a>
-          <button
-            type="button"
-            onClick={onDownload}
-            style={{
-              flex: 1,
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #e91e63 0%, #9c27b0 60%, #673ab7 100%)',
-              color: '#fff',
-              border: 'none',
-              textAlign: 'center',
-              padding: '10px',
-              fontWeight: 600,
-              cursor: 'pointer'
-            }}
-          >
-            Download
-          </button>
+
+        <div style={{ padding: '18px' }}>
+          <div style={{ color: '#fff', fontWeight: 600, marginBottom: '12px', wordBreak: 'break-word' }}>
+            {filename}
+          </div>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                flex: 1,
+                borderRadius: '8px',
+                border: '1px solid rgba(255,255,255,0.3)',
+                padding: '10px',
+                textAlign: 'center',
+                color: '#fff',
+                textDecoration: 'none'
+              }}
+            >
+              {t('shared.card.view')}
+            </a>
+            <button
+              type="button"
+              onClick={onDownload}
+              style={{
+                flex: 1,
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #e91e63 0%, #9c27b0 60%, #673ab7 100%)',
+                color: '#fff',
+                border: 'none',
+                textAlign: 'center',
+                padding: '10px',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              {t('shared.card.download')}
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function SharedPage({ onNavigate }: SharedPageProps) {
+  const { t } = useTranslation();
   const [assetInfo, setAssetInfo] = useState<AssetInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -116,14 +121,14 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
         setAssetInfo(data);
       } catch (err) {
         console.error('Failed to fetch shared assets', err);
-        setError('Unable to load shared assets. Please try again later.');
+        setError(t('shared.error.fetch'));
       } finally {
         setLoading(false);
       }
     };
 
     load();
-  }, []);
+  }, [t]);
 
   if (loading) {
     return (
@@ -135,7 +140,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
         background: '#0a0a0a',
         color: '#fff'
       }}>
-        Loading shared assets...
+        {t('shared.loading')}
       </div>
     );
   }
@@ -152,7 +157,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
         textAlign: 'center',
         padding: '20px'
       }}>
-        {error ?? 'No shared assets are available right now.'}
+        {error ?? t('shared.empty.message')}
       </div>
     );
   }
@@ -235,7 +240,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
               }}
             >
               <i className="bi bi-arrow-left"></i>
-              <span>Go to Home</span>
+              <span>{t('shared.header.backButton')}</span>
             </button>
           </div>
 
@@ -247,7 +252,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
             WebkitTextFillColor: 'transparent',
             marginBottom: '20px'
           }}>
-            Shared
+            {t('shared.header.title')}
           </h1>
           
           <p style={{
@@ -256,7 +261,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
             maxWidth: '600px',
             margin: '0 auto'
           }}>
-            All assets on this page are in the public domain and can be used freely.
+            {t('shared.header.description')}
           </p>
         </div>
 
@@ -269,7 +274,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
               color: '#fff',
               marginBottom: '24px'
             }}>
-              Images
+              {t('shared.sections.images')}
             </h2>
             <div className="row g-4">
               {assetInfo.images.map((filePath) => (
@@ -294,7 +299,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
               color: '#fff',
               marginBottom: '24px'
             }}>
-              Videos
+              {t('shared.sections.videos')}
             </h2>
             <div className="row g-4">
               {assetInfo.videos.map((filePath) => (
@@ -318,7 +323,7 @@ export default function SharedPage({ onNavigate }: SharedPageProps) {
             color: 'rgba(255, 255, 255, 0.6)'
           }}>
             <i className="bi bi-folder2-open" style={{ fontSize: '64px', marginBottom: '20px' }}></i>
-            <p style={{ fontSize: '18px' }}>No shared assets available at the moment.</p>
+            <p style={{ fontSize: '18px' }}>{t('shared.empty.message')}</p>
           </div>
         )}
       </div>

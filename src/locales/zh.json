@@ -1,0 +1,426 @@
+{
+  "home": {
+    "links": {
+      "github": "在 GitHub 上 Fork 我们",
+      "youtube": "YouTube"
+    },
+    "title": "Open Worship",
+    "subtitle": "专业的敬拜展示软件，赋能全球教会",
+    "tagline": "免费 • 开源 • 强大",
+    "verse": {
+      "text": "\"普天下当向耶和华欢呼！你们当乐意事奉耶和华，当来向他歌唱。\"",
+      "reference": "— 诗篇100:1-2"
+    },
+    "buttons": {
+      "download": "立即下载",
+      "learnMore": "了解更多"
+    },
+    "stats": {
+      "weekly": "每周安排的聚会",
+      "countries": "正在直播的国家",
+      "support": "社群与祷告支援"
+    },
+    "features": {
+      "heading": "为事工而装备",
+      "subheading": "强大的功能，旨在通过敬拜与服事荣耀神",
+      "cards": {
+        "song": {
+          "title": "敬拜歌曲管理",
+          "description": "组织圣诗、敬拜曲目、歌词与和弦图，引领会众欢然赞美。"
+        },
+        "scripture": {
+          "title": "圣经经文展示",
+          "description": "以多种译本、搜索与优美排版呈现神的话语。"
+        },
+        "live": {
+          "title": "现场呈现",
+          "description": "双屏支持、倒计时、提示与转场，专为圣灵带领的聚会设计。"
+        },
+        "themes": {
+          "title": "圣洁主题",
+          "description": "充满信仰灵感的主题、背景、字体与动态循环，适配各类投影。"
+        },
+        "remote": {
+          "title": "远程服事",
+          "description": "让敬拜带领可以在会堂任何位置或后台控制呈现。"
+        },
+        "network": {
+          "title": "教会网络",
+          "description": "在多校区、直播与多语种聚会之间即时共享与同步敬拜内容。"
+        }
+      }
+    },
+    "cta": {
+      "title": "开源 • 永远免费 • 为祂的荣耀",
+      "description": "加入我们忠心开发者与敬拜带领者的社区，共同构建服事教会的科技",
+      "button": "前往 GitHub 查看"
+    }
+  },
+  "about": {
+    "heroTitle": "关于 Open Worship",
+    "heroFeaturesTitle": "敬拜所需的一切",
+    "heroFeatures": {
+      "worshipSets": {
+        "title": "敬拜流程",
+        "description": "无缝的歌曲管理"
+      },
+      "bible": {
+        "title": "圣经与经文",
+        "description": "多种译本"
+      },
+      "planning": {
+        "title": "礼拜规划",
+        "description": "完整的流程掌控"
+      }
+    },
+    "body": {
+      "paragraphs": [
+        "Open Worship 是专为教会、敬拜团队和信仰组织打造的免费开源敬拜展示软件。",
+        "它提供打造专业敬拜体验所需的一切工具——从展示歌词、经文到在直观界面中管理整场礼拜。",
+        "由社区为社区而建。Open Worship 由了解现代敬拜需求的志愿者共同开发。",
+        "最重要的是，Open Worship 完全免费且开源，您可以无需许可费用使用，也能参与贡献。"
+      ]
+    },
+    "actions": {
+      "download": "立即下载",
+      "github": "在 GitHub 上 Fork"
+    },
+    "stats": {
+      "free": {
+        "value": "100%",
+        "label": "免费且开源"
+      },
+      "license": {
+        "value": "∞",
+        "label": "无许可费用"
+      },
+      "support": {
+        "value": "24/7",
+        "label": "社群支援"
+      }
+    },
+    "cta": {
+      "title": "准备好更新你的敬拜体验了吗？",
+      "description": "加入全球数千间使用 Open Worship 的教会，打造有意义、具吸引力的敬拜聚会。"
+    }
+  },
+  "contact": {
+    "heroTitle": "联系我们",
+    "heroSubtitle": "有问题？需要支援？想要贡献？随时欢迎你的来信！",
+    "email": {
+      "intro": "若需协助，请写信至",
+      "address": "owf2025@gmail.com"
+    },
+    "cards": {
+      "community": {
+        "title": "社群支援",
+        "description": "加入我们的社群讨论，向其他用户寻求帮助。",
+        "linkLabel": "前往讨论区 →"
+      },
+      "issues": {
+        "title": "回报问题",
+        "description": "发现错误？请在 GitHub Issues 页面回报。",
+        "linkLabel": "回报问题 →"
+      },
+      "contribute": {
+        "title": "参与贡献",
+        "description": "想一起改进 Open Worship 吗？非常欢迎加入！",
+        "linkLabel": "查看仓库 →"
+      }
+    },
+    "cta": {
+      "title": "准备好开始了吗？",
+      "description": "立即下载 Open Worship，更新你的敬拜体验。",
+      "button": "立即下载"
+    }
+  },
+  "googleTranslate": {
+    "title": "Google Translate Vigilant",
+    "subtitle": "Open Worship 中的一些文字使用 Google Translate 翻译。机器翻译可能遗漏细微差别，请在展示前再次核对重要内容。",
+    "cards": {
+      "review": {
+        "title": "检查准确性",
+        "description": "复核所有自动翻译的歌词、经文段落与公告。"
+      },
+      "context": {
+        "title": "语境很重要",
+        "description": "习语或本地词汇可能翻译不佳，请根据会众语境调整措辞。"
+      },
+      "feedback": {
+        "title": "邀请反馈",
+        "description": "鼓励双语成员报告错误，以便我们改进未来的翻译。"
+      }
+    },
+    "report": {
+      "title": "发现翻译错误？",
+      "description": "请告诉我们翻译问题，以便提供更佳的在地化文本。",
+      "button": "报告翻译问题"
+    }
+  },
+  "aiVigilant": {
+    "title": "AI Vigilant",
+    "subtitle": "AI 生成的结果需仔细审核。请在投放前再次核对歌词、经文或翻译内容。",
+    "cards": {
+      "review": {
+        "title": "审核并确认",
+        "description": "在投屏前，对 AI 生成的歌词、经文和翻译逐一核对。"
+      },
+      "accountability": {
+        "title": "保持监督",
+        "description": "至少让一位人工审核者参与，批准所有由 AI 生成的敬拜内容。"
+      },
+      "protect": {
+        "title": "保护会众",
+        "description": "确保信息在神学上准确，让会众领受忠实可靠的教导。"
+      }
+    },
+    "report": {
+      "title": "需要举报 AI 输出？",
+      "description": "若在 Open Worship 中发现不准确或不安全的 AI 结果，请告知我们，以便改进防护措施。",
+      "button": "联系支持"
+    }
+  },
+  "menu": {
+    "items": {
+      "home": "首页",
+      "docs": "文档",
+      "download": "下载",
+      "shared": "共享资源",
+      "aiVigilant": "AI Vigilant",
+      "googleTranslate": "Google Translate",
+      "about": "关于",
+      "contact": "联系"
+    }
+  },
+  "download": {
+    "nav": {
+      "home": "返回首页",
+      "github": "在 GitHub 上 Fork",
+      "youtube": "YouTube"
+    },
+    "hero": {
+      "title": "下载",
+      "subtitle": "获取适用于您平台的最新 Open Worship 版本。"
+    },
+    "warning": {
+      "safariTitle": "检测到 Safari 浏览器",
+      "safariBody": "Safari 可能无法正确识别 Apple CPU 架构。建议使用 Chrome、Edge 或 Firefox 以获得更佳下载体验。"
+    },
+    "mac": {
+      "toggleTooltip": "切换 macOS 安装说明",
+      "watchTutorial": "观看安装教程"
+    },
+    "cards": {
+      "installer": "安装程序",
+      "portable": "便携 ZIP",
+      "checksumLabel": "校验和 (sha512)：",
+      "commitLabel": "Commit ID：",
+      "copy": "复制",
+      "copied": "已复制！",
+      "failed": "失败",
+      "loading": "加载中..."
+    },
+    "features": {
+      "music": {
+        "title": "敬拜流程",
+        "description": "快速创建并管理聚会的歌曲列表。"
+      },
+      "bible": {
+        "title": "圣经与经文",
+        "description": "轻松展示多版本经文与段落。"
+      },
+      "planning": {
+        "title": "礼拜规划",
+        "description": "有条不紊地组织整场礼拜流程。"
+      }
+    }
+  },
+  "shared": {
+    "card": {
+      "view": "查看",
+      "download": "下载"
+    },
+    "loading": "正在加载共享资源...",
+    "error": {
+      "fetch": "无法加载共享资源，请稍后再试。"
+    },
+    "empty": {
+      "message": "目前还没有可用的共享资源。"
+    },
+    "header": {
+      "backButton": "返回首页",
+      "title": "共享库",
+      "description": "本页面所有资源均为公共领域内容，可自由使用。"
+    },
+    "sections": {
+      "images": "图片",
+      "videos": "视频"
+    }
+  },
+  "docs": {
+    "searchPlaceholder": "搜索文档...",
+    "nav": {
+      "gettingStarted": {
+        "title": "快速上手",
+        "items": {
+          "overview": "概览",
+          "installation": "安装",
+          "quickStart": "快速指南",
+          "systemRequirements": "系统需求"
+        }
+      },
+      "userGuide": {
+        "title": "用户指南",
+        "items": {
+          "basicUsage": "基础用法",
+          "worshipSets": "创建敬拜流程",
+          "bibleDisplay": "圣经与经文",
+          "presentationMode": "演示模式",
+          "slideEditor": "幻灯编辑器"
+        }
+      },
+      "features": {
+        "title": "功能",
+        "items": {
+          "songManagement": "歌曲管理",
+          "bibleSearch": "经文搜索",
+          "livePresentation": "现场展示",
+          "multiScreen": "多屏支持",
+          "backgroundMedia": "背景与媒体"
+        }
+      },
+      "advanced": {
+        "title": "进阶",
+        "items": {
+          "keyboardShortcuts": "键盘快捷键",
+          "troubleshooting": "故障排查",
+          "contributing": "参与贡献",
+          "techStack": "技术栈"
+        }
+      }
+    },
+    "hero": {
+      "title": "Open Worship 文档",
+      "intro": "欢迎使用 Open Worship——面向教会与敬拜团队的强大、免费、开源展示软件。",
+      "verse": {
+        "text": "\"当用各样的智慧，把基督的道理丰丰富富地存在心里，用诗章、颂词、灵歌彼此教导，互相劝戒，心被恩感歌颂神。\"",
+        "reference": "—— 歌罗西书 3:16"
+      },
+      "calloutPrefix": "第一次使用 Open Worship？",
+      "calloutLink": "快速指南",
+      "calloutSuffix": "即可在几分钟内完成设置。"
+    },
+    "overviewFeatures": {
+      "song": {
+        "title": "敬拜歌曲管理",
+        "desc": "管理歌曲、赞美诗与歌词，让会众同心敬拜。"
+      },
+      "scripture": {
+        "title": "圣经经文展示",
+        "desc": "提供多种译本、搜索与经文定位，轻松展示神的话。"
+      },
+      "live": {
+        "title": "现场呈现",
+        "desc": "圣灵引导的演示模式，支持多屏实时控制。"
+      },
+      "customization": {
+        "title": "教会视觉定制",
+        "desc": "美观的主题、背景与排版，荣耀神并服务事工。"
+      }
+    },
+    "installation": {
+      "title": "安装",
+      "intro": "通过简单的安装包，在您的设备上安装 Open Worship。",
+      "downloadOptionsHeading": "下载选项",
+      "downloadOptions": [
+        "Windows：下载 .exe 安装程序并自动配置",
+        "macOS：下载 .dmg 文件并拖到应用程序文件夹",
+        "Linux：下载 .deb 包或 AppImage 便携运行"
+      ],
+      "ctaPrefix": "访问",
+      "ctaLink": "下载页面",
+      "ctaSuffix": "获取适用于您平台的最新版本。"
+    },
+    "quickStart": {
+      "title": "快速指南",
+      "intro": "按以下步骤完成第一次敬拜展示：",
+      "steps": [
+        {
+          "heading": "启动应用",
+          "body": "安装完成后，从应用菜单或桌面快捷方式打开 Open Worship。"
+        },
+        {
+          "heading": "创建首个敬拜流程",
+          "list": [
+            "在主菜单中点击“歌曲管理”",
+            "使用“添加歌曲”按钮录入歌曲",
+            "新建敬拜流程并调整顺序"
+          ]
+        },
+        {
+          "heading": "添加经文朗读",
+          "list": [
+            "进入“圣经与经文”页面",
+            "通过内置搜索查找需要的经文",
+            "将经文加入到敬拜流程"
+          ]
+        },
+        {
+          "heading": "进入演示模式",
+          "list": [
+            "点击“演示模式”开始播放",
+            "使用方向键或鼠标切换幻灯",
+            "按 F11 进入全屏"
+          ]
+        }
+      ]
+    },
+    "systemRequirements": {
+      "title": "系统需求",
+      "minimumHeading": "最低配置",
+      "minimum": [
+        "操作系统：Windows 10+、macOS 10.14+ 或 Linux (Ubuntu 18.04+)",
+        "内存：至少 4GB，推荐 8GB",
+        "存储：可用空间 500MB",
+        "显示：分辨率不低于 1024x768"
+      ],
+      "devHeading": "开发环境",
+      "dev": [
+        "Node.js 22+",
+        ".NET 8.0 SDK",
+        "Git 版本管理（Windows 建议搭配 Cygwin）"
+      ]
+    },
+    "basicUsage": {
+      "title": "基础用法",
+      "intro": "了解如何在敬拜中使用 Open Worship。",
+      "mainInterfaceHeading": "主界面",
+      "mainInterfaceIntro": "界面由多个核心区域组成：",
+      "areas": [
+        "编辑器：创建和编辑幻灯、歌曲与演示",
+        "演示端：在敬拜现场控制播放",
+        "资源库：查看并管理内容",
+        "搜索：跨资源精准查找"
+      ]
+    },
+    "worshipSets": {
+      "title": "创建敬拜流程",
+      "intro": "将歌曲与经文组织成连贯的敬拜顺序。",
+      "addingSongsHeading": "添加歌曲",
+      "addingSongsSteps": [
+        "进入歌曲管理",
+        "点击“Add New Song”按钮",
+        "填写标题、歌词及相关信息",
+        "保存到歌曲库"
+      ]
+    },
+    "footer": {
+      "links": {
+        "home": "首页",
+        "download": "下载",
+        "about": "关于"
+      },
+      "copyright": "© 2025 Open Worship. 保留所有权利。"
+    }
+  }
+}

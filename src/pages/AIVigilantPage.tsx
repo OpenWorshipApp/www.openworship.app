@@ -1,8 +1,30 @@
+import { useTranslation } from 'react-i18next';
+
 interface AIVigilantPageProps {
   onNavigate?: (page: string) => void;
 }
 
 export default function AIVigilantPage({ onNavigate }: AIVigilantPageProps) {
+  const { t } = useTranslation();
+
+  const cards = [
+    {
+      title: t('aiVigilant.cards.review.title'),
+      desc: t('aiVigilant.cards.review.description'),
+      icon: 'bi-check2-circle',
+    },
+    {
+      title: t('aiVigilant.cards.accountability.title'),
+      desc: t('aiVigilant.cards.accountability.description'),
+      icon: 'bi-people',
+    },
+    {
+      title: t('aiVigilant.cards.protect.title'),
+      desc: t('aiVigilant.cards.protect.description'),
+      icon: 'bi-shield-lock',
+    },
+  ];
+
   return (
     <div
       id="ai-vigilant"
@@ -51,11 +73,10 @@ export default function AIVigilantPage({ onNavigate }: AIVigilantPageProps) {
               lineHeight: 1.15,
             }}
           >
-            AI Vigilant
+            {t('aiVigilant.title')}
           </h1>
           <p style={{ color: "#c8c8c8", fontSize: "18px", maxWidth: "720px", margin: "0 auto" }}>
-            Result of AI is subject to review. Please use caution and verify the content generated
-            by AI tools.
+            {t('aiVigilant.subtitle')}
           </p>
         </div>
 
@@ -67,23 +88,7 @@ export default function AIVigilantPage({ onNavigate }: AIVigilantPageProps) {
             marginTop: "40px",
           }}
         >
-          {[
-            {
-              title: "Review & Confirm",
-              desc: "Double-check lyrics, verses, and translations produced by AI before projecting them.",
-              icon: "bi-check2-circle",
-            },
-            {
-              title: "Maintain Accountability",
-              desc: "Keep at least one human reviewer in the loop to approve AI generated worship content.",
-              icon: "bi-people",
-            },
-            {
-              title: "Protect Congregations",
-              desc: "Ensure theological accuracy so attendees receive faithful, trustworthy messages.",
-              icon: "bi-shield-lock",
-            },
-          ].map((card) => (
+          {cards.map((card) => (
             <div
               key={card.title}
               style={{
@@ -110,10 +115,9 @@ export default function AIVigilantPage({ onNavigate }: AIVigilantPageProps) {
             border: "1px solid rgba(255, 255, 255, 0.05)",
           }}
         >
-          <h4 style={{ marginBottom: "12px", fontWeight: 600 }}>Need to report AI output?</h4>
+          <h4 style={{ marginBottom: "12px", fontWeight: 600 }}>{t('aiVigilant.report.title')}</h4>
           <p style={{ color: "#c8c8c8", marginBottom: "20px" }}>
-            If you encounter inaccurate or unsafe AI results inside Open Worship, please let us know
-            so we can improve safeguards.
+            {t('aiVigilant.report.description')}
           </p>
           <button
             onClick={() => onNavigate?.("contact")}
@@ -128,7 +132,7 @@ export default function AIVigilantPage({ onNavigate }: AIVigilantPageProps) {
               boxShadow: "0 15px 35px rgba(233, 30, 99, 0.35)",
             }}
           >
-            Contact Support
+            {t('aiVigilant.report.button')}
           </button>
         </div>
       </div>

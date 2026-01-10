@@ -1,8 +1,21 @@
+import { useTranslation } from "react-i18next";
+
 interface GoogleTranslatePageProps {
   onNavigate?: (page: string) => void;
 }
 
 export default function GoogleTranslatePage({ onNavigate }: GoogleTranslatePageProps) {
+  const { t } = useTranslation();
+  const cards = t("googleTranslate.cards", { returnObjects: true }) as Record<
+    string,
+    { title: string; description: string }
+  >;
+  const cardConfigs = [
+    { key: "review", icon: "bi-search" },
+    { key: "context", icon: "bi-chat-square-quote" },
+    { key: "feedback", icon: "bi-people" },
+  ];
+
   return (
     <div
       id="google-translate"
@@ -51,11 +64,10 @@ export default function GoogleTranslatePage({ onNavigate }: GoogleTranslatePageP
               lineHeight: 1.15,
             }}
           >
-            Google Translate Vigilant
+            {t("googleTranslate.title")}
           </h1>
           <p style={{ color: "#c8c8c8", fontSize: "18px", maxWidth: "720px", margin: "0 auto" }}>
-            Some text in Open Worship App is translated using Google Translate. Machine translation
-            can miss nuances, so please verify important content before presenting it.
+            {t("googleTranslate.subtitle")}
           </p>
         </div>
 
@@ -67,25 +79,9 @@ export default function GoogleTranslatePage({ onNavigate }: GoogleTranslatePageP
             marginTop: "40px",
           }}
         >
-          {[
-            {
-              title: "Review Accuracy",
-              desc: "Double-check lyrics, scripture passages, and announcements that were auto-translated.",
-              icon: "bi-search",
-            },
-            {
-              title: "Context Matters",
-              desc: "Idioms or local phrases may translate poorly. Adjust wording to match your congregation.",
-              icon: "bi-chat-square-quote",
-            },
-            {
-              title: "Invite Feedback",
-              desc: "Encourage bilingual members to report mistakes so we can improve future translations.",
-              icon: "bi-people",
-            },
-          ].map((card) => (
+          {cardConfigs.map(({ key, icon }) => (
             <div
-              key={card.title}
+              key={key}
               style={{
                 padding: "28px",
                 borderRadius: "18px",
@@ -94,9 +90,11 @@ export default function GoogleTranslatePage({ onNavigate }: GoogleTranslatePageP
                 boxShadow: "0 10px 30px rgba(0, 0, 0, 0.25)",
               }}
             >
-              <i className={`bi ${card.icon}`} style={{ fontSize: "28px", color: "#4cafef" }} />
-              <h3 style={{ marginTop: "16px", marginBottom: "12px", fontSize: "20px" }}>{card.title}</h3>
-              <p style={{ color: "#b0b0b0", lineHeight: 1.6 }}>{card.desc}</p>
+              <i className={`bi ${icon}`} style={{ fontSize: "28px", color: "#4cafef" }} />
+              <h3 style={{ marginTop: "16px", marginBottom: "12px", fontSize: "20px" }}>
+                {cards?.[key]?.title}
+              </h3>
+              <p style={{ color: "#b0b0b0", lineHeight: 1.6 }}>{cards?.[key]?.description}</p>
             </div>
           ))}
         </div>
@@ -110,10 +108,9 @@ export default function GoogleTranslatePage({ onNavigate }: GoogleTranslatePageP
             border: "1px solid rgba(255, 255, 255, 0.05)",
           }}
         >
-          <h4 style={{ marginBottom: "12px", fontWeight: 600 }}>Spot an incorrect translation?</h4>
+          <h4 style={{ marginBottom: "12px", fontWeight: 600 }}>{t("googleTranslate.report.title")}</h4>
           <p style={{ color: "#c8c8c8", marginBottom: "20px" }}>
-            Let us know about translation errors so we can provide better localized text in future
-            releases.
+            {t("googleTranslate.report.description")}
           </p>
           <button
             onClick={() => onNavigate?.("contact")}
@@ -128,7 +125,7 @@ export default function GoogleTranslatePage({ onNavigate }: GoogleTranslatePageP
               boxShadow: "0 15px 35px rgba(33, 150, 243, 0.35)",
             }}
           >
-            Report Translation Issue
+            {t("googleTranslate.report.button")}
           </button>
         </div>
       </div>

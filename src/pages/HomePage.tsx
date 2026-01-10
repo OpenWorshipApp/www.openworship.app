@@ -1,4 +1,5 @@
 import ScrollToTopButton from '../components/ScrollToTopButton';
+import { useTranslation } from 'react-i18next';
 
 interface HomePageProps {
   onNavigate?: (page: string) => void;
@@ -15,76 +16,75 @@ const crossPositions = [
   { top: '32%', left: '6%', rotate: -12 },
 ];
 
-const ministryStats = [
-  { value: '1,200+', label: 'weekly services planned', accent: '#e91e63' },
-  { value: '38', label: 'countries streaming', accent: '#9c27b0' },
-  { value: '24/7', label: 'community + prayer support', accent: '#673ab7' },
-];
-
-const featureCards = [
-  {
-    icon: '🎵',
-    title: 'Worship Song Management',
-    description: 'Organize hymns, worship sets, lyrics, and chord charts to lead your congregation in joyful praise.',
-    color: '#ff6ec7',
-    hoverBackground: 'linear-gradient(135deg, rgba(255,110,199,0.25), rgba(255,60,130,0.18))',
-    hoverBorder: 'rgba(255,110,199,0.7)',
-    hoverShadow: '0 18px 45px rgba(255,60,130,0.35)',
-    iconGlow: 'rgba(255,110,199,0.45)',
-  },
-  {
-    icon: '✝️',
-    title: 'Scripture Display',
-    description: "Display God's Word with multiple translations, search, and beautiful typography for every reading.",
-    color: '#9c27b0',
-    hoverBackground: 'linear-gradient(135deg, rgba(156,39,176,0.18), rgba(129,140,248,0.14))',
-    hoverBorder: 'rgba(156,39,176,0.65)',
-    hoverShadow: '0 18px 45px rgba(156,39,176,0.35)',
-    iconGlow: 'rgba(156,39,176,0.45)',
-  },
-  {
-    icon: '🕊️',
-    title: 'Live Presentation',
-    description: 'Dual-screen support, countdown timers, cues, and transitions designed for Spirit-led services.',
-    color: '#673ab7',
-    hoverBackground: 'linear-gradient(135deg, rgba(103,58,183,0.18), rgba(129,230,217,0.14))',
-    hoverBorder: 'rgba(103,58,183,0.6)',
-    hoverShadow: '0 18px 45px rgba(103,58,183,0.35)',
-    iconGlow: 'rgba(103,58,183,0.4)',
-  },
-  {
-    icon: '🌟',
-    title: 'Sacred Themes',
-    description: 'Faith-inspired themes, backgrounds, typography, and motion loops sized for every projector.',
-    color: '#3f51b5',
-    hoverBackground: 'linear-gradient(135deg, rgba(63,81,181,0.18), rgba(56,189,248,0.12))',
-    hoverBorder: 'rgba(63,81,181,0.6)',
-    hoverShadow: '0 18px 45px rgba(63,81,181,0.32)',
-    iconGlow: 'rgba(63,81,181,0.4)',
-  },
-  {
-    icon: '🙏',
-    title: 'Remote Ministry',
-    description: 'Enable worship leaders to control presentations from anywhere in the sanctuary or backstage.',
-    color: '#2196f3',
-    hoverBackground: 'linear-gradient(135deg, rgba(33,150,243,0.2), rgba(59,216,171,0.14))',
-    hoverBorder: 'rgba(33,150,243,0.6)',
-    hoverShadow: '0 18px 45px rgba(33,150,243,0.32)',
-    iconGlow: 'rgba(33,150,243,0.4)',
-  },
-  {
-    icon: '⛪',
-    title: 'Church Network',
-    description: 'Share and sync worship content across campuses, livestreams, and multilingual services instantly.',
-    color: '#00bcd4',
-    hoverBackground: 'linear-gradient(135deg, rgba(0,188,212,0.18), rgba(16,185,129,0.14))',
-    hoverBorder: 'rgba(0,188,212,0.6)',
-    hoverShadow: '0 18px 45px rgba(0,188,212,0.32)',
-    iconGlow: 'rgba(0,188,212,0.4)',
-  },
-];
-
 const HomePage = ({ onNavigate }: HomePageProps) => {
+  const { t } = useTranslation();
+  const ministryStats = [
+    { value: '1,200+', label: t('home.stats.weekly'), accent: '#e91e63' },
+    { value: '38', label: t('home.stats.countries'), accent: '#9c27b0' },
+    { value: '24/7', label: t('home.stats.support'), accent: '#673ab7' },
+  ];
+  const featureCards = [
+    {
+      icon: '🎵',
+      title: t('home.features.cards.song.title'),
+      description: t('home.features.cards.song.description'),
+      color: '#ff6ec7',
+      hoverBackground: 'linear-gradient(135deg, rgba(255,110,199,0.25), rgba(255,60,130,0.18))',
+      hoverBorder: 'rgba(255,110,199,0.7)',
+      hoverShadow: '0 18px 45px rgba(255,60,130,0.35)',
+      iconGlow: 'rgba(255,110,199,0.45)',
+    },
+    {
+      icon: '✝️',
+      title: t('home.features.cards.scripture.title'),
+      description: t('home.features.cards.scripture.description'),
+      color: '#9c27b0',
+      hoverBackground: 'linear-gradient(135deg, rgba(156,39,176,0.18), rgba(129,140,248,0.14))',
+      hoverBorder: 'rgba(156,39,176,0.65)',
+      hoverShadow: '0 18px 45px rgba(156,39,176,0.35)',
+      iconGlow: 'rgba(156,39,176,0.45)',
+    },
+    {
+      icon: '🕊️',
+      title: t('home.features.cards.live.title'),
+      description: t('home.features.cards.live.description'),
+      color: '#673ab7',
+      hoverBackground: 'linear-gradient(135deg, rgba(103,58,183,0.18), rgba(129,230,217,0.14))',
+      hoverBorder: 'rgba(103,58,183,0.6)',
+      hoverShadow: '0 18px 45px rgba(103,58,183,0.35)',
+      iconGlow: 'rgba(103,58,183,0.4)',
+    },
+    {
+      icon: '🌟',
+      title: t('home.features.cards.themes.title'),
+      description: t('home.features.cards.themes.description'),
+      color: '#3f51b5',
+      hoverBackground: 'linear-gradient(135deg, rgba(63,81,181,0.18), rgba(56,189,248,0.12))',
+      hoverBorder: 'rgba(63,81,181,0.6)',
+      hoverShadow: '0 18px 45px rgba(63,81,181,0.32)',
+      iconGlow: 'rgba(63,81,181,0.4)',
+    },
+    {
+      icon: '🙏',
+      title: t('home.features.cards.remote.title'),
+      description: t('home.features.cards.remote.description'),
+      color: '#2196f3',
+      hoverBackground: 'linear-gradient(135deg, rgba(33,150,243,0.2), rgba(59,216,171,0.14))',
+      hoverBorder: 'rgba(33,150,243,0.6)',
+      hoverShadow: '0 18px 45px rgba(33,150,243,0.32)',
+      iconGlow: 'rgba(33,150,243,0.4)',
+    },
+    {
+      icon: '⛪',
+      title: t('home.features.cards.network.title'),
+      description: t('home.features.cards.network.description'),
+      color: '#00bcd4',
+      hoverBackground: 'linear-gradient(135deg, rgba(0,188,212,0.18), rgba(16,185,129,0.14))',
+      hoverBorder: 'rgba(0,188,212,0.6)',
+      hoverShadow: '0 18px 45px rgba(0,188,212,0.32)',
+      iconGlow: 'rgba(0,188,212,0.4)',
+    },
+  ];
   return (
     <div style={{ 
       minHeight: '200vh', 
@@ -212,7 +212,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           }}
         >
           <i className="bi bi-github" style={{ fontSize: '18px' }}></i>
-          Fork me on Github
+          {t('home.links.github')}
         </a>
 
         <a
@@ -246,7 +246,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           }}
         >
           <i className="bi bi-youtube" style={{ fontSize: '18px', color: '#ff0000' }}></i>
-          Youtube
+          {t('home.links.youtube')}
         </a>
       </div>
 
@@ -329,7 +329,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           textShadow: '0 0 40px rgba(233, 30, 99, 0.3)',
           position: 'relative'
         }}>
-          Open Worship
+          {t('home.title')}
         </h1>
         
         {/* Subtitle */}
@@ -341,7 +341,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           lineHeight: '1.5',
           fontWeight: '300'
         }}>
-          Professional worship presentation software that empowers churches worldwide
+          {t('home.subtitle')}
         </p>
         
         {/* Tagline */}
@@ -351,7 +351,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
           marginBottom: '30px',
           fontStyle: 'italic'
         }}>
-          Free • Open Source • Powerful
+          {t('home.tagline')}
         </p>
 
         {/* Bible Verse */}
@@ -370,7 +370,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             lineHeight: '1.8',
             marginBottom: '8px'
           }}>
-            "Make a joyful noise unto the Lord, all ye lands. Serve the Lord with gladness: come before his presence with singing."
+            {t('home.verse.text')}
           </p>
           <p style={{
             fontSize: '14px',
@@ -378,7 +378,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             textAlign: 'right',
             fontWeight: '600'
           }}>
-            — Psalm 100:1-2
+            {t('home.verse.reference')}
           </p>
         </div>
 
@@ -422,7 +422,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
               <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
               <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
             </svg>
-            Download Now
+            {t('home.buttons.download')}
           </button>
           
           <button 
@@ -457,7 +457,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
               <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
             </svg>
-            Learn More
+            {t('home.buttons.learnMore')}
           </button>
         </div>
       </section>
@@ -524,7 +524,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             backgroundClip: 'text',
             marginBottom: '20px'
           }}>
-            Equipped for Ministry
+            {t('home.features.heading')}
           </h2>
           <p style={{
             fontSize: '20px',
@@ -532,7 +532,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             maxWidth: '600px',
             margin: '0 auto'
           }}>
-            Powerful features designed to glorify God through worship and service
+            {t('home.features.subheading')}
           </p>
         </div>
 
@@ -630,7 +630,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             position: 'relative',
             zIndex: 2
           }}>
-            Open Source • Free Forever • For His Glory
+            {t('home.cta.title')}
           </h3>
           <p style={{
             fontSize: '18px',
@@ -641,7 +641,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             position: 'relative',
             zIndex: 2
           }}>
-            Join our community of faithful developers and worship leaders building technology to serve the Church worldwide
+            {t('home.cta.description')}
           </p>
           <a 
             href="https://github.com/OpenWorshipApp/open-worship-app-dt" 
@@ -679,7 +679,7 @@ const HomePage = ({ onNavigate }: HomePageProps) => {
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
             </svg>
-            View on GitHub
+            {t('home.cta.button')}
           </a>
         </div>
       </section>

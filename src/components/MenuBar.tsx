@@ -1,28 +1,29 @@
 import { useEffect, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './MenuBar.css';
 
-const MENU_ITEMS = [
-  { label: 'Home', href: '#home' },
-  { label: 'Docs', href: '#docs' },
-  { label: 'Download', href: '#download' },
-  { label: 'Shared', href: '#shared' },
-  { label: 'AI Vigilant', href: '#ai-vigilant' },
-  { label: 'Google Translate', href: '#google-translate' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+const MENU_ITEM_DEFS = [
+  { key: 'home', href: '#home' },
+  { key: 'docs', href: '#docs' },
+  { key: 'download', href: '#download' },
+  { key: 'shared', href: '#shared' },
+  { key: 'aiVigilant', href: '#ai-vigilant' },
+  { key: 'googleTranslate', href: '#google-translate' },
+  { key: 'about', href: '#about' },
+  { key: 'contact', href: '#contact' },
 ];
 
 const LANGUAGES = [
-  { code: 'en', name: 'English', flag: '/assets/flags/en.svg' },
-  { code: 'us', name: 'English (US)', flag: '/assets/flags/us.svg' },
+  // { code: 'en', name: 'English', flag: '/assets/flags/en.svg' },
+  { code: 'en', name: 'English', flag: '/assets/flags/us.svg' },
   { code: 'kh', name: 'ខ្មែរ', flag: '/assets/flags/kh.svg' },
-  { code: 'es', name: 'Español', flag: '/assets/flags/es.svg' },
+  // { code: 'es', name: 'Español', flag: '/assets/flags/es.svg' },
   { code: 'fr', name: 'Français', flag: '/assets/flags/fr.svg' },
-  { code: 'de', name: 'Deutsch', flag: '/assets/flags/de.svg' },
+  // { code: 'de', name: 'Deutsch', flag: '/assets/flags/de.svg' },
   { code: 'zh', name: '中文', flag: '/assets/flags/zh.svg' },
-  { code: 'pt', name: 'Português', flag: '/assets/flags/pt.svg' },
+  // { code: 'pt', name: 'Português', flag: '/assets/flags/pt.svg' },
 ];
 
 interface MenuBarProps {
@@ -31,9 +32,10 @@ interface MenuBarProps {
 }
 
 const MenuBar = ({ onNavigate, currentPage }: MenuBarProps) => {
+  const { t, i18n } = useTranslation();
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [activeHash, setActiveHash] = useState('#home');
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language || 'en');
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
 
@@ -76,7 +78,7 @@ const MenuBar = ({ onNavigate, currentPage }: MenuBarProps) => {
   const handleLanguageChange = (languageCode: string) => {
     setSelectedLanguage(languageCode);
     setLanguageDropdownOpen(false);
-    // Here you would typically handle the language change logic
+    i18n.changeLanguage(languageCode).catch((err: unknown) => console.error('Failed to change language', err));
     console.log('Language changed to:', languageCode);
   };
 
@@ -116,7 +118,7 @@ const MenuBar = ({ onNavigate, currentPage }: MenuBarProps) => {
       
       <div className={`collapse navbar-collapse${navbarOpen ? ' show' : ''}`} id="navbarNav">
         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-          {MENU_ITEMS.map((item, index) => (
+          {MENU_ITEM_DEFS.map((item, index) => (
             <li className="nav-item" key={index}>
               <a
                 className={`nav-link px-3 py-2 mx-1 rounded-3 text-decoration-none transition-all ${activeHash === item.href ? 'active' : ''}`}
@@ -130,7 +132,7 @@ const MenuBar = ({ onNavigate, currentPage }: MenuBarProps) => {
                   borderBottom: '2px solid transparent'
                 }}
               >
-                {item.label}
+                {t(`menu.items.${item.key}`)}
               </a>
             </li>
           ))}

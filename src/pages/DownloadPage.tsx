@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { downloadService, type VersionInfo, type DownloadInfo, type FileInfo } from '../services/downloadService';
 // Navigation handled by AppRouter
 import ScrollToTopButton from '../components/ScrollToTopButton';
@@ -11,18 +12,41 @@ interface DownloadPageProps {
   onNavigate?: (page: string) => void;
 }
 
-interface FeatureHighlight {
-  key: string;
-  icon: string;
-  title: string;
-  description: string;
-  accent: string;
-  accentShadow: string;
-  border: string;
-  softGradient: string;
-}
+const featureHighlightConfigs = [
+  {
+    key: 'music',
+    icon: 'bi bi-music-note-beamed',
+    titleKey: 'download.features.music.title',
+    descriptionKey: 'download.features.music.description',
+    accent: '#ff6ec7',
+    accentShadow: '0 18px 35px rgba(255, 110, 199, 0.35)',
+    border: 'rgba(255, 110, 199, 0.35)',
+    softGradient: 'linear-gradient(145deg, rgba(255,110,199,0.18), rgba(33,7,45,0.45))'
+  },
+  {
+    key: 'bible',
+    icon: 'bi bi-book',
+    titleKey: 'download.features.bible.title',
+    descriptionKey: 'download.features.bible.description',
+    accent: '#a78bfa',
+    accentShadow: '0 18px 35px rgba(167, 139, 250, 0.3)',
+    border: 'rgba(167, 139, 250, 0.4)',
+    softGradient: 'linear-gradient(145deg, rgba(129,140,248,0.22), rgba(32,22,55,0.5))'
+  },
+  {
+    key: 'planning',
+    icon: 'bi bi-calendar-event',
+    titleKey: 'download.features.planning.title',
+    descriptionKey: 'download.features.planning.description',
+    accent: '#34d399',
+    accentShadow: '0 18px 35px rgba(52, 211, 153, 0.3)',
+    border: 'rgba(52, 211, 153, 0.4)',
+    softGradient: 'linear-gradient(145deg, rgba(52,211,153,0.18), rgba(9,32,32,0.55))'
+  }
+] as const;
 
 const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
+  const { t } = useTranslation();
   const [versionInfo, setVersionInfo] = useState<VersionInfo | null>(null);
   const [copiedChecksum, setCopiedChecksum] = useState<string>('');
   const [showMacInstructions, setShowMacInstructions] = useState<boolean>(false);
@@ -195,7 +219,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 fontSize: '13px',
                 fontWeight: '500'
               }}>
-                Checksum (sha512):
+                {t('download.cards.checksumLabel')}
               </span>
             </div>
             <span 
@@ -251,17 +275,17 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
               {copiedChecksum === fileId ? (
                 <>
                   <i className="bi bi-check-circle-fill me-1"></i>
-                  Copied!
+                  {t('download.cards.copied')}
                 </>
               ) : copiedChecksum === `${fileId}-error` ? (
                 <>
                   <i className="bi bi-x-circle-fill me-1"></i>
-                  Failed
+                  {t('download.cards.failed')}
                 </>
               ) : (
                 <>
                   <i className="bi bi-clipboard me-1"></i>
-                  Copy
+                  {t('download.cards.copy')}
                 </>
               )}
             </button>
@@ -329,7 +353,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                     pointerEvents: 'auto',
                     zIndex: 200
                   }}
-                  title="Toggle MacOS installation instructions"
+                  title={t('download.mac.toggleTooltip')}
                 >
                   <i
                     className={showMacInstructions ? 'bi bi-lightbulb-fill' : 'bi bi-lightbulb'}
@@ -350,7 +374,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
                 opacity: 0.8
-              }}>Installer</h6>
+              }}>{t('download.cards.installer')}</h6>
               {renderFileList(download.installer, 'installer', uniqueId)}
             </div>
             <div className="download-section" style={{ pointerEvents: 'auto' }}>
@@ -362,7 +386,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
                 opacity: 0.8
-              }}>Portable ZIP</h6>
+              }}>{t('download.cards.portable')}</h6>
               {renderFileList(download.portable, 'portable', uniqueId)}
             </div>
             {(download.commitId || download.commitID) && (
@@ -378,7 +402,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 gap: '8px'
               }}>
                 <i className="bi bi-git"></i>
-                <strong style={{ color: '#cccccc' }}>Commit ID:</strong>
+                <strong style={{ color: '#cccccc' }}>{t('download.cards.commitLabel')}</strong>
                 <a
                   href={`https://github.com/OpenWorshipApp/open-worship-app-dt/tree/${download.commitId || download.commitID}`}
                   target="_blank"
@@ -460,7 +484,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
               }}
             >
               <i className="bi bi-youtube" style={{ fontSize: '24px', color: '#ff0000' }}></i>
-              Watch how to install
+              {t('download.mac.watchTutorial')}
             </a>
           </div>
         )}
@@ -469,38 +493,11 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
     ) : null;
   };
 
-  const featureHighlights: FeatureHighlight[] = [
-    {
-      key: 'music',
-      icon: 'bi bi-music-note-beamed',
-      title: 'Worship Sets',
-      description: 'Create and manage song lists for services.',
-      accent: '#ff6ec7',
-      accentShadow: '0 18px 35px rgba(255, 110, 199, 0.35)',
-      border: 'rgba(255, 110, 199, 0.35)',
-      softGradient: 'linear-gradient(145deg, rgba(255,110,199,0.18), rgba(33,7,45,0.45))'
-    },
-    {
-      key: 'bible',
-      icon: 'bi bi-book',
-      title: 'Bible & Scripture',
-      description: 'Easily display verses and passages.',
-      accent: '#a78bfa',
-      accentShadow: '0 18px 35px rgba(167, 139, 250, 0.3)',
-      border: 'rgba(167, 139, 250, 0.4)',
-      softGradient: 'linear-gradient(145deg, rgba(129,140,248,0.22), rgba(32,22,55,0.5))'
-    },
-    {
-      key: 'planning',
-      icon: 'bi bi-calendar-event',
-      title: 'Service Planning',
-      description: 'Organize your entire service flow seamlessly.',
-      accent: '#34d399',
-      accentShadow: '0 18px 35px rgba(52, 211, 153, 0.3)',
-      border: 'rgba(52, 211, 153, 0.4)',
-      softGradient: 'linear-gradient(145deg, rgba(52,211,153,0.18), rgba(9,32,32,0.55))'
-    }
-  ];
+  const featureHighlights = featureHighlightConfigs.map((config) => ({
+    ...config,
+    title: t(config.titleKey),
+    description: t(config.descriptionKey)
+  }));
 
   // navigation handled by MenuBar via hash links; no page-level handler needed here
 
@@ -593,7 +590,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
             }}
           >
             <i className="bi bi-house-fill" style={{ fontSize: '18px' }}></i>
-            Go to Home
+            {t('download.nav.home')}
           </button>
 
           <a
@@ -627,7 +624,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
             }}
           >
             <i className="bi bi-github" style={{ fontSize: '18px' }}></i>
-            Fork me on Github
+            {t('download.nav.github')}
           </a>
 
           <a
@@ -661,7 +658,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
             }}
           >
             <i className="bi bi-youtube" style={{ fontSize: '18px', color: '#ff0000' }}></i>
-            Youtube
+            {t('download.nav.youtube')}
           </a>
         </div>
 
@@ -675,13 +672,13 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
-          }}>Downloads</h1>
+          }}>{t('download.hero.title')}</h1>
           <p style={{
             fontSize: '20px',
             color: '#888',
             maxWidth: '600px',
             margin: '0 auto'
-          }}>Get the latest version of Open Worship for your platform.</p>
+          }}>{t('download.hero.subtitle')}</p>
         </header>
 
         {/* Safari Browser Warning */}
@@ -709,7 +706,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 fontWeight: '700',
                 marginBottom: '8px'
               }}>
-                Safari Browser Detected
+                {t('download.warning.safariTitle')}
               </h3>
               <p style={{ 
                 color: '#fecaca',
@@ -717,7 +714,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 lineHeight: '1.6',
                 margin: 0
               }}>
-                Safari may fail to detect Apple CPU architecture correctly. We recommend using <strong>Chrome, Edge, or Firefox</strong> for better download experience.
+                {t('download.warning.safariBody')}
               </p>
             </div>
           </div>
@@ -758,7 +755,7 @@ const DownloadPage = ({ onNavigate }: DownloadPageProps) => {
                 </div>
               ))
           ) : (
-            <p>Loading...</p>
+            <p>{t('download.cards.loading')}</p>
           )}
         </div>
 

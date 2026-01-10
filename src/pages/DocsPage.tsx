@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/modern-footer.scss';
@@ -30,6 +31,22 @@ interface OverviewFeature {
   glow: string;
 }
 
+interface QuickStartStep {
+  heading: string;
+  body?: string;
+  list?: string[];
+}
+
+interface OverviewFeatureConfig {
+  icon: string;
+  titleKey: string;
+  descKey: string;
+  gradient: string;
+  border: string;
+  shadow: string;
+  glow: string;
+}
+
 const crossPalette: CrossSpec[] = [
   { top: '8%', left: '18%', rotate: -12, stroke: 'rgba(236, 72, 153, 0.4)' },
   { top: '18%', left: '72%', rotate: 20, stroke: 'rgba(79, 70, 229, 0.35)' },
@@ -39,11 +56,11 @@ const crossPalette: CrossSpec[] = [
   { top: '46%', left: '58%', rotate: -6, stroke: 'rgba(236, 72, 153, 0.3)' },
 ];
 
-const overviewFeatures: OverviewFeature[] = [
+const overviewFeatureConfigs: OverviewFeatureConfig[] = [
   {
     icon: '🎵',
-    title: 'Worship Song Management',
-    desc: 'Organize worship sets, hymns, and lyrics to lead your congregation in joyful praise.',
+    titleKey: 'docs.overviewFeatures.song.title',
+    descKey: 'docs.overviewFeatures.song.desc',
     gradient: 'linear-gradient(135deg, rgba(255,110,199,0.12), rgba(236,72,153,0.08))',
     border: 'rgba(255,110,199,0.35)',
     shadow: 'rgba(255,110,199,0.25)',
@@ -51,8 +68,8 @@ const overviewFeatures: OverviewFeature[] = [
   },
   {
     icon: '✝️',
-    title: 'Scripture Display',
-    desc: "Display God's Word with multiple Bible translations, search functionality, and verse lookup.",
+    titleKey: 'docs.overviewFeatures.scripture.title',
+    descKey: 'docs.overviewFeatures.scripture.desc',
     gradient: 'linear-gradient(135deg, rgba(139,92,246,0.12), rgba(59,130,246,0.08))',
     border: 'rgba(99,102,241,0.4)',
     shadow: 'rgba(59,130,246,0.25)',
@@ -60,8 +77,8 @@ const overviewFeatures: OverviewFeature[] = [
   },
   {
     icon: '🕊️',
-    title: 'Live Presentation',
-    desc: 'Spirit-led presentation mode with multi-screen support and real-time control for worship services.',
+    titleKey: 'docs.overviewFeatures.live.title',
+    descKey: 'docs.overviewFeatures.live.desc',
     gradient: 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(45,212,191,0.08))',
     border: 'rgba(45,212,191,0.35)',
     shadow: 'rgba(20,184,166,0.25)',
@@ -69,8 +86,8 @@ const overviewFeatures: OverviewFeature[] = [
   },
   {
     icon: '⛪',
-    title: 'Church Customization',
-    desc: 'Beautiful themes, backgrounds, and layouts designed to honor God and serve your ministry.',
+    titleKey: 'docs.overviewFeatures.customization.title',
+    descKey: 'docs.overviewFeatures.customization.desc',
     gradient: 'linear-gradient(135deg, rgba(251,191,36,0.12), rgba(248,113,113,0.08))',
     border: 'rgba(251,191,36,0.35)',
     shadow: 'rgba(248,113,113,0.25)',
@@ -85,53 +102,73 @@ const infoCardBorder = '1px solid rgba(59,130,246,0.25)';
 const linkAccentColor = '#7dd3fc';
 
 const DocsPage = ({ onNavigate }: DocsPageProps) => {
-  const [activeSection, setActiveSection] = useState('overview');
-  const [searchQuery, setSearchQuery] = useState('');
-
+  const { t } = useTranslation();
   const navigationItems: NavItem[] = [
     {
       id: 'getting-started',
-      title: 'Getting Started',
+      title: t('docs.nav.gettingStarted.title'),
       children: [
-        { id: 'overview', title: 'Overview' },
-        { id: 'installation', title: 'Installation' },
-        { id: 'quick-start', title: 'Quick Start' },
-        { id: 'system-requirements', title: 'System Requirements' }
+        { id: 'overview', title: t('docs.nav.gettingStarted.items.overview') },
+        { id: 'installation', title: t('docs.nav.gettingStarted.items.installation') },
+        { id: 'quick-start', title: t('docs.nav.gettingStarted.items.quickStart') },
+        { id: 'system-requirements', title: t('docs.nav.gettingStarted.items.systemRequirements') }
       ]
     },
     {
       id: 'user-guide',
-      title: 'User Guide',
+      title: t('docs.nav.userGuide.title'),
       children: [
-        { id: 'basic-usage', title: 'Basic Usage' },
-        { id: 'worship-sets', title: 'Creating Worship Sets' },
-        { id: 'bible-display', title: 'Bible & Scripture' },
-        { id: 'presentation-mode', title: 'Presentation Mode' },
-        { id: 'slide-editor', title: 'Slide Editor' }
+        { id: 'basic-usage', title: t('docs.nav.userGuide.items.basicUsage') },
+        { id: 'worship-sets', title: t('docs.nav.userGuide.items.worshipSets') },
+        { id: 'bible-display', title: t('docs.nav.userGuide.items.bibleDisplay') },
+        { id: 'presentation-mode', title: t('docs.nav.userGuide.items.presentationMode') },
+        { id: 'slide-editor', title: t('docs.nav.userGuide.items.slideEditor') }
       ]
     },
     {
       id: 'features',
-      title: 'Features',
+      title: t('docs.nav.features.title'),
       children: [
-        { id: 'song-management', title: 'Song Management' },
-        { id: 'bible-search', title: 'Bible Search' },
-        { id: 'live-presentation', title: 'Live Presentation' },
-        { id: 'multi-screen', title: 'Multi-Screen Support' },
-        { id: 'background-media', title: 'Background & Media' }
+        { id: 'song-management', title: t('docs.nav.features.items.songManagement') },
+        { id: 'bible-search', title: t('docs.nav.features.items.bibleSearch') },
+        { id: 'live-presentation', title: t('docs.nav.features.items.livePresentation') },
+        { id: 'multi-screen', title: t('docs.nav.features.items.multiScreen') },
+        { id: 'background-media', title: t('docs.nav.features.items.backgroundMedia') }
       ]
     },
     {
       id: 'advanced',
-      title: 'Advanced',
+      title: t('docs.nav.advanced.title'),
       children: [
-        { id: 'keyboard-shortcuts', title: 'Keyboard Shortcuts' },
-        { id: 'troubleshooting', title: 'Troubleshooting' },
-        { id: 'contributing', title: 'Contributing' },
-        { id: 'tech-stack', title: 'Tech Stack' }
+        { id: 'keyboard-shortcuts', title: t('docs.nav.advanced.items.keyboardShortcuts') },
+        { id: 'troubleshooting', title: t('docs.nav.advanced.items.troubleshooting') },
+        { id: 'contributing', title: t('docs.nav.advanced.items.contributing') },
+        { id: 'tech-stack', title: t('docs.nav.advanced.items.techStack') }
       ]
     }
   ];
+
+  const [activeSection, setActiveSection] = useState('overview');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const overviewFeatures: OverviewFeature[] = overviewFeatureConfigs.map(
+    ({ icon, titleKey, descKey, gradient, border, shadow, glow }) => ({
+      icon,
+      title: t(titleKey),
+      desc: t(descKey),
+      gradient,
+      border,
+      shadow,
+      glow,
+    })
+  );
+
+  const installationOptions = t('docs.installation.downloadOptions', { returnObjects: true }) as string[];
+  const quickStartSteps = t('docs.quickStart.steps', { returnObjects: true }) as QuickStartStep[];
+  const systemMinimum = t('docs.systemRequirements.minimum', { returnObjects: true }) as string[];
+  const systemDev = t('docs.systemRequirements.dev', { returnObjects: true }) as string[];
+  const basicUsageAreas = t('docs.basicUsage.areas', { returnObjects: true }) as string[];
+  const worshipSetSteps = t('docs.worshipSets.addingSongsSteps', { returnObjects: true }) as string[];
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -291,7 +328,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
             }}>
               <input
                 type="text"
-                placeholder="Search documentation..."
+                placeholder={t('docs.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -383,7 +420,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
                 }}>
-                  Open Worship Documentation
+                  {t('docs.hero.title')}
                 </h1>
                 <p style={{
                   color: '#ffffff',
@@ -391,7 +428,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   lineHeight: '1.6',
                   marginBottom: '16px'
                 }}>
-                  Welcome to Open Worship - a powerful, free, and open-source worship presentation software designed specifically for churches and worship teams.
+                  {t('docs.hero.intro')}
                 </p>
 
                 {/* Inspirational Bible Verse */}
@@ -411,7 +448,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                     lineHeight: '1.7',
                     marginBottom: '8px'
                   }}>
-                    "Let the word of Christ dwell in you richly, teaching and admonishing one another in all wisdom, singing psalms and hymns and spiritual songs, with thankfulness in your hearts to God."
+                    {t('docs.hero.verse.text')}
                   </p>
                   <p style={{
                     fontSize: '13px',
@@ -420,7 +457,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                     fontWeight: '600',
                     marginBottom: 0
                   }}>
-                    — Colossians 3:16
+                    {t('docs.hero.verse.reference')}
                   </p>
                 </div>
                 
@@ -433,7 +470,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   color: '#ffffff'
                 }}>
                   <span style={{ color: headingIconColor, marginRight: '8px' }}>✝️</span>
-                  <strong>New to Open Worship?</strong> Start with our <button 
+                  <strong>{t('docs.hero.calloutPrefix')}</strong> <button 
                     onClick={() => scrollToSection('quick-start')}
                     style={{
                       background: 'none',
@@ -443,8 +480,8 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                       cursor: 'pointer'
                     }}
                   >
-                    Quick Start Guide
-                  </button> to get up and running in minutes.
+                    {t('docs.hero.calloutLink')}
+                  </button> {t('docs.hero.calloutSuffix')}
                 </div>
 
                 <div style={{
@@ -538,7 +575,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   gap: '12px'
                 }}>
                   <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>📥</span>
-                  Installation
+                  {t('docs.installation.title')}
                 </h2>
                 <p style={{
                   color: '#ffffff',
@@ -546,7 +583,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   lineHeight: '1.6',
                   marginBottom: '16px'
                 }}>
-                  Get Open Worship installed on your system with our easy-to-use installers.
+                  {t('docs.installation.intro')}
                 </p>
 
                 <h3 style={{
@@ -555,12 +592,14 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   fontWeight: '500',
                   margin: '30px 0 15px 0'
                 }}>
-                  Download Options
+                  {t('docs.installation.downloadOptionsHeading')}
                 </h3>
                 <ul style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}><strong>Windows:</strong> Download the .exe installer for automatic setup</li>
-                  <li style={{ marginBottom: '8px' }}><strong>macOS:</strong> Download the .dmg file for drag-and-drop installation</li>
-                  <li style={{ marginBottom: '8px' }}><strong>Linux:</strong> Download the .deb package or AppImage for portable use</li>
+                  {installationOptions.map((option, idx) => (
+                    <li key={`install-option-${idx}`} style={{ marginBottom: '8px' }}>
+                      {option}
+                    </li>
+                  ))}
                 </ul>
 
                 <div style={{
@@ -572,7 +611,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   color: '#ffffff'
                 }}>
                   <span style={{ color: headingIconColor, marginRight: '8px' }}>🙏</span>
-                  Visit our <button 
+                  {t('docs.installation.ctaPrefix')} <button 
                     onClick={() => onNavigate?.('download')}
                     style={{ 
                       background: 'none', 
@@ -584,8 +623,8 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                       font: 'inherit'
                     }}
                   >
-                    Download Page
-                  </button> to get the latest version for your platform.
+                    {t('docs.installation.ctaLink')}
+                  </button> {t('docs.installation.ctaSuffix')}
                 </div>
               </section>
 
@@ -604,7 +643,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   gap: '12px'
                 }}>
                   <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>🚀</span>
-                  Quick Start Guide
+                  {t('docs.quickStart.title')}
                 </h2>
                 <p style={{
                   color: '#ffffff',
@@ -612,82 +651,35 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   lineHeight: '1.6',
                   marginBottom: '16px'
                 }}>
-                  Follow these steps to start using Open Worship for your first worship service:
+                  {t('docs.quickStart.intro')}
                 </p>
 
-                <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  1. Launch the Application
-                </h3>
-                <p style={{
-                  color: '#ffffff',
-                  fontSize: '16px',
-                  lineHeight: '1.6',
-                  marginBottom: '16px'
-                }}>
-                  After installation, launch Open Worship from your applications menu or desktop shortcut.
-                </p>
-
-                <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  2. Create Your First Worship Set
-                </h3>
-                <ol style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}>Click on <code style={{
-                    backgroundColor: '#252526',
-                    color: '#ff6b35',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                    fontSize: '14px'
-                  }}>Song Management</code> in the main menu</li>
-                  <li style={{ marginBottom: '8px' }}>Add songs to your library using the <code style={{
-                    backgroundColor: '#252526',
-                    color: '#ff6b35',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                    fontSize: '14px'
-                  }}>Add Song</code> button</li>
-                  <li style={{ marginBottom: '8px' }}>Create a new worship set and arrange your songs</li>
-                </ol>
-
-                <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  3. Add Scripture Readings
-                </h3>
-                <ol style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}>Navigate to <code style={{
-                    backgroundColor: '#252526',
-                    color: '#ff6b35',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                    fontSize: '14px'
-                  }}>Bible & Scripture</code></li>
-                  <li style={{ marginBottom: '8px' }}>Search for verses using the built-in search</li>
-                  <li style={{ marginBottom: '8px' }}>Add selected verses to your worship set</li>
-                </ol>
-
-                <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  4. Start Presentation Mode
-                </h3>
-                <ol style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}>Click <code style={{
-                    backgroundColor: '#252526',
-                    color: '#ff6b35',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                    fontSize: '14px'
-                  }}>Presentation Mode</code> to begin</li>
-                  <li style={{ marginBottom: '8px' }}>Use arrow keys or mouse to navigate slides</li>
-                  <li style={{ marginBottom: '8px' }}>Press <code style={{
-                    backgroundColor: '#252526',
-                    color: '#ff6b35',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                    fontSize: '14px'
-                  }}>F11</code> for fullscreen mode</li>
-                </ol>
+                {quickStartSteps.map((step, index) => (
+                  <div key={`quick-step-${index}`}>
+                    <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
+                      {`${index + 1}. ${step.heading}`}
+                    </h3>
+                    {step.body && (
+                      <p style={{
+                        color: '#ffffff',
+                        fontSize: '16px',
+                        lineHeight: '1.6',
+                        marginBottom: '16px'
+                      }}>
+                        {step.body}
+                      </p>
+                    )}
+                    {step.list && (
+                      <ol style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
+                        {step.list.map((item, itemIdx) => (
+                          <li key={`quick-step-${index}-item-${itemIdx}`} style={{ marginBottom: '8px' }}>
+                            {item}
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </div>
+                ))}
               </section>
 
               {/* System Requirements Section */}
@@ -705,26 +697,29 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   gap: '12px'
                 }}>
                   <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>💻</span>
-                  System Requirements
+                  {t('docs.systemRequirements.title')}
                 </h2>
                 
                 <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  Minimum Requirements
+                  {t('docs.systemRequirements.minimumHeading')}
                 </h3>
                 <ul style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}><strong>Operating System:</strong> Windows 10+, macOS 10.14+, or Linux (Ubuntu 18.04+)</li>
-                  <li style={{ marginBottom: '8px' }}><strong>RAM:</strong> 4GB minimum, 8GB recommended</li>
-                  <li style={{ marginBottom: '8px' }}><strong>Storage:</strong> 500MB available space</li>
-                  <li style={{ marginBottom: '8px' }}><strong>Display:</strong> 1024x768 minimum resolution</li>
+                  {systemMinimum.map((requirement, idx) => (
+                    <li key={`system-min-${idx}`} style={{ marginBottom: '8px' }}>
+                      {requirement}
+                    </li>
+                  ))}
                 </ul>
 
                 <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  For Development
+                  {t('docs.systemRequirements.devHeading')}
                 </h3>
                 <ul style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}><strong>Node.js:</strong> v22 or higher</li>
-                  <li style={{ marginBottom: '8px' }}><strong>.NET:</strong> 8.0 SDK</li>
-                  <li style={{ marginBottom: '8px' }}><strong>Git:</strong> For version control and Cygwin on Windows</li>
+                  {systemDev.map((devItem, idx) => (
+                    <li key={`system-dev-${idx}`} style={{ marginBottom: '8px' }}>
+                      {devItem}
+                    </li>
+                  ))}
                 </ul>
               </section>
 
@@ -743,7 +738,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   gap: '12px'
                 }}>
                   <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>📚</span>
-                  Basic Usage
+                  {t('docs.basicUsage.title')}
                 </h2>
                 <p style={{
                   color: '#ffffff',
@@ -751,11 +746,11 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   lineHeight: '1.6',
                   marginBottom: '16px'
                 }}>
-                  Learn the fundamentals of using Open Worship for your worship services.
+                  {t('docs.basicUsage.intro')}
                 </p>
 
                 <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  Main Interface
+                  {t('docs.basicUsage.mainInterfaceHeading')}
                 </h3>
                 <p style={{
                   color: '#ffffff',
@@ -763,13 +758,14 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   lineHeight: '1.6',
                   marginBottom: '16px'
                 }}>
-                  The Open Worship interface consists of several key areas:
+                  {t('docs.basicUsage.mainInterfaceIntro')}
                 </p>
                 <ul style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}><strong>Editor:</strong> Create and edit slides, songs, and presentations</li>
-                  <li style={{ marginBottom: '8px' }}><strong>Presenter:</strong> Control live presentations during worship</li>
-                  <li style={{ marginBottom: '8px' }}><strong>Reader:</strong> View and manage your content library</li>
-                  <li style={{ marginBottom: '8px' }}><strong>Finder:</strong> Search across all your worship content</li>
+                  {basicUsageAreas.map((area, idx) => (
+                    <li key={`basic-area-${idx}`} style={{ marginBottom: '8px' }}>
+                      {area}
+                    </li>
+                  ))}
                 </ul>
               </section>
 
@@ -788,7 +784,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   gap: '12px'
                 }}>
                   <span style={{ color: headingIconColor, opacity: 0.8, fontSize: '24px' }}>🎵</span>
-                  Creating Worship Sets
+                  {t('docs.worshipSets.title')}
                 </h2>
                 <p style={{
                   color: '#ffffff',
@@ -796,24 +792,18 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
                   lineHeight: '1.6',
                   marginBottom: '16px'
                 }}>
-                  Organize your worship content into cohesive sets for seamless services.
+                  {t('docs.worshipSets.intro')}
                 </p>
 
                 <h3 style={{ color: '#ffffff', fontSize: '24px', fontWeight: '500', margin: '30px 0 15px 0' }}>
-                  Adding Songs
+                  {t('docs.worshipSets.addingSongsHeading')}
                 </h3>
                 <ol style={{ color: '#ffffff', margin: '16px 0', paddingLeft: '24px' }}>
-                  <li style={{ marginBottom: '8px' }}>Navigate to the Song Management section</li>
-                  <li style={{ marginBottom: '8px' }}>Click <code style={{
-                    backgroundColor: '#252526',
-                    color: '#ff6b35',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontFamily: 'Consolas, Monaco, monospace',
-                    fontSize: '14px'
-                  }}>Add New Song</code></li>
-                  <li style={{ marginBottom: '8px' }}>Enter song title, lyrics, and metadata</li>
-                  <li style={{ marginBottom: '8px' }}>Save to your song library</li>
+                  {worshipSetSteps.map((step, idx) => (
+                    <li key={`worship-step-${idx}`} style={{ marginBottom: '8px' }}>
+                      {step}
+                    </li>
+                  ))}
                 </ol>
               </section>
             </div>
@@ -839,9 +829,9 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
               Open Worship
             </div>
             <div className="footer-links">
-              <a href="#" onClick={() => onNavigate?.('home')}>Home</a>
-              <a href="#" onClick={() => onNavigate?.('download')}>Download</a>
-              <a href="#" onClick={() => onNavigate?.('about')}>About</a>
+              <a href="#" onClick={() => onNavigate?.('home')}>{t('docs.footer.links.home')}</a>
+              <a href="#" onClick={() => onNavigate?.('download')}>{t('docs.footer.links.download')}</a>
+              <a href="#" onClick={() => onNavigate?.('about')}>{t('docs.footer.links.about')}</a>
             </div>
             <div className="footer-socials">
               <a href="https://github.com/OpenWorshipApp/open-worship-app-dt" target="_blank" rel="noopener noreferrer"><i className="bi bi-github"></i></a>
@@ -850,7 +840,7 @@ const DocsPage = ({ onNavigate }: DocsPageProps) => {
             </div>
           </div>
           <div className="footer-bottom">
-            &copy; 2025 Open Worship. All Rights Reserved.
+            {t('docs.footer.copyright')}
           </div>
         </footer>
       </div>
