@@ -49,6 +49,22 @@ function RenderVideoComp({ filePath }: { filePath: string }) {
   );
 }
 
+function RenderAudioComp({ filePath }: { filePath: string }) {
+  return (
+    <div style={{ margin: "5px" }}>
+      <h4 className="d-flex">
+        {filePath.split("/").pop()}
+        <ExternalViewComp filePath={filePath} />
+      </h4>
+      <audio
+        src={`${url}/${filePath}`}
+        controls
+        style={{ maxWidth: "400px" }}
+      />
+    </div>
+  );
+}
+
 async function getShareInfo() {
   const cacheBuster = new Date().getTime();
   const res = await fetch(`${url}/assets.json?_=${cacheBuster}`);
@@ -63,6 +79,7 @@ async function getShareInfo() {
 type AssetInfo = {
   images: string[];
   videos: string[];
+  audios: string[];
 };
 export default function SharedComp() {
   const [assetInfo] = useAppStateAsync<AssetInfo>(() => {
@@ -72,7 +89,7 @@ export default function SharedComp() {
     return <div>Loading...</div>;
   }
   return (
-    <div>
+    <div className="pb-5">
       <h2>Shared</h2>
       <strong style={{ color: "green" }}>
         All assets on this page are in the public domain and can be used freely.
@@ -90,6 +107,13 @@ export default function SharedComp() {
         <div className="d-flex flex-wrap">
           {assetInfo.videos.map((filepath) => (
             <RenderVideoComp key={filepath} filePath={filepath} />
+          ))}
+        </div>
+        <hr />
+        <h3 id="audio">Audio</h3>
+        <div className="d-flex flex-wrap">
+          {assetInfo.audios?.map((filepath) => (
+            <RenderAudioComp key={filepath} filePath={filepath} />
           ))}
         </div>
       </div>
