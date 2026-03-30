@@ -1,12 +1,22 @@
+import { createRef } from "react";
 import { rootUrl, useAppStateAsync } from "./helpers";
 
 const url = `${rootUrl}/shared`;
 
 function CopyToClipboardComp({ text }: { text: string }) {
+  const ref = createRef<HTMLButtonElement>();
   const handleCopy = () => {
     navigator.clipboard.writeText(text).then(
       () => {
-        alert("URL copied to clipboard!");
+        const targetElement = ref.current;
+        if (!targetElement) return;
+        const target = targetElement.querySelector("span");
+        if (!target) return;
+        const originalText = target.textContent;
+        target.textContent = "Copied!";
+        setTimeout(() => {
+          target.textContent = originalText;
+        }, 2000);
       },
       (err) => {
         console.error("Failed to copy: ", err);
@@ -15,8 +25,12 @@ function CopyToClipboardComp({ text }: { text: string }) {
     );
   };
   return (
-    <button className="btn btn-sm btn-outline-info mx-1" onClick={handleCopy}>
-      Copy URL
+    <button
+      className="btn btn-sm btn-outline-info mx-1"
+      onClick={handleCopy}
+      ref={ref}
+    >
+      <span className="d-none d-md-inline">Copy URL</span>
       <i className="bi bi-copy ms-1" />
     </button>
   );
