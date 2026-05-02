@@ -75,8 +75,20 @@ async function main(targetDir) {
   walkSync(absoluteTargetDir, (data) => results.push(data));
   const s3Client = new S3Client(instanceInitData);
   await Promise.all(
-    results.map(({ filePath }) => {
-      return uploadToS3(s3Client, filePath, absoluteTargetDir);
+    results.map(async ({ filePath }) => {
+      let i = 0;
+      while (i < 3) {
+        try {
+          await uploadToS3(s3Client, filePath, absoluteTargetDir);
+          break;
+        } catch (error) {
+          console.error(`Error uploading ${filePath} (attempt ${i + 1}):`, error);
+          i++;
+          if (i === 3) {
+            console.error(`Failed to upload ${filePath} after 3 attempts.`);
+          }
+        }
+      }
     })
   );
   await clearCache("*");
