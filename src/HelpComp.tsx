@@ -4,7 +4,7 @@ export default function HelpComp() {
       <h2>Help</h2>
       <p>
         For assistance, please contact us at{" "}
-        <a href="mailto:owf2025@gmail.com">owf2025@gmail.com</a>
+        <a href="mailto:info@openworship.app">info@openworship.app</a>
       </p>
     </div>
   );
