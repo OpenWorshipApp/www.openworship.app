@@ -25,6 +25,24 @@ export default function HomeComp() {
           Shared
         </h2>
       </a>
+      <a href="https://editor-km.openworship.app">
+        <h2>
+          <i className="bi bi-spellcheck"></i>
+          Khmer Editor 🇰🇭 (Beta)
+        </h2>
+      </a>
+      <a href="https://lyric-km.openworship.app">
+        <h2>
+          <i className="bi bi-file-earmark-music"></i>
+          Open Lyric - Khmer 🇰🇭 (Beta)
+        </h2>
+      </a>
+      <a href="https://biblenote-km.openworship.app">
+        <h2>
+          <i className="bi bi-journal-plus"></i>
+          Khmer BibleNote 🇰🇭 (Beta)
+        </h2>
+      </a>
       <a href="/help">
         <h2>
           <i className="bi bi-question-circle"></i>
