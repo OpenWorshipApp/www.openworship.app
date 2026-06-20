@@ -36,7 +36,7 @@ function toTargetDownloadInfoPath(targetKey: string) {
   return `/download/${targetKey}/info.json`;
 }
 
-function getIcon({
+function getOsNameAndIcon({
   isWindows,
   isMac,
   isLinux,
@@ -46,13 +46,32 @@ function getIcon({
   isLinux: boolean;
 }) {
   if (isWindows) {
-    return <i className="bi bi-windows" title="Windows" />;
+    return (
+      <>
+        Windows{" "}
+        <i
+          className="bi bi-windows"
+          title="Windows"
+          style={{
+            color: "#0074cd",
+          }}
+        />
+      </>
+    );
   }
   if (isMac) {
-    return <i className="bi bi-apple" title="Mac" />;
+    return (
+      <>
+        Mac <i className="bi bi-apple" title="Mac" />
+      </>
+    );
   }
   if (isLinux) {
-    return <i className="bi bi-tux" title="Linux" />;
+    return (
+      <>
+        Linux <i className="bi bi-tux" title="Linux" />
+      </>
+    );
   }
   return null;
 }
@@ -61,26 +80,43 @@ function getInfo(targetDownloadInfo: any) {
   if (targetDownloadInfo.isMac) {
     return (
       <>
-        {targetDownloadInfo.isUniversal
-          ? " Universal"
-          : targetDownloadInfo.isArm64
-          ? " Apple Silicon"
-          : " Intel"}
+        {targetDownloadInfo.isUniversal ? (
+          " Universal"
+        ) : targetDownloadInfo.isArm64 ? (
+          <a href="https://support.apple.com/en-us/116943" target="_blank">
+            {" "}
+            Apple Silicon
+          </a>
+        ) : (
+          " Intel"
+        )}
       </>
     );
   }
   if (targetDownloadInfo.isWindows) {
-    return !targetDownloadInfo.is64System
-      ? " 32bit"
-      : targetDownloadInfo.isArm64
-      ? " Arm64"
-      : " 64bit";
+    return !targetDownloadInfo.is64System ? (
+      " 32bit"
+    ) : targetDownloadInfo.isArm64 ? (
+      <a href="https://en.wikipedia.org/wiki/AArch64" target="_blank">
+        {" "}
+        Arm64
+      </a>
+    ) : (
+      <a href="https://en.wikipedia.org/wiki/X86-64" target="_blank">
+        {" "}
+        64bit
+      </a>
+    );
   }
   if (targetDownloadInfo.isLinux) {
     return (
       <>
         {targetDownloadInfo.isUbuntu ? (
-          <i className="bi bi-ubuntu" title="Ubuntu" />
+          <i
+            className="bi bi-ubuntu"
+            title="Ubuntu"
+            style={{ color: "hsl(15.5, 82%, 52%)" }}
+          />
         ) : targetDownloadInfo.isFedora ? (
           <img
             title="Fedora"
@@ -90,7 +126,6 @@ function getInfo(targetDownloadInfo: any) {
             alt="Fedora"
             style={{
               marginTop: "4px",
-              filter: "grayscale(100%)",
             }}
           />
         ) : null}
@@ -112,13 +147,13 @@ function RenderDownloadLinks({ items }: { items: any[] }) {
             >
               <strong>{item.fileFullName}</strong>
             </a>
-            <div>
+            <div className="d-flex">
               <a href="https://en.wikipedia.org/wiki/Checksum" target="_blank">
                 Checksum
               </a>{" "}
               (sha512):{" "}
               <div className="d-flex align-items-center">
-                <div style={{ maxWidth: "250px", overflow: "auto" }}>
+                <div style={{ maxWidth: "200px", overflow: "auto" }}>
                   {item.checksum}
                 </div>
                 <div>
@@ -178,6 +213,14 @@ function RenderInstructionToggle({
   );
 }
 
+function DownloadAndIconComp() {
+  return (
+    <>
+      Download <i className="bi bi-download" />
+    </>
+  );
+}
+
 function RenderDownloadItem({
   targetKey,
   setMatchVersion,
@@ -208,7 +251,7 @@ function RenderDownloadItem({
                   setMatchVersion(newInfo);
                 }
                 setTargetDownloadInfo(newInfo);
-              }
+              },
             );
           }}
         >
@@ -229,22 +272,25 @@ function RenderDownloadItem({
     >
       <div>
         <div className="d-flex">
-          <div className="flex-grow-1">
+          <div className="d-flex flex-grow-1">
             (<strong>{targetDownloadInfo.version}</strong>)
-            {getIcon(targetDownloadInfo)}
-            {getInfo(targetDownloadInfo)}
+            <div className="ms-2">
+              {getOsNameAndIcon(targetDownloadInfo)}
+              {getInfo(targetDownloadInfo)}
+            </div>
           </div>
           <RenderInstructionToggle targetDownloadInfo={targetDownloadInfo} />
         </div>
         {(targetDownloadInfo.installer ?? []).length ? (
           <div>
-            Installer:
+            <DownloadAndIconComp /> Installer here:
             <RenderDownloadLinks items={targetDownloadInfo.installer} />
           </div>
         ) : null}
+        <hr />
         {(targetDownloadInfo.portable ?? []).length ? (
           <div>
-            Portable zip:
+            <DownloadAndIconComp /> Portable zip here:
             <RenderDownloadLinks items={targetDownloadInfo.portable} />
           </div>
         ) : null}
@@ -430,7 +476,7 @@ export default function DownloadComp() {
     useState(false);
   const [info, setInfo] = useAppStateAsync(
     getDownloadInfo.bind(null, downloadInfoPath),
-    []
+    [],
   );
   const isSafari = useMemo(() => {
     return checkIsSafari();
